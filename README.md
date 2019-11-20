@@ -17,6 +17,8 @@ The eclipse scripts offer a way to individually conigure Eclipse based on the cu
 * dbeaver - For database manipulation and administration.
 * dev - A complete IDE environment with SpringBoot, Git, Jaspersoft Studio, SonarLint, Web-, XML- Json and other software development tools.
 
+For installation of features a functionality called "org.eclipse.equinox.p2.director" is used.
+
 The scripts have to be executed in PowerShell. Working directory is "$env:ProgramData\InstSys\eclipse" which usually translates to "C:\ProgramData\InstSys\eclipse".
 
 After the script is done the software is located at "$env:ProgramData\InstSys\eclipse\Eclipse" and a workspace is configured under "$env:ProgramData\InstSys\eclipse\WorkSpace". This can be used as template because line endings, encoding and theming are already configured.
