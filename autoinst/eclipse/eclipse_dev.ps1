@@ -133,5 +133,9 @@ Add-Content -Path "$path\$file" -Value "version=1"
 $file = "org.eclipse.ui.ide.prefs"
 Set-Content -Path "$path\$file" -Value "EXIT_PROMPT_ON_CLOSE_LAST_WINDOW=false"
 
+$file = "org.eclipse.ui.prefs"
+Set-Content -Path "$path\$file" -Value "eclipse.preferences.version=1"
+Add-Content -Path "$path\$file" -Value "showIntro=false"
+
 # Start eclipse for further customization
 Start-Process -FilePath "$pa\Eclipse\eclipse.exe" -ArgumentList "-data","$pa\WorkSpace" -Wait
