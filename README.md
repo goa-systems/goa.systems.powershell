@@ -45,3 +45,7 @@ Sometimes a update server is not reachable. So please check the directory
 "$env:ProgramData\InstSys\eclipse\Eclipse\configuration"
 ```
 for *.log files. Normally per feature a log file is created and has a size of around 3kb. If there was an error and a exception is thrown the log file has the size of 6kb or more. Then check which feature has failed and install it manually.
+
+#### gitscm
+
+The "gitscm" folder contains the installer scripts for Git on Windows operating systems. It automatically downloads and installs the Git bash and gui and makes the program available via right click menue. The ps1 files ask for administrator permissions themselfs, if not already granted. Easiest way to install is right click on "update.bat" and "Run as administrator".
