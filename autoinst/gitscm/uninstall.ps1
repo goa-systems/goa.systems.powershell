@@ -21,7 +21,7 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 		)
 	
 		$var1 = Get-ChildItem -Path $regkey | Get-ItemProperty | Where-Object { $_.DisplayName -match "Git version" }
-		$var2 = $var1.QuietUninstallString
+		$var2 = $var1.UninstallString
 		return $var2
 	}
 	
@@ -37,7 +37,7 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 			Write-Host -Object "Uninststring not found."
 		} else {
 			Write-Host -Object "Uninststring found $uninststring"
-			Invoke-Expression "&$uninststring"
+			Start-Process -FilePath "$uninststring" -ArgumentList "/SILENT" -Wait
 		}
 	}
 } else {
