@@ -116,22 +116,31 @@ If (-Not (Test-Path -Path "$path")) {
 	New-Item -ItemType Directory -Path "$path"
 }
 
+# Disable theming and set to classic GUI
 $file = "org.eclipse.e4.ui.workbench.renderers.swt.prefs"
 Set-Content -Path "$path\$file" -Value "eclipse.preferences.version=1"
 Add-Content -Path "$path\$file" -Value "enableMRU=true"
 Add-Content -Path "$path\$file" -Value "themeEnabled=false"
 
+# Set line separator to linux style
 $file = "org.eclipse.core.runtime.prefs"
 Set-Content -Path "$path\$file" -Value "eclipse.preferences.version=1"
 Add-Content -Path "$path\$file" -Value "line.separator=`\n"
 
+# Set workspace encoding to UTF-8
 $file = "org.eclipse.core.resources.prefs"
 Set-Content -Path "$path\$file" -Value "eclipse.preferences.version=1"
 Add-Content -Path "$path\$file" -Value "encoding=UTF-8"
 Add-Content -Path "$path\$file" -Value "version=1"
 
+# Don't show confirmation dialog on exit
 $file = "org.eclipse.ui.ide.prefs"
 Set-Content -Path "$path\$file" -Value "EXIT_PROMPT_ON_CLOSE_LAST_WINDOW=false"
+
+# Don't show welcome screen on first startup
+$file = "org.eclipse.ui.prefs"
+Set-Content -Path "$path\$file" -Value "eclipse.preferences.version=1"
+Add-Content -Path "$path\$file" -Value "showIntro=false"
 
 # Start eclipse for further customization
 Start-Process -FilePath "$pa\Eclipse\eclipse.exe" -ArgumentList "-data","$pa\WorkSpace" -Wait
