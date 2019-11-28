@@ -12,7 +12,7 @@ if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\vscode\$vscodeex
 }
 
 Start-Process -Wait -FilePath "$env:SystemDrive\ProgramData\InstSys\vscode\$vscodeexe" -ArgumentList "/SILENT","/MERGETASKS=!runcode,addcontextmenufiles,addcontextmenufolders,addtopath"
-$extensions=@("ms-vscode.powershell","idleberg.nsis","idleberg.nsis-plugins","ionutvmi.reg","redhat.vscode-xml","james-yu.latex-workshop")
+$extensions=@("ms-vscode.powershell","idleberg.nsis","idleberg.nsis-plugins","ionutvmi.reg","redhat.vscode-xml","james-yu.latex-workshop","pkief.material-icon-theme")
 ForEach($extension in $extensions){
     $expr = "`"$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code.cmd`" --install-extension `"$extension`""
     Invoke-Expression "&$expr"
