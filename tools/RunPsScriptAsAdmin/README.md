@@ -1,0 +1,2 @@
+# Run script as admin
+If executed without evaluated rights, the script launches itself in the script directory (not necessary the execution directory!) with administrative rights. Therefor a UAC window is shown if OS is configured for this security level.
