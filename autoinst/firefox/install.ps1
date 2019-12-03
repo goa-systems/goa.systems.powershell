@@ -1,6 +1,6 @@
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$ffvers = "70.0.1"
+	$ffvers = "71.0"
 	$ffsetup="Firefox Setup $ffvers.exe"
 
 	$lang="en-US"
