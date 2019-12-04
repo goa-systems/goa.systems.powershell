@@ -55,7 +55,7 @@ If (-Not (Test-Path -Path "$path")) {
 	New-Item -ItemType Directory -Path "$path"
 }
 
-# Disable theming and set to classic GUI
+# Enable Java save actions.
 $file = "org.eclipse.jdt.ui.prefs"
 Set-Content -Path "$path\$file" -Value "editor_save_participant_org.eclipse.jdt.ui.postsavelistener.cleanup=true"
 Add-Content -Path "$path\$file" -Value "sp_cleanup.format_source_code=true"
