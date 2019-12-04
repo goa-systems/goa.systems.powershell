@@ -22,8 +22,15 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 	if([string]::IsNullOrEmpty($uuid)){
 		Write-Host -Object "VirtualBox installation not found. Exiting."
 	} else {
+		
+		<# Remove extension packs #>
 		Start-Process -FilePath " $env:ProgramFiles\Oracle\VirtualBox\VBoxManage.exe" -ArgumentList "extpack","uninstall","`"Oracle VM VirtualBox Extension Pack`""
+		
+		<# Uninstall application #>
 		Start-Process "msiexec" -ArgumentList "/uninstall","$uuid","/passive" -Wait
+		
+		<# Remove certificate from certificate store #>
+		Get-ChildItem Cert:\LocalMachine\TrustedPublisher\ | Where-Object { $_.Subject -match 'CN=Oracle Corporation, OU=Virtualbox, O=Oracle Corporation, L=Redwood Shores, S=CA, C=US' } | Remove-Item
 	}
 } else {
 	$curscriptname = $MyInvocation.MyCommand.Name 
