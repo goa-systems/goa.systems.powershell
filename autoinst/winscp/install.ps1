@@ -1,7 +1,7 @@
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	
-	$vers = "5.15.7"
+	$vers = "5.15.9"
 	$setup="WinSCP-$vers-Setup.exe"
 	
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\winscp")){
