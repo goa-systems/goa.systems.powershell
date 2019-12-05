@@ -37,7 +37,7 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 			Write-Host -Object "Uninststring not found."
 		} else {
 			Write-Host -Object "Uninststring found $uninststring"
-			Start-Process -Wait -FilePath "$uninststring" -ArgumentList "/S"
+			Start-Process -Wait -FilePath "$uninststring" -ArgumentList "/SILENT"
 		}
 	}
 } else {
