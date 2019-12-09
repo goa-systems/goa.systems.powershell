@@ -1,6 +1,6 @@
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$processes = @("notepad++")
+	$processes = @("notepad++", "explorer")
 	foreach($process in $processes){
 		$p = Get-Process "$process" -ErrorAction SilentlyContinue
 		if ($p) {
@@ -37,7 +37,8 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 			Write-Host -Object "Uninststring not found."
 		} else {
 			Write-Host -Object "Uninststring found $uninststring"
-			Start-Process -FilePath "$uninststring" -ArgumentList "/S"
+			Start-Process -Wait -FilePath "$uninststring" -ArgumentList "/S"
+			Start-Process -FilePath "explorer.exe" -ArgumentList "/S"
 		}
 	}
 } else {
