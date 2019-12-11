@@ -47,7 +47,9 @@ $Repos = @(
 	"https://eclipse-uc.sonarlint.org"
 )
 
-.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory DevIde
+$workingdir = DevIde
+
+.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory "$workingdir"
 
 $path = "DevIde\WorkSpace\.metadata\.plugins\org.eclipse.core.runtime\.settings"
 
@@ -61,3 +63,14 @@ Set-Content -Path "$path\$file" -Value "editor_save_participant_org.eclipse.jdt.
 Add-Content -Path "$path\$file" -Value "sp_cleanup.format_source_code=true"
 Add-Content -Path "$path\$file" -Value "sp_cleanup.on_save_use_additional_actions=true"
 Add-Content -Path "$path\$file" -Value "sp_cleanup.organize_imports=true"
+
+<# Show a hint, if log file is larger than 3kb. #>
+Get-ChildItem "$workingdir\Eclipse\configuration" | Where-Object {$_.Name -like "*.log"} | Where-Object {$_.Length -gt 3000} | ForEach-Object {
+	Write-Host "Looks like an eror occured. Please check file $($_.FullName)"
+}
+
+<# Remove log files that are smaller than 3kb because that usually means, that the plugin was created successfully. #>
+Get-ChildItem "$workingdir\Eclipse\configuration" | Where-Object {$_.Name -like "*.log"} | Where-Object {$_.Length -lt 3000} | ForEach-Object {
+	Write-Host "Removing log file $($_.FullName)."
+	Remove-Item -Path "$($_.FullName)"
+}
