@@ -1,7 +1,7 @@
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$vboxvers = "6.0.14"
-	$vboxversrev = "$vboxvers-133895"
+	$vboxvers = "6.1.0"
+	$vboxversrev = "$vboxvers-135406"
 	$vboxsetup = "VirtualBox-$vboxversrev-Win.exe"
 	$vboxexpacksetup = "Oracle_VM_VirtualBox_Extension_Pack-$vboxversrev.vbox-extpack"
 	
@@ -26,7 +26,7 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 	Start-Process -FilePath "$env:SystemDrive\ProgramData\InstSys\virtualbox\$vboxsetup" -ArgumentList "--extract", "--path", "`"$env:TEMP\VBox`"", "--silent" -Wait
 	
 	Get-ChildItem -Path "$env:TEMP\VBox" | ForEach-Object {
-		if($_.FullName.EndsWith("amd64.msi")){
+		if($_.FullName.EndsWith("msi")){
 			$msipath = $_.FullName;
 			[System.IO.File]::WriteAllBytes("$env:TEMP\VBox\certificate.cer", ((Get-AuthenticodeSignature "$msipath").SignerCertificate).Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Cert));
 			Import-Certificate -FilePath "$env:TEMP\VBox\certificate.cer" -CertStoreLocation "Cert:\LocalMachine\TrustedPublisher"
@@ -35,7 +35,7 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 	}
 	
 	Start-Process -FilePath "$env:ProgramFiles\Oracle\VirtualBox\VBoxManage.exe" -ArgumentList "extpack","install","$env:SystemDrive\ProgramData\InstSys\virtualbox\$vboxexpacksetup","--replace","--accept-license=56be48f923303c8cababb0bb4c478284b688ed23f16d775d729b89a2e8e5f9eb" -Wait
-	Remove-Item -Recurse -Path "$env:TEMP\VBox"
+	# Remove-Item -Recurse -Path "$env:TEMP\VBox"
 } else {
 	$curscriptname = $MyInvocation.MyCommand.Name 
 	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$curscriptname" -Wait -Verb RunAs
