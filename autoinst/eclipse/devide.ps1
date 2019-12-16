@@ -47,7 +47,7 @@ $Repos = @(
 	"https://eclipse-uc.sonarlint.org"
 )
 
-$workingdir = DevIde
+$workingdir="DevIde"
 
 .\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory "$workingdir"
 
