@@ -25,6 +25,7 @@ $FeatureList = @(
 	"org.eclipse.jst.enterprise_ui.feature.feature.group",
 	"org.eclipse.egit.feature.group",
 	"org.eclipse.cvs.feature.group",
+	"org.eclipse.cdt.feature.group",
 	"org.tigris.subversion.subclipse.feature.group",
 	"org.tigris.subversion.subclipse.mylyn.feature.feature.group",
 	"org.tigris.subversion.clientadapter.javahl.feature.feature.group",
