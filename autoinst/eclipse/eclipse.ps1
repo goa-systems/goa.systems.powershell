@@ -3,7 +3,7 @@ param (
 	[String[]] $FeatureList = @("org.eclipse.epp.mpc.feature.group"),
 
 	# The repositories to download from. Default: Eclipse repos.
-	[String[]] $Repos = @("http://download.eclipse.org/releases/2019-09", "http://download.eclipse.org/eclipse/updates/4.13"),
+	[String[]] $Repos = @("http://download.eclipse.org/releases/2019-12", "http://download.eclipse.org/eclipse/updates/4.14"),
 
 	# The working directory. Default ProgramData\instsys\eclipse
 	[String] $WorkingDirectory = "$env:ProgramData\InstSys\eclipse"
@@ -29,7 +29,7 @@ $name = Read-Host -Prompt 'Please provide URL to eclipse zip file'
 
 # Set to default URL if no URL is specified by user.
 if ([string]::IsNullOrWhiteSpace($name)) {
-    $name = 'http://mirrors.uniri.hr/eclipse/eclipse/downloads/drops4/R-4.13-201909161045/eclipse-platform-4.13-win32-x86_64.zip'
+	$name = 'http://mirrors.uniri.hr/eclipse/eclipse/downloads/drops4/R-4.14-201912100610/eclipse-platform-4.14-win32-x86_64.zip'
 }
 
 $pa = $WorkingDirectory

@@ -2,29 +2,19 @@
 
 The eclipse scripts offer a way to individually conigure Eclipse based on the current platform version. Therefor the basic Eclipse platform is downloaded and modified by the script. At the moment the scripts offer two workloads.
 
-* dbeaver - For database manipulation and administration.
-* dev - A complete IDE environment with SpringBoot, Git, Jaspersoft Studio, SonarLint, Web-, XML- Json and other software development tools.
+* **dbeaver** - For database manipulation and administration.
+* **devide** - A complete IDE environment with C/C++, SpringBoot, Git, Jaspersoft Studio, SonarLint, Web-, XML- Json and other software development tools.
+* **jmc** - JDK/Java Mission Control: a surveilance environment to inspect and monitor Java applications.
 
 For installation of features a functionality called "org.eclipse.equinox.p2.director" is used.
 
-The scripts have to be executed in PowerShell. Working directory is 
-```
-"$env:ProgramData\InstSys\eclipse"
-```
-which usually translates to
-```
-"C:\ProgramData\InstSys\eclipse"
-```
+The scripts use the file "eclipse.ps1" and run it with certain parameters. Those parameters are:
 
-After the script is done the software is located at 
-```
-"$env:ProgramData\InstSys\eclipse\Eclipse"
-```
-and a workspace is configured under
-```
-"$env:ProgramData\InstSys\eclipse\WorkSpace"
-```
-This can be used as template because line endings, encoding and theming are already configured.
+* $FeatureList (default: Marketplace client)
+* $Repos (default: Eclipse repositories)
+* $WorkingDirectory (default: "$env:ProgramData\InstSys\eclipse")
+
+These parameters define, what workload and in which directory Eclipse and the workspace is installed.
 
 **Possible errors**
 

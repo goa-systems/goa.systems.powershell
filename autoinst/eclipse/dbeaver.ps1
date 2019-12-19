@@ -9,12 +9,25 @@ $FeatureList = @(
 )
 
 $Repos = @(
-	"http://download.eclipse.org/releases/2019-09",
-	"http://download.eclipse.org/eclipse/updates/4.13",
+	"http://download.eclipse.org/releases/2019-12",
+	"http://download.eclipse.org/eclipse/updates/4.14",
 	"http://download.eclipse.org/usssdk/updates/release/latest",
 	"https://dbeaver.io/update/latest/",
 	"https://dbeaver.io/update/office/latest/",
 	"https://dbeaver.io/update/git/latest/"
 )
 
-.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory DBeaver
+$workingdir = "DBeaver"
+
+.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory $workingdir
+
+<# Show a hint, if log file is larger than 3kb. #>
+Get-ChildItem "$workingdir\Eclipse\configuration" | Where-Object {$_.Name -like "*.log"} | Where-Object {$_.Length -gt 3000} | ForEach-Object {
+	Write-Host "Looks like an eror occured. Please check file $($_.FullName)"
+}
+
+<# Remove log files that are smaller than 3kb because that usually means, that the plugin was created successfully. #>
+Get-ChildItem "$workingdir\Eclipse\configuration" | Where-Object {$_.Name -like "*.log"} | Where-Object {$_.Length -lt 3000} | ForEach-Object {
+	Write-Host "Removing log file $($_.FullName)."
+	Remove-Item -Path "$($_.FullName)"
+}
