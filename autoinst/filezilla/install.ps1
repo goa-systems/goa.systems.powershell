@@ -2,7 +2,7 @@
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	
-	$fzsetup="FileZilla_3.46.2_win64-setup.exe"
+	$fzsetup="FileZilla_3.46.3_win64-setup.exe"
 
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\filezilla")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\filezilla" -ItemType "Directory"
