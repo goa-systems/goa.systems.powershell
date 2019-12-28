@@ -37,7 +37,7 @@ foreach($ShortcutLocation in $ShortcutLocations){
 	$Shell = New-Object -ComObject ("WScript.Shell")
 	$ShortCut = $Shell.CreateShortcut("$ShortcutLocation\$LinkName.lnk")
 	$ShortCut.TargetPath = "$TargetPath"
-	$ShortCut.Arguments = ""
+	$ShortCut.Arguments = "$Arguments"
 	$ShortCut.WorkingDirectory = "`"$WorkingDirectory`"";
 	$ShortCut.WindowStyle = 1;
 	$ShortCut.Hotkey = "";
