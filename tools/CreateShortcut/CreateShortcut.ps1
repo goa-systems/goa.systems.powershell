@@ -38,7 +38,7 @@ foreach($ShortcutLocation in $ShortcutLocations){
 	$ShortCut = $Shell.CreateShortcut("$ShortcutLocation\$LinkName.lnk")
 	$ShortCut.TargetPath = "$TargetPath"
 	$ShortCut.Arguments = "$Arguments"
-	$ShortCut.WorkingDirectory = "`"$WorkingDirectory`"";
+	$ShortCut.WorkingDirectory = "$WorkingDirectory";
 	$ShortCut.WindowStyle = 1;
 	$ShortCut.Hotkey = "";
 	$ShortCut.IconLocation = "$IconFile, $IconId";
