@@ -5,6 +5,9 @@ param (
 	# The repositories to download from. Default: Eclipse repos.
 	[String[]] $Repos = @("http://download.eclipse.org/releases/2019-12", "http://download.eclipse.org/eclipse/updates/4.14"),
 
+	# The repositories to download from. Default: Eclipse repos.
+	[String[]] $AdditionalPlugins = @(),
+
 	# The working directory. Default ProgramData\instsys\eclipse
 	[String] $WorkingDirectory = "$env:ProgramData\InstSys\eclipse"
 )
@@ -48,10 +51,14 @@ Move-Item "$pa\Eclipse.tmp\eclipse" "$pa\Eclipse"
 Remove-Item "$pa\Eclipse.zip"
 Remove-Item "$pa\Eclipse.tmp" -Recurse
 
+foreach($Plugin in $AdditionalPlugins){
+	Start-BitsTransfer -Source "$Plugin" -Destination "$pa\Eclipse\plugins"
+}
+
 $ReposString = Convert-ArrayToString -StringArray $Repos
 
 # Start and wait for user to finish modifications
-New-Item -ItemType Directory -Path "$pa\WorkSpace"
+# New-Item -ItemType Directory -Path "$pa\WorkSpace"
 $i = 1
 $Plc = $FeatureList.Count
 

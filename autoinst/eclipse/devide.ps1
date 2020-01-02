@@ -10,7 +10,6 @@ $FeatureList = @(
 	"org.eclipse.buildship.feature.group",
 	"org.nodeclipse.enide.editors.gradle.feature.feature.group",
 	"org.eclipse.m2e.wtp.feature.feature.group",
-	"com.jaspersoft.studio.feature.feature.group",
 	"org.eclipse.wst.xsl.feature.feature.group",
 	"org.eclipse.wst.xml_ui.feature.feature.group",
 	"org.eclipse.wst.web_ui.feature.feature.group",
@@ -31,26 +30,36 @@ $FeatureList = @(
 	"org.tigris.subversion.clientadapter.javahl.feature.feature.group",
 	"org.tigris.subversion.subclipse.graph.feature.feature.group",
 	"org.tigris.subversion.clientadapter.svnkit.feature.feature.group",
-	"org.sonarlint.eclipse.feature.feature.group"
+	"org.sonarlint.eclipse.feature.feature.group",
+	"com.jaspersoft.studio.feature.feature.group"
 )
 
 $Repos = @(
-	"http://download.eclipse.org/releases/2019-09",
-	"http://download.eclipse.org/eclipse/updates/4.13",
+	"http://download.eclipse.org/releases/2019-12",
+	"http://download.eclipse.org/eclipse/updates/4.14",
 	"https://download.springsource.com/release/TOOLS/sts4/update/e4.13/",
 	"https://download.springsource.com/release/TOOLS/sts4-language-servers/e4.8",
 	"http://download.eclipse.org/buildship/updates/e411/releases/3.x",
 	"https://download.eclipse.org/egit/updates",
 	"http://jasperstudio.sourceforge.net/updates/",
-	"https://download.eclipse.org/tools/orbit/downloads/drops/R20190827152740/repository/",
 	"https://nodeclipse.github.io/updates/",
 	"https://dl.bintray.com/subclipse/releases/subclipse/latest/",
 	"https://eclipse-uc.sonarlint.org"
 )
 
+# Required for Jaspersoft Studio. They are not automatically downloaded.
+$AdditionalPlugins = @(
+	"https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/org.apache.commons.pool_1.6.0.v201204271246.jar",
+	"https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/org.apache.commons.dbcp_1.4.0.v201204271417.jar",
+	"https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.transaction_1.1.1.v201105210645.jar",
+	"https://download.eclipse.org/releases/2019-09/201909181001/plugins/org.eclipse.wb.swt_1.9.1.201812270937.jar",
+	"https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.xml.bind_2.2.0.v201105210648.jar",
+	"https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.activation_1.1.0.v201211130549.jar"
+)
+
 $workingdir="DevIde"
 
-.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory "$workingdir"
+.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory "$workingdir" -AdditionalPlugins $AdditionalPlugins
 
 $path = "DevIde\WorkSpace\.metadata\.plugins\org.eclipse.core.runtime\.settings"
 
