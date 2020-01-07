@@ -61,7 +61,7 @@ $workingdir="DevIde"
 
 .\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory "$workingdir" -AdditionalPlugins $AdditionalPlugins
 
-$path = "DevIde\WorkSpace\.metadata\.plugins\org.eclipse.core.runtime\.settings"
+$path = "$workingdir\WorkSpace\.metadata\.plugins\org.eclipse.core.runtime\.settings"
 
 If (-Not (Test-Path -Path "$path")) {
 	New-Item -ItemType Directory -Path "$path"
