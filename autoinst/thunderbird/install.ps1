@@ -1,7 +1,7 @@
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$name="thunderbird"
-	$version="68.3.1"
+	$version="68.4.1"
 	$setup="Thunderbird Setup $version.exe"
 	$dlurl="https://download-installer.cdn.mozilla.net/pub/thunderbird/releases/$version/win64/en-US/Thunderbird%20Setup%20$version.exe"
 	
@@ -16,15 +16,7 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 		-Destination "$env:SystemDrive\ProgramData\InstSys\$name\$setup"
 	}
 	
-	Set-Content -Path "$env:SystemDrive\ProgramData\InstSys\$name\install.ini" -Value "[Install]"
-	Add-Content -Path "$env:SystemDrive\ProgramData\InstSys\$name\install.ini" -Value "InstallDirectoryPath=C:\Program Files\Mozilla Thunderbird"
-	Add-Content -Path "$env:SystemDrive\ProgramData\InstSys\$name\install.ini" -Value "QuickLaunchShortcut=false"
-	Add-Content -Path "$env:SystemDrive\ProgramData\InstSys\$name\install.ini" -Value "TaskbarShortcut=false"
-	Add-Content -Path "$env:SystemDrive\ProgramData\InstSys\$name\install.ini" -Value "DesktopShortcut=false"
-	Add-Content -Path "$env:SystemDrive\ProgramData\InstSys\$name\install.ini" -Value "StartMenuShortcuts=true"
-	Add-Content -Path "$env:SystemDrive\ProgramData\InstSys\$name\install.ini" -Value "StartMenuDirectoryName=Mozilla Thunderbird"
-	Add-Content -Path "$env:SystemDrive\ProgramData\InstSys\$name\install.ini" -Value "MaintenanceService=false"
-	
+	Set-Content -Path "$env:SystemDrive\ProgramData\InstSys\$name\install.ini" -Value "[Install]`nInstallDirectoryPath=$env:ProgramFiles\Mozilla Thunderbird`nQuickLaunchShortcut=false`nTaskbarShortcut=false`nDesktopShortcut=false`nStartMenuShortcuts=true`nStartMenuDirectoryName=Mozilla Thunderbird`nMaintenanceService=false"
 	Start-Process -FilePath "$env:SystemDrive\ProgramData\InstSys\$name\$setup" -ArgumentList "/INI=$env:SystemDrive\ProgramData\InstSys\$name\install.ini" -Wait
 } else {
 	$curscriptname = $MyInvocation.MyCommand.Name 
