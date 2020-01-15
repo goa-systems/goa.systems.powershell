@@ -1,9 +1,9 @@
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$vboxvers = "6.1.0"
-	$vboxversrev = "$vboxvers-135406"
+	$vboxvers = "6.1.2"
+	$vboxversrev = "$vboxvers-135663"
 	$vboxsetup = "VirtualBox-$vboxversrev-Win.exe"
-	$vboxexpacksetup = "Oracle_VM_VirtualBox_Extension_Pack-$vboxversrev.vbox-extpack"
+	$vboxexpacksetup = "Oracle_VM_VirtualBox_Extension_Pack-$vboxvers.vbox-extpack"
 	
 	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\virtualbox")) {
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\virtualbox" -ItemType "Directory"
