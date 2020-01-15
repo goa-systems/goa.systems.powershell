@@ -1,9 +1,9 @@
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 
-	$subversion=".2"
-	$gitvers = "2.24.1"
-	$gitsetup = "Git-$gitvers$subversion-64-bit.exe"
+	$subversion=".1"
+	$gitvers = "2.25.0"
+	$gitsetup = "Git-$gitvers-64-bit.exe"
 
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\git")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\git" -ItemType "Directory"
@@ -11,6 +11,7 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 
 	<# Download Git scm, if setup is not found in execution path. #>
 	if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\git\$gitsetup")){
+		$ProgressPreference = 'SilentlyContinue'
 		$uri = "https://github.com/git-for-windows/git/releases/download/v$gitvers.windows$subversion/$gitsetup"
 		Invoke-WebRequest `
 		-Uri "$uri" `
