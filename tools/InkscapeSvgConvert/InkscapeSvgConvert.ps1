@@ -10,7 +10,7 @@ param (
 )
 
 if(-not (Test-Path "$DestinationFolder")){
-	New-Item -ItemType Directory -Name "$DestinationFolder"
+	New-Item -ItemType Directory -Path "$DestinationFolder"
 }
 
 $Sizes = @("256", "192", "128", "96", "64", "48", "32", "24", "16", "12", "8")
