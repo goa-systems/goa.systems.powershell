@@ -1,0 +1,2 @@
+# Autoinst
+This directory contains scripts to (un)install or update software. To prevent warning messages about untrusted files execute the file "UnblockScripts.ps1" in the root directory first. It iterates over all scripts and unblocks them for further use.
