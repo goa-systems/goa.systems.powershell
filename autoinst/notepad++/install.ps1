@@ -1,6 +1,6 @@
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$nppvers = "7.8.2"
+	$nppvers = "7.8.3"
 	$nppsetup = "npp.$nppvers.Installer.x64.exe"
 	$dlurl = "http://download.notepad-plus-plus.org/repository/7.x/$nppvers/$nppsetup"
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\npp")){
@@ -10,6 +10,7 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 	<# Download npp scm, if setup is not found in execution path. #>
 	Write-Host -Object "Downloading from $dlurl"
 	if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\npp\$nppsetup")){
+		$ProgressPreference = 'SilentlyContinue'
 		Invoke-WebRequest `
 		-Uri $dlurl `
 		-OutFile "$env:SystemDrive\ProgramData\InstSys\npp\$nppsetup"
