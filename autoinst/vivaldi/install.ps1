@@ -1,7 +1,7 @@
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$name = "vivaldi"
-	$version = "2.10.1745.26"
+	$version = "2.10.1745.27"
 	$setup = "Vivaldi.$version.x64.exe"
 	$dlurl = "https://downloads.vivaldi.com/stable/$setup"
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")){
