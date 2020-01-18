@@ -1,3 +1,8 @@
+param (
+	# The working directory. Default ProgramData\instsys\eclipse
+	[String] $WorkingDirectory = "dbeaver"
+)
+
 $FeatureList = @(
 	"org.eclipse.epp.mpc.feature.group",
 	"org.jkiss.dbeaver.ide.feature.feature.group",
@@ -17,17 +22,15 @@ $Repos = @(
 	"https://dbeaver.io/update/git/latest/"
 )
 
-$workingdir = "DBeaver"
-
-.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory $workingdir
+.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory "$WorkingDirectory"
 
 <# Show a hint, if log file is larger than 3kb. #>
-Get-ChildItem "$workingdir\Eclipse\configuration" | Where-Object {$_.Name -like "*.log"} | Where-Object {$_.Length -gt 3000} | ForEach-Object {
+Get-ChildItem "$WorkingDirectory\Eclipse\configuration" | Where-Object {$_.Name -like "*.log"} | Where-Object {$_.Length -gt 3000} | ForEach-Object {
 	Write-Host "Looks like an eror occured. Please check file $($_.FullName)"
 }
 
 <# Remove log files that are smaller than 3kb because that usually means, that the plugin was created successfully. #>
-Get-ChildItem "$workingdir\Eclipse\configuration" | Where-Object {$_.Name -like "*.log"} | Where-Object {$_.Length -lt 3000} | ForEach-Object {
+Get-ChildItem "$WorkingDirectory\Eclipse\configuration" | Where-Object {$_.Name -like "*.log"} | Where-Object {$_.Length -lt 3000} | ForEach-Object {
 	Write-Host "Removing log file $($_.FullName)."
 	Remove-Item -Path "$($_.FullName)"
 }
