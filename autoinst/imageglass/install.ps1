@@ -1,0 +1,22 @@
+$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+
+	$version = "7.5.1.1"
+	$dlversion = $version.Replace(".","-") + "-40"
+	$setup = "ImageGlass_${version}_x64.msi"
+	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\imageglass")){
+		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\imageglass" -ItemType "Directory"
+	}
+	<# Download imageglass scm, if setup is not found in execution path. #>
+	if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\imageglass\$setup")){
+		$ProgressPreference = 'SilentlyContinue'
+		$uri = "https://imageglass.org/release/imageglass-$dlversion/download"
+		Invoke-WebRequest `
+		-Uri "$uri" `
+		-OutFile "$env:SystemDrive\ProgramData\InstSys\imageglass\$setup"
+	}
+	Start-Process -Wait -FilePath "msiexec" -ArgumentList "/qb","/i","$env:SystemDrive\ProgramData\InstSys\imageglass\$setup"
+} else {
+	$curscriptname = $MyInvocation.MyCommand.Name 
+	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$curscriptname" -Wait -Verb RunAs
+}
