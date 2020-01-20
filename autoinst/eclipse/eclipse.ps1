@@ -9,7 +9,10 @@ param (
 	[String[]] $AdditionalPlugins = @(),
 
 	# The working directory. Default ProgramData\instsys\eclipse
-	[String] $WorkingDirectory = "$env:ProgramData\InstSys\eclipse"
+	[String] $WorkingDirectory = "$env:ProgramData\InstSys\eclipse",
+
+	# The working directory. Default ProgramData\instsys\eclipse
+	[String] $EclipseUrl = "http://mirrors.uniri.hr/eclipse/eclipse/downloads/drops4/R-4.14-201912100610/eclipse-platform-4.14-win32-x86_64.zip"
 )
 
 function Convert-ArrayToString {
@@ -28,37 +31,28 @@ function Convert-ArrayToString {
 	return $String
 }
 
-$name = Read-Host -Prompt 'Please provide URL to eclipse zip file'
-
-# Set to default URL if no URL is specified by user.
-if ([string]::IsNullOrWhiteSpace($name)) {
-	$name = 'http://mirrors.uniri.hr/eclipse/eclipse/downloads/drops4/R-4.14-201912100610/eclipse-platform-4.14-win32-x86_64.zip'
-}
-
-$pa = $WorkingDirectory
-
 # Clean up first
-if ( -not (Test-Path "$pa")) { New-Item -Path "$pa" -ItemType Directory }
-if (Test-Path "$pa\Eclipse") { Remove-Item -Recurse "$pa\Eclipse" }
-if (Test-Path "$pa\Eclipse.zip") { Remove-Item -Recurse "$pa\Eclipse.zip" }
-if (Test-Path "$pa\Eclipse.tmp") { Remove-Item -Recurse "$pa\Eclipse.tmp" }
-if (Test-Path "$pa\WorkSpace") { Remove-Item -Recurse "$pa\WorkSpace" }
+if ( -not (Test-Path "$WorkingDirectory")) { New-Item -Path "$WorkingDirectory" -ItemType Directory }
+if (Test-Path "$WorkingDirectory\Eclipse") { Remove-Item -Recurse "$WorkingDirectory\Eclipse" }
+if (Test-Path "$WorkingDirectory\Eclipse.zip") { Remove-Item -Recurse "$WorkingDirectory\Eclipse.zip" }
+if (Test-Path "$WorkingDirectory\Eclipse.tmp") { Remove-Item -Recurse "$WorkingDirectory\Eclipse.tmp" }
+if (Test-Path "$WorkingDirectory\WorkSpace") { Remove-Item -Recurse "$WorkingDirectory\WorkSpace" }
 
 # Download Eclipse
-Start-BitsTransfer -Source $name -Destination "$pa\Eclipse.zip"
-Expand-Archive -Path "$pa\Eclipse.zip" -Destination "$pa\Eclipse.tmp"
-Move-Item "$pa\Eclipse.tmp\eclipse" "$pa\Eclipse"
-Remove-Item "$pa\Eclipse.zip"
-Remove-Item "$pa\Eclipse.tmp" -Recurse
+Start-BitsTransfer -Source "$EclipseUrl" -Destination "$WorkingDirectory\Eclipse.zip"
+Expand-Archive -Path "$WorkingDirectory\Eclipse.zip" -Destination "$WorkingDirectory\Eclipse.tmp"
+Move-Item "$WorkingDirectory\Eclipse.tmp\eclipse" "$WorkingDirectory\Eclipse"
+Remove-Item "$WorkingDirectory\Eclipse.zip"
+Remove-Item "$WorkingDirectory\Eclipse.tmp" -Recurse
 
 foreach($Plugin in $AdditionalPlugins){
-	Start-BitsTransfer -Source "$Plugin" -Destination "$pa\Eclipse\plugins"
+	Start-BitsTransfer -Source "$Plugin" -Destination "$WorkingDirectory\Eclipse\plugins"
 }
 
 $ReposString = Convert-ArrayToString -StringArray $Repos
 
 # Start and wait for user to finish modifications
-# New-Item -ItemType Directory -Path "$pa\WorkSpace"
+# New-Item -ItemType Directory -Path "$WorkingDirectory\WorkSpace"
 $i = 1
 $Plc = $FeatureList.Count
 
@@ -67,7 +61,7 @@ foreach($Feature in $FeatureList){
 	Write-Host -Object "Installing plugin ${i} of ${Plc}: ${Feature}"
 
 	Start-Process `
-		-FilePath "$pa\Eclipse\eclipse.exe" `
+		-FilePath "$WorkingDirectory\Eclipse\eclipse.exe" `
 		-Wait `
 		-ArgumentList `
 			"-application","org.eclipse.equinox.p2.director",`
@@ -79,37 +73,37 @@ foreach($Feature in $FeatureList){
 
 # 
 # Configure Workspace
-$path = "$pa\WorkSpace\.metadata\.plugins\org.eclipse.core.runtime\.settings"
+$WorkingDirectoryth = "$WorkingDirectory\WorkSpace\.metadata\.plugins\org.eclipse.core.runtime\.settings"
 
-If (-Not (Test-Path -Path "$path")) {
-	New-Item -ItemType Directory -Path "$path"
+If (-Not (Test-Path -Path "$WorkingDirectoryth")) {
+	New-Item -ItemType Directory -Path "$WorkingDirectoryth"
 }
 
 # Disable theming and set to classic GUI
 $file = "org.eclipse.e4.ui.workbench.renderers.swt.prefs"
-Set-Content -Path "$path\$file" -Value "eclipse.preferences.version=1"
-Add-Content -Path "$path\$file" -Value "enableMRU=true"
-Add-Content -Path "$path\$file" -Value "themeEnabled=false"
+Set-Content -Path "$WorkingDirectoryth\$file" -Value "eclipse.preferences.version=1"
+Add-Content -Path "$WorkingDirectoryth\$file" -Value "enableMRU=true"
+Add-Content -Path "$WorkingDirectoryth\$file" -Value "themeEnabled=false"
 
 # Set line separator to linux style
 $file = "org.eclipse.core.runtime.prefs"
-Set-Content -Path "$path\$file" -Value "eclipse.preferences.version=1"
-Add-Content -Path "$path\$file" -Value "line.separator=`\n"
+Set-Content -Path "$WorkingDirectoryth\$file" -Value "eclipse.preferences.version=1"
+Add-Content -Path "$WorkingDirectoryth\$file" -Value "line.separator=`\n"
 
 # Set workspace encoding to UTF-8
 $file = "org.eclipse.core.resources.prefs"
-Set-Content -Path "$path\$file" -Value "eclipse.preferences.version=1"
-Add-Content -Path "$path\$file" -Value "encoding=UTF-8"
-Add-Content -Path "$path\$file" -Value "version=1"
+Set-Content -Path "$WorkingDirectoryth\$file" -Value "eclipse.preferences.version=1"
+Add-Content -Path "$WorkingDirectoryth\$file" -Value "encoding=UTF-8"
+Add-Content -Path "$WorkingDirectoryth\$file" -Value "version=1"
 
 # Don't show confirmation dialog on exit
 $file = "org.eclipse.ui.ide.prefs"
-Set-Content -Path "$path\$file" -Value "EXIT_PROMPT_ON_CLOSE_LAST_WINDOW=false"
+Set-Content -Path "$WorkingDirectoryth\$file" -Value "EXIT_PROMPT_ON_CLOSE_LAST_WINDOW=false"
 
 # Don't show welcome screen on first startup
 $file = "org.eclipse.ui.prefs"
-Set-Content -Path "$path\$file" -Value "eclipse.preferences.version=1"
-Add-Content -Path "$path\$file" -Value "showIntro=false"
+Set-Content -Path "$WorkingDirectoryth\$file" -Value "eclipse.preferences.version=1"
+Add-Content -Path "$WorkingDirectoryth\$file" -Value "showIntro=false"
 
 # Start eclipse for further customization
-Start-Process -FilePath "$pa\Eclipse\eclipse.exe" -ArgumentList "-data","$pa\WorkSpace" -Wait
+Start-Process -FilePath "$WorkingDirectory\Eclipse\eclipse.exe" -ArgumentList "-data","$WorkingDirectory\WorkSpace" -Wait

@@ -1,3 +1,8 @@
+param (
+	# The working directory. Default ProgramData\instsys\eclipse
+	[String] $WorkingDirectory = "jmc"
+)
+
 $FeatureList = @(
 	"org.eclipse.epp.mpc.feature.group",
 	"org.openjdk.jmc.feature.flightrecorder.metadata.feature.group",
@@ -13,4 +18,4 @@ $Repos = @(
 	"https://download.oracle.com/technology/products/missioncontrol/updatesites/oracle/7.0.0/rcp"
 )
 
-.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory Jmc
+.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory "$WorkingDirectory"

@@ -1,3 +1,8 @@
+param (
+	# The working directory. Default ProgramData\instsys\eclipse
+	[String] $WorkingDirectory = "javacomplete"
+)
+
 $FeatureList = @(
 	"org.eclipse.epp.mpc.feature.group",
 	"org.springframework.tooling.bosh.ls.feature.feature.group",
@@ -56,11 +61,9 @@ $AdditionalPlugins = @(
 	"https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.activation_1.1.0.v201211130549.jar"
 )
 
-$workingdir="DevIde"
+.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory "$WorkingDirectory" -AdditionalPlugins $AdditionalPlugins
 
-.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory "$workingdir" -AdditionalPlugins $AdditionalPlugins
-
-$path = "$workingdir\WorkSpace\.metadata\.plugins\org.eclipse.core.runtime\.settings"
+$path = "$WorkingDirectory\WorkSpace\.metadata\.plugins\org.eclipse.core.runtime\.settings"
 
 If (-Not (Test-Path -Path "$path")) {
 	New-Item -ItemType Directory -Path "$path"
@@ -74,12 +77,12 @@ Add-Content -Path "$path\$file" -Value "sp_cleanup.on_save_use_additional_action
 Add-Content -Path "$path\$file" -Value "sp_cleanup.organize_imports=true"
 
 <# Show a hint, if log file is larger than 3kb. #>
-Get-ChildItem "$workingdir\Eclipse\configuration" | Where-Object {$_.Name -like "*.log"} | Where-Object {$_.Length -gt 3000} | ForEach-Object {
+Get-ChildItem "$WorkingDirectory\Eclipse\configuration" | Where-Object {$_.Name -like "*.log"} | Where-Object {$_.Length -gt 3000} | ForEach-Object {
 	Write-Host "Looks like an eror occured. Please check file $($_.FullName)"
 }
 
 <# Remove log files that are smaller than 3kb because that usually means, that the plugin was created successfully. #>
-Get-ChildItem "$workingdir\Eclipse\configuration" | Where-Object {$_.Name -like "*.log"} | Where-Object {$_.Length -lt 3000} | ForEach-Object {
+Get-ChildItem "$WorkingDirectory\Eclipse\configuration" | Where-Object {$_.Name -like "*.log"} | Where-Object {$_.Length -lt 3000} | ForEach-Object {
 	Write-Host "Removing log file $($_.FullName)."
 	Remove-Item -Path "$($_.FullName)"
 }
