@@ -1,6 +1,6 @@
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$nppvers = "7.8.3"
+	$nppvers = "7.8.4"
 	$nppsetup = "npp.$nppvers.Installer.x64.exe"
 	$dlurl = "http://download.notepad-plus-plus.org/repository/7.x/$nppvers/$nppsetup"
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\npp")){
