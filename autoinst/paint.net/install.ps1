@@ -2,7 +2,7 @@ $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Pri
 if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 
 	$name = "paintnet"
-	$version = "4.2.8"
+	$version = "4.2.9"
 	$setup = "paint.net.$version.install.zip"
 	$dlurl = "https://www.dotpdn.com/files/$setup"
 
