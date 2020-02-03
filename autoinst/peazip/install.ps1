@@ -1,5 +1,4 @@
-$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 
 	$peazipvers = "7.0.0"
 	$peazipsetup = "peazip-$peazipvers.WIN64.exe"
@@ -31,6 +30,5 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 	New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\*\shell\PeaZip' -Name 'Icon' -Value "`"C:\Program Files\PeaZip\peazip.exe`",0" -PropertyType String -Force -ea SilentlyContinue
 
 } else {
-	$curscriptname = $MyInvocation.MyCommand.Name 
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$curscriptname" -Wait -Verb RunAs
+	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }

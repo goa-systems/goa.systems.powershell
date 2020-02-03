@@ -1,5 +1,4 @@
-$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$gimpssetup="gimp-2.10.14-setup-3.exe"
 
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\gimp")){
@@ -16,6 +15,5 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 	   -FilePath "$env:SystemDrive\ProgramData\InstSys\gimp\$gimpssetup" `
 	   -ArgumentList "/SILENT","/NORESTART","/ALLUSERS","/DIR=`"$env:PROGRAMFILES\Gimp`""
 } else {
-	$curscriptname = $MyInvocation.MyCommand.Name 
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$curscriptname" -Wait -Verb RunAs
+	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }

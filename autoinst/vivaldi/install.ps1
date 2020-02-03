@@ -1,5 +1,4 @@
-$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$name = "vivaldi"
 	$version = "2.10.1745.27"
 	$setup = "Vivaldi.$version.x64.exe"
@@ -16,6 +15,5 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 	}
 	Start-Process -Wait -FilePath "$env:SystemDrive\ProgramData\InstSys\$name\$setup" -ArgumentList "--vivaldi-silent","--do-not-launch-chrome","--system-level"
 } else {
-	$curscriptname = $MyInvocation.MyCommand.Name 
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$curscriptname" -Wait -Verb RunAs
+	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }

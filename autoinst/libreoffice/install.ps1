@@ -1,5 +1,4 @@
-$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-if ($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$name = "libreoffice"
 	$version = "6.4.0"
 	$setup = "LibreOffice_${version}_Win_x64.msi"
@@ -20,6 +19,5 @@ if ($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administ
 	Start-Process -Wait -FilePath "msiexec" -ArgumentList "/qb", "/i", "$env:SystemDrive\ProgramData\InstSys\$name\$setup", "REGISTER_ALL_MSO_TYPES=1", "INSTALLLOCATION=`"C:\Program Files\LibreOffice`"", "ALLUSERS=1", "CREATEDESKTOPLINK=0", "ADDLOCAL=ALL", "UI_LANGS=en_US,de", "ADDLOCAL=ALL", "REMOVE=gm_o_Quickstart,gm_o_Activexcontrol"
 }
 else {
-	$curscriptname = $MyInvocation.MyCommand.Name 
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$curscriptname" -Wait -Verb RunAs
+	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }

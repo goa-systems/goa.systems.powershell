@@ -1,5 +1,4 @@
-$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$ffvers = "72.0.2"
 	$ffsetup="Firefox Setup $ffvers.exe"
 
@@ -34,6 +33,5 @@ MaintenanceService=false
 		-FilePath "$env:SystemDrive\ProgramData\InstSys\firefox\$lang\$ffsetup" `
 		-ArgumentList "/INI=`"$env:SystemDrive\ProgramData\InstSys\firefox\mff.ini`""
 } else {
-	$curscriptname = $MyInvocation.MyCommand.Name 
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$curscriptname" -Wait -Verb RunAs
+	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }

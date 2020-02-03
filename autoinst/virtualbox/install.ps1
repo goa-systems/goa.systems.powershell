@@ -1,5 +1,4 @@
-$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$vboxvers = "6.1.2"
 	$vboxversrev = "$vboxvers-135663"
 	$vboxsetup = "VirtualBox-$vboxversrev-Win.exe"
@@ -37,6 +36,5 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 	Start-Process -FilePath "$env:ProgramFiles\Oracle\VirtualBox\VBoxManage.exe" -ArgumentList "extpack","install","$env:SystemDrive\ProgramData\InstSys\virtualbox\$vboxexpacksetup","--replace","--accept-license=56be48f923303c8cababb0bb4c478284b688ed23f16d775d729b89a2e8e5f9eb" -Wait
 	# Remove-Item -Recurse -Path "$env:TEMP\VBox"
 } else {
-	$curscriptname = $MyInvocation.MyCommand.Name 
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$curscriptname" -Wait -Verb RunAs
+	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }

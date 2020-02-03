@@ -1,5 +1,4 @@
-$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-if ($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 
 	$vers = "2.8.27"
 	$setup = "tightvnc-$vers-gpl-setup-64bit.msi"
@@ -18,6 +17,5 @@ if ($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administ
 	Start-Process -Wait -FilePath "msiexec" -ArgumentList "/qb", "/i", "$env:SystemDrive\ProgramData\InstSys\tightvnc\$setup", "/passive", "/norestart", "INSTALLDIR=`"C:\Program Files\TightVNC`"", "ADDLOCAL=Viewer"
 }
 else {
-	$curscriptname = $MyInvocation.MyCommand.Name 
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$curscriptname" -Wait -Verb RunAs
+	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }

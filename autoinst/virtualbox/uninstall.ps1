@@ -1,6 +1,5 @@
 
-$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$processes = @("VBoxSDS", "VBoxSVC", "VirtualBox")
 	foreach ($process in $processes) {
 		$p = Get-Process "$process" -ErrorAction SilentlyContinue
@@ -33,6 +32,5 @@ if($currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administr
 		Get-ChildItem Cert:\LocalMachine\TrustedPublisher\ | Where-Object { $_.Subject -match 'CN=Oracle Corporation, OU=Virtualbox, O=Oracle Corporation, L=Redwood Shores, S=CA, C=US' } | Remove-Item
 	}
 } else {
-	$curscriptname = $MyInvocation.MyCommand.Name 
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$curscriptname" -Wait -Verb RunAs
+	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }
