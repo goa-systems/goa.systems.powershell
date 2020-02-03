@@ -1,6 +1,6 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 
-	$peazipvers = "7.0.0"
+	$peazipvers = "7.1.0"
 	$peazipsetup = "peazip-$peazipvers.WIN64.exe"
 
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\peazip")){
@@ -9,7 +9,8 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 
 	<# Download peazip scm, if setup is not found in execution path. #>
 	if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\peazip\$peazipsetup")){
-		$uri = "https://osdn.net/frs/redir.php?m=rwthaachen&f=peazip%2F71994%2F$peazipsetup"
+		$ProgressPreference = 'SilentlyContinue'
+		$uri = "https://www.peazip.org/downloads/$peazipsetup"
 		Invoke-WebRequest `
 		-Uri "$uri" `
 		-OutFile "$env:SystemDrive\ProgramData\InstSys\peazip\$peazipsetup"
