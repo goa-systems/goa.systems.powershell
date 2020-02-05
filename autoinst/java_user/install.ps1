@@ -27,13 +27,20 @@ foreach($url in $urls){
 	if(-not (Test-Path -Path "$DownloadDir\$fname")){
 		Invoke-WebRequest -Uri "$url" -OutFile "$DownloadDir\$fname"
 	}
-	Start-Process -FilePath "7z.exe" -ArgumentList "x","-aos","-o`"$env:TEMP\JavaInst`"","-bb0","-bse0","-bsp2","-pdefault","-sccUTF-8","`"$DownloadDir\$fname`"" -Wait -NoNewWindow
+	try { 7z | Out-Null } catch {}
+	if(-not ($?)){
+		Write-Host -Object "Can not find 7z.exe. Please check your global path and rerun installer."
+	} else {
+		Start-Process -FilePath "7z.exe" -ArgumentList "x","-aos","-o`"$env:TEMP\JavaInst`"","-bb0","-bse0","-bsp2","-pdefault","-sccUTF-8","`"$DownloadDir\$fname`"" -Wait -NoNewWindow
+	}
 }
-
-Get-ChildItem -Path "$env:TEMP\JavaInst" | ForEach-Object {
-	Move-Item -Path $_.FullName -Destination "$env:LOCALAPPDATA\Programs\Java"
-	if($_.Name -like "*$default*"){
-		Write-Host -Object "Setting default to $($_.Name)"
-		[System.Environment]::SetEnvironmentVariable("PATH", [System.Environment]::GetEnvironmentVariable("PATH", "USER") + "$env:LOCALAPPDATA\Programs\Java\$($_.Name)\bin;", [System.EnvironmentVariableTarget]::User)
+try { 7z | Out-Null } catch {}
+if($?){
+	Get-ChildItem -Path "$env:TEMP\JavaInst" | ForEach-Object {
+		Move-Item -Path $_.FullName -Destination "$env:LOCALAPPDATA\Programs\Java"
+		if($_.Name -like "*$default*"){
+			Write-Host -Object "Setting default to $($_.Name)"
+			[System.Environment]::SetEnvironmentVariable("PATH", [System.Environment]::GetEnvironmentVariable("PATH", "USER") + "$env:LOCALAPPDATA\Programs\Java\$($_.Name)\bin;", [System.EnvironmentVariableTarget]::User)
+		}
 	}
 }
