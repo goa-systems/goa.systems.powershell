@@ -102,8 +102,14 @@ Set-Content -Path "$WorkingDirectoryth\$file" -Value "EXIT_PROMPT_ON_CLOSE_LAST_
 
 # Don't show welcome screen on first startup
 $file = "org.eclipse.ui.prefs"
-Set-Content -Path "$WorkingDirectoryth\$file" -Value "eclipse.preferences.version=1"
+Set-Content -Path "$WorkingDirectoryth\$file" -Value "USE_COLORED_LABELS=false"
+Add-Content -Path "$WorkingDirectoryth\$file" -Value "eclipse.preferences.version=1"
 Add-Content -Path "$WorkingDirectoryth\$file" -Value "showIntro=false"
+
+# Show line numbering
+$file = "org.eclipse.ui.editors.prefs"
+Set-Content -Path "$WorkingDirectoryth\$file" -Value "eclipse.preferences.version=1"
+Add-Content -Path "$WorkingDirectoryth\$file" -Value "lineNumberRuler=true"
 
 # Start eclipse for further customization
 Start-Process -FilePath "$WorkingDirectory\Eclipse\eclipse.exe" -ArgumentList "-data","$WorkingDirectory\WorkSpace" -Wait
