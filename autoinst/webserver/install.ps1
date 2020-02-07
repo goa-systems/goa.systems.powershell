@@ -9,7 +9,7 @@ param (
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 
 	..\apache\install.ps1 -ApacheVersion = $ApacheVersion
-	..\apache\setup.ps1 -ApacheVersion = $ApacheVersion
+	..\apache\setup.ps1 -ApacheVersion = $ApacheVersion -SetupType "Initial"
 	..\php\install.ps1 -PhpVersion = $PhpVersion
 	..\php\setup.ps1 -PhpVersion = $PhpVersion
 
