@@ -1,3 +1,8 @@
+param (
+	[String]
+	$InstallDir = "$env:LOCALAPPDATA\Programs\Java"
+)
+
 $urls = @(
 	"https://cdn.azul.com/zulu/bin/zulu13.29.9-ca-jdk13.0.2-win_x64.zip",
 	"https://cdn.azul.com/zulu/bin/zulu11.37.17-ca-jdk11.0.6-win_x64.zip",
@@ -8,8 +13,8 @@ $DownloadDir = "$env:ProgramData\InstSys\java"
 
 $default = "jdk13"
 
-if(-not (Test-Path -Path "$env:LOCALAPPDATA\Programs\Java")){
-	New-Item -ItemType "Directory" -Path "$env:LOCALAPPDATA\Programs\Java"
+if(-not (Test-Path -Path "$InstallDir")){
+	New-Item -ItemType "Directory" -Path "$InstallDir"
 }
 if(Test-Path -Path "$env:TEMP\JavaInst"){
 	Remove-Item -Recurse -Force -Path "$env:TEMP\JavaInst"
@@ -35,12 +40,13 @@ foreach($url in $urls){
 	}
 }
 try { 7z | Out-Null } catch {}
+<# Execute only if 7zip is available. #>
 if($?){
 	Get-ChildItem -Path "$env:TEMP\JavaInst" | ForEach-Object {
-		Move-Item -Path $_.FullName -Destination "$env:LOCALAPPDATA\Programs\Java"
+		Move-Item -Path $_.FullName -Destination "$InstallDir"
 		if($_.Name -like "*$default*"){
 			Write-Host -Object "Setting default to $($_.Name)"
-			[System.Environment]::SetEnvironmentVariable("PATH", [System.Environment]::GetEnvironmentVariable("PATH", "USER") + "$env:LOCALAPPDATA\Programs\Java\$($_.Name)\bin;", [System.EnvironmentVariableTarget]::User)
+			[System.Environment]::SetEnvironmentVariable("PATH", [System.Environment]::GetEnvironmentVariable("PATH", "USER") + "$InstallDir\$($_.Name)\bin;", [System.EnvironmentVariableTarget]::User)
 		}
 	}
 }
