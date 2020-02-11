@@ -27,6 +27,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	$apachebin = "httpd-$ApacheVersion-win64-VS16.zip"
 
 	if(-not (Test-Path -Path "$env:ProgramData\InstSys\apache\$apachebin")){
+		Write-Host -Object "Downloading from https://www.apachelounge.com/download/VS16/binaries/$apachebin"
 		Start-BitsTransfer -Source "https://www.apachelounge.com/download/VS16/binaries/$apachebin" -Destination "$env:ProgramData\InstSys\apache"
 	}
 
