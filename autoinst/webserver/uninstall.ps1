@@ -1,5 +1,5 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	Stop-Service -Name "Apachewebserver" -Force
+	Stop-Service -Name "Apache web server" -Force
 	Start-Process "sc.exe" -ArgumentList "delete","Apachewebserver"
 	if(Test-Path -Path "$env:ProgramFiles\Apache"){
 		Remove-Item -Path "$env:ProgramFiles\Apache" -Recurse -Force
