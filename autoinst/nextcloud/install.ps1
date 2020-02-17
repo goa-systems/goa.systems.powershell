@@ -1,5 +1,5 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$version = "2.6.2"
+	$version = "2.6.3"
 	$setup = "Nextcloud-$version-setup.exe"
 
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\nextcloud")){
