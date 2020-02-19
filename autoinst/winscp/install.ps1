@@ -13,21 +13,10 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		-Source "https://netcologne.dl.sourceforge.net/project/winscp/WinSCP/$vers/$setup" `
 		-Destination "$env:SystemDrive\ProgramData\InstSys\winscp\$setup"
 	}
-	
-$INI=@"
-[Setup]
-Lang=en
-Dir=C:\Program Files (x86)\WinSCP
-Group=(Default)
-NoIcons=0
-SetupType=custom
-Components=main,shellext,pageant
-Tasks=enableupdates,urlhandler,searchpath
-"@
-
-	Set-Content -Path "$env:SystemDrive\ProgramData\InstSys\winscp\winscp.ini" -Value $INI
+	$crlf = "`r`n"
+	$IniFileContent = "[Setup]${crlf}Lang=en${crlf}Dir=C:\Program Files (x86)\WinSCP${crlf}Group=(Default)${crlf}NoIcons=0${crlf}SetupType=custom${crlf}Components=main,shellext,pageant${crlf}Tasks=enableupdates,urlhandler,searchpath${crlf}"
+	Set-Content -Path "$env:SystemDrive\ProgramData\InstSys\winscp\winscp.ini" -Value $IniFileContent -NoNewline
 	Start-Process -Wait -FilePath "$env:SystemDrive\ProgramData\InstSys\winscp\$setup" -ArgumentList "/LOADINF=`"$env:SystemDrive\ProgramData\InstSys\winscp\winscp.ini`"","/SILENT","/ALLUSERS"
-	
 } else {
 	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }
