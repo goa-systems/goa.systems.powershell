@@ -1,7 +1,7 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$name="winmerge"
 	$apptitle="WinMerge"
-	$version="2.16.4"
+	$version="2.16.6"
 	$setup="winmerge-$version-x64-exe.zip"
 	$dlurl="https://netcologne.dl.sourceforge.net/project/winmerge/stable/$version/$setup"
 	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")) {
