@@ -17,7 +17,7 @@ function Get-UninstallCommands {
 	}
 
 	if( -not ([string]::IsNullOrEmpty($UninstString64))){
-		$UninstStrings[1] = $UninstStUninstString64ring32
+		$UninstStrings[1] = $UninstString64
 	}
 
 	return $UninstStrings
