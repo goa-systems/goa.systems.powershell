@@ -46,7 +46,11 @@ Remove-Item "$WorkingDirectory\Eclipse.zip"
 Remove-Item "$WorkingDirectory\Eclipse.tmp" -Recurse
 
 foreach($Plugin in $AdditionalPlugins){
-	Start-BitsTransfer -Source "$Plugin" -Destination "$WorkingDirectory\Eclipse\plugins"
+	try {
+		Start-BitsTransfer -Source "$Plugin" -Destination "$WorkingDirectory\Eclipse\plugins" -ErrorAction Stop
+	} catch {
+		Write-Error -Message "There has been a download error with the url ${Plugin}."
+	}
 }
 
 $ReposString = Convert-ArrayToString -StringArray $Repos
