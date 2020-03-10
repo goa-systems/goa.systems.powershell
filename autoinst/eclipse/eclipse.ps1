@@ -47,6 +47,7 @@ Remove-Item "$WorkingDirectory\Eclipse.tmp" -Recurse
 
 foreach($Plugin in $AdditionalPlugins){
 	try {
+		# Invoke-WebRequest -Uri "$Plugin" -OutFile "$WorkingDirectory\Eclipse\plugins"
 		Start-BitsTransfer -Source "$Plugin" -Destination "$WorkingDirectory\Eclipse\plugins" -ErrorAction Stop
 	} catch {
 		Write-Error -Message "There has been a download error with the url ${Plugin}."
@@ -77,43 +78,24 @@ foreach($Feature in $FeatureList){
 
 # 
 # Configure Workspace
-$WorkingDirectoryth = "$WorkingDirectory\WorkSpace\.metadata\.plugins\org.eclipse.core.runtime\.settings"
+$SettingsPath = "$WorkingDirectory\WorkSpace\.metadata\.plugins\org.eclipse.core.runtime\.settings"
 
-If (-Not (Test-Path -Path "$WorkingDirectoryth")) {
-	New-Item -ItemType Directory -Path "$WorkingDirectoryth"
+If (-Not (Test-Path -Path "$SettingsPath")) {
+	New-Item -ItemType Directory -Path "$SettingsPath"
 }
 
-# Disable theming and set to classic GUI
-$file = "org.eclipse.e4.ui.workbench.renderers.swt.prefs"
-Set-Content -Path "$WorkingDirectoryth\$file" -Value "eclipse.preferences.version=1"
-Add-Content -Path "$WorkingDirectoryth\$file" -Value "enableMRU=true"
-Add-Content -Path "$WorkingDirectoryth\$file" -Value "themeEnabled=false"
+$configfiles = @(
+	"org.eclipse.core.resources.prefs",
+	"org.eclipse.core.runtime.prefs",
+	"org.eclipse.e4.ui.workbench.renderers.swt.prefs",
+	"org.eclipse.ui.editors.prefs",
+	"org.eclipse.ui.ide.prefs",
+	"org.eclipse.ui.prefs"
+)
 
-# Set line separator to linux style
-$file = "org.eclipse.core.runtime.prefs"
-Set-Content -Path "$WorkingDirectoryth\$file" -Value "eclipse.preferences.version=1"
-Add-Content -Path "$WorkingDirectoryth\$file" -Value "line.separator=`\n"
-
-# Set workspace encoding to UTF-8
-$file = "org.eclipse.core.resources.prefs"
-Set-Content -Path "$WorkingDirectoryth\$file" -Value "eclipse.preferences.version=1"
-Add-Content -Path "$WorkingDirectoryth\$file" -Value "encoding=UTF-8"
-Add-Content -Path "$WorkingDirectoryth\$file" -Value "version=1"
-
-# Don't show confirmation dialog on exit
-$file = "org.eclipse.ui.ide.prefs"
-Set-Content -Path "$WorkingDirectoryth\$file" -Value "EXIT_PROMPT_ON_CLOSE_LAST_WINDOW=false"
-
-# Don't show welcome screen on first startup
-$file = "org.eclipse.ui.prefs"
-Set-Content -Path "$WorkingDirectoryth\$file" -Value "USE_COLORED_LABELS=false"
-Add-Content -Path "$WorkingDirectoryth\$file" -Value "eclipse.preferences.version=1"
-Add-Content -Path "$WorkingDirectoryth\$file" -Value "showIntro=false"
-
-# Show line numbering
-$file = "org.eclipse.ui.editors.prefs"
-Set-Content -Path "$WorkingDirectoryth\$file" -Value "eclipse.preferences.version=1"
-Add-Content -Path "$WorkingDirectoryth\$file" -Value "lineNumberRuler=true"
+foreach($file in $configfiles){
+	Copy-Item -Path "conf\$file" -Destination "$SettingsPath\$file"
+}
 
 # Start eclipse for further customization
 Start-Process -FilePath "$WorkingDirectory\Eclipse\eclipse.exe" -ArgumentList "-data","$WorkingDirectory\WorkSpace" -Wait
