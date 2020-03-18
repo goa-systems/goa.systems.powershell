@@ -3,7 +3,7 @@ param (
 	[String[]] $FeatureList = @("org.eclipse.epp.mpc.feature.group"),
 
 	# The repositories to download from. Default: Eclipse repos.
-	[String[]] $Repos = @("http://download.eclipse.org/releases/2019-12", "http://download.eclipse.org/eclipse/updates/4.14"),
+	[String[]] $Repos = @("http://download.eclipse.org/releases/2020-03", "http://download.eclipse.org/eclipse/updates/4.15"),
 
 	# The repositories to download from. Default: Eclipse repos.
 	[String[]] $AdditionalPlugins = @(),
@@ -12,7 +12,7 @@ param (
 	[String] $WorkingDirectory = "$env:ProgramData\InstSys\eclipse",
 
 	# The working directory. Default ProgramData\instsys\eclipse
-	[String] $EclipseUrl = "http://mirrors.uniri.hr/eclipse/eclipse/downloads/drops4/R-4.14-201912100610/eclipse-platform-4.14-win32-x86_64.zip"
+	[String] $EclipseUrl = "http://mirror.dkm.cz/eclipse/eclipse/downloads/drops4/R-4.15-202003050155/eclipse-SDK-4.15-win32-x86_64.zip"
 )
 
 function Convert-ArrayToString {

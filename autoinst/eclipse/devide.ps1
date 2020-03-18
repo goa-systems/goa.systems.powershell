@@ -40,10 +40,10 @@ $FeatureList = @(
 )
 
 $Repos = @(
-	"http://download.eclipse.org/releases/2019-12",
-	"http://download.eclipse.org/eclipse/updates/4.14",
-	"https://download.springsource.com/release/TOOLS/sts4/update/e4.14/",
-	"http://download.eclipse.org/buildship/updates/e411/releases/3.x",
+	"http://download.eclipse.org/releases/2020-03",
+	"http://download.eclipse.org/eclipse/updates/4.15",
+	"https://download.springsource.com/release/TOOLS/sts4/update/e4.15/",
+	"https://download.eclipse.org/buildship/updates/e414/releases/3.x",
 	"https://download.eclipse.org/egit/updates",
 	"http://jasperstudio.sourceforge.net/updates/",
 	"https://nodeclipse.github.io/updates/",
