@@ -20,7 +20,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	if ([string]::IsNullOrEmpty($uuid)) {
 		Write-Host -Object "Libreoffice installation not found. Exiting."
 	} else {
-		Start-Process "msiexec" -ArgumentList "/uninstall", "$uuid", "/passive" -Wait
+		Start-Process "msiexec" -ArgumentList "/uninstall", "$uuid", "/passive","/norestart" -Wait
 	}
 }
 else {
