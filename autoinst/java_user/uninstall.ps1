@@ -1,4 +1,4 @@
-$processes = @("java", "eclipse", "netbeans")
+$processes = @("java", "javaw", "eclipse", "netbeans")
 foreach($process in $processes){
 	Get-Process -Name "$process" -ErrorAction SilentlyContinue | Stop-Process -ErrorAction SilentlyContinue
 }

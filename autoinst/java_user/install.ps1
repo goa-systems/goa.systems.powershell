@@ -12,7 +12,7 @@ $urls = @(
 
 $DownloadDir = "$env:ProgramData\InstSys\java"
 
-$default = "jdk13"
+$default = "jdk14"
 
 if(-not (Test-Path -Path "$InstallDir")){
 	New-Item -ItemType "Directory" -Path "$InstallDir"
