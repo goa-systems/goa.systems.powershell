@@ -12,7 +12,10 @@ param (
 	[String] $WorkingDirectory = "$env:ProgramData\InstSys\eclipse",
 
 	# The working directory. Default ProgramData\instsys\eclipse
-	[String] $EclipseUrl = "http://mirror.dkm.cz/eclipse/eclipse/downloads/drops4/R-4.15-202003050155/eclipse-SDK-4.15-win32-x86_64.zip"
+	[String] $EclipseUrl = "http://mirror.dkm.cz/eclipse/eclipse/downloads/drops4/R-4.15-202003050155/eclipse-SDK-4.15-win32-x86_64.zip",
+
+	# Start eclipse to modify the working directory?
+	[Boolean] $ModifyWorkspace = $true
 )
 
 function Convert-ArrayToString {
@@ -51,6 +54,7 @@ foreach($Plugin in $AdditionalPlugins){
 	try {
 		# Invoke-WebRequest -Uri "$Plugin" -OutFile "$WorkingDirectory\Eclipse\plugins"
 		Start-BitsTransfer -Source "$Plugin" -Destination "$WorkingDirectory\Eclipse\plugins" -ErrorAction Stop
+		Start-Sleep -Seconds 2
 	} catch {
 		Write-Error -Message "There has been a download error with the url ${Plugin}."
 		<# If one error is thrown, the plugins are not installed correctly. #>
@@ -104,7 +108,9 @@ if($PluginInstallSuccess){
 	}
 
 	# Start eclipse for further customization
-	Start-Process -FilePath "$WorkingDirectory\Eclipse\eclipse.exe" -ArgumentList "-data","$WorkingDirectory\WorkSpace" -Wait
+	if($ModifyWorkspace){
+		Start-Process -FilePath "$WorkingDirectory\Eclipse\eclipse.exe" -ArgumentList "-data","$WorkingDirectory\WorkSpace" -Wait
+	}
 } else {
 	Write-Host -Object "Additional plugins were net installed successfully. Eclipse not configured."
 }

@@ -1,6 +1,9 @@
 param (
 	# The working directory. Default ProgramData\instsys\eclipse
-	[String] $WorkingDirectory = "javacomplete"
+	[String] $WorkingDirectory = "javacomplete",
+
+	# Start eclipse to modify the working directory?
+	[Boolean] $ModifyWorkspace = $true
 )
 
 $FeatureList = @(
@@ -61,7 +64,7 @@ $AdditionalPlugins = @(
 	"https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.activation_1.1.0.v201211130549.jar"
 )
 
-.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory "$WorkingDirectory" -AdditionalPlugins $AdditionalPlugins
+.\eclipse.ps1 -FeatureList $FeatureList -Repos $Repos -WorkingDirectory "$WorkingDirectory" -AdditionalPlugins $AdditionalPlugins -ModifyWorkspace $ModifyWorkspace
 
 $path = "$WorkingDirectory\WorkSpace\.metadata\.plugins\org.eclipse.core.runtime\.settings"
 
