@@ -13,14 +13,14 @@ if(-not (Test-Path -Path "$env:USERPROFILE\workspaces")){
 
 .\devide.ps1 -WorkingDirectory "$env:TEMP\DevIde" -ModifyWorkspace $false
 
-Move-Item -Path "$env:TEMP\DevIde\Eclipse" -Destination "$env:LOCALAPPDATA\Programs\Eclipse\4.16" -Force
-Move-Item -Path "$env:TEMP\DevIde\WorkSpace" -Destination "$env:USERPROFILE\workspaces\java_auto" -Force
+Move-Item -Path "$env:TEMP\DevIde\Eclipse" -Destination "$env:LOCALAPPDATA\Programs\Eclipse\4.15" -Force
+Move-Item -Path "$env:TEMP\DevIde\WorkSpace" -Destination "$env:USERPROFILE\workspaces\java" -Force
 
 ..\insttools\CreateShortcut.ps1 `
 -LinkName "Eclipse" `
--TargetPath "`"%LOCALAPPDATA%\Programs\Eclipse\4.16\eclipse.exe`"" `
--Arguments "-data `"%USERPROFILE%\workspaces\java_auto`"" `
--IconFile "%LOCALAPPDATA%\Programs\Eclipse\4.16\eclipse.exe" `
+-TargetPath "`"%LOCALAPPDATA%\Programs\Eclipse\4.15\eclipse.exe`"" `
+-Arguments "-data `"%USERPROFILE%\workspaces\java`"" `
+-IconFile "%LOCALAPPDATA%\Programs\Eclipse\4.15\eclipse.exe" `
 -IconId 0 `
 -Description "Eclipse IDE" `
 -WorkingDirectory "`"%UserProfile%`"" `
