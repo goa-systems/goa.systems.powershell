@@ -25,17 +25,17 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	SetupType=default
 	Components=ext,ext\shellhere,ext\guihere,gitlfs,assoc,assoc_sh
 	Tasks=
-	EditorOption=Notepad++
+	EditorOption=VIM
 	CustomEditorPath=
-	PathOption=Cmd
+	PathOption=BashOnly
 	SSHOption=OpenSSH
+	TortoiseOption=false
 	CURLOption=OpenSSL
-	CRLFOption=CRLFAlways
+	CRLFOption=CRLFCommitAsIs
 	BashTerminalOption=MinTTY
 	PerformanceTweaksFSCache=Enabled
 	UseCredentialManager=Enabled
-	EnableSymlinks=Disabled
-	EnableBuiltinInteractiveAdd=Disabled"
+	EnableSymlinks=Disabled"
 
 	Start-Process -Wait -FilePath "$env:SystemDrive\ProgramData\InstSys\git\$gitsetup" -ArgumentList "/SILENT","/LOADINF=$env:SystemDrive\ProgramData\InstSys\git\gitinst.inf"
 
