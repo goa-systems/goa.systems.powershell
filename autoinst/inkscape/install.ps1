@@ -1,6 +1,6 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$name = "inkscape"
-	$version = "0.92.4"
+	$version = "0.92.5"
 	$setup = "inkscape-${version}-x64.msi"
 	$dlurl = "https://media.inkscape.org/dl/resources/file/$setup"
 	
