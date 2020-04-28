@@ -1,7 +1,7 @@
 
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	
-	$fzsetup="FileZilla_3.47.2.1_win64-setup.exe"
+	$fzsetup="FileZilla_3.48.0_win64-setup.exe"
 
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\filezilla")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\filezilla" -ItemType "Directory"
@@ -12,6 +12,8 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		$pattern= "<a href=`"(.*)`" rel=`"nofollow`">$fzsetup</a>"
 		Invoke-WebRequest -Uri "https://filezilla-project.org/download.php?show_all=1" -OutFile "$env:TEMP\fzdl.html"
 		$dllink = (Select-String -Path "$env:TEMP\fzdl.html" -Pattern $pattern).Matches.Groups[1].Value.Trim()
+		Write-Host -Object "Downloading FileZilla."
+		$ProgressPreference = 'SilentlyContinue'
 		Invoke-WebRequest -Uri $dllink -OutFile "$env:SystemDrive\ProgramData\InstSys\filezilla\$fzsetup"
 		Remove-Item -Path "$env:TEMP\fzdl.html"
 	}
