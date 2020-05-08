@@ -1,6 +1,6 @@
 param (
 	# The certificate file.
-	[String] $ApacheVersion = "2.4.41"
+	[String] $ApacheVersion = "2.4.43"
 )
 
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
