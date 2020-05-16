@@ -1,6 +1,6 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$vboxvers = "6.1.6"
-	$vboxversrev = "$vboxvers-137129"
+	$vboxvers = "6.1.8"
+	$vboxversrev = "$vboxvers-137981"
 	$vboxsetup = "VirtualBox-$vboxversrev-Win.exe"
 	$vboxexpacksetup = "Oracle_VM_VirtualBox_Extension_Pack-$vboxvers.vbox-extpack"
 	
