@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oor:items xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<item oor:path="/org.openoffice.Office.Calc/Layout/Other/MeasureUnit"><prop oor:name="Metric" oor:op="fuse"><value>2</value></prop></item>
+<item oor:path="/org.openoffice.Office.Common/Help"><prop oor:name="BuiltInHelpNotInstalledPopUp" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.Common/Help"><prop oor:name="ExtendedTip" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.Common/Misc"><prop oor:name="ShowTipOfTheDay" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>elementary</value></prop></item>
+<item oor:path="/org.openoffice.Office.Draw/Layout/Other/MeasureUnit"><prop oor:name="Metric" oor:op="fuse"><value>2</value></prop></item>
+<item oor:path="/org.openoffice.Office.Draw/Layout/Other/TabStop"><prop oor:name="Metric" oor:op="fuse"><value>1250</value></prop></item>
+<item oor:path="/org.openoffice.Office.Impress/Layout/Other/MeasureUnit"><prop oor:name="Metric" oor:op="fuse"><value>2</value></prop></item>
+<item oor:path="/org.openoffice.Office.Impress/Layout/Other/TabStop"><prop oor:name="Metric" oor:op="fuse"><value>1250</value></prop></item>
+<item oor:path="/org.openoffice.Office.Linguistic/General"><prop oor:name="DefaultLocale" oor:op="fuse"><value>de-AT</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.CalcWindowState/UIElements/States/org.openoffice.Office.UI.WindowState:WindowStateType['private:resource/toolbar/formatobjectbar']"><prop oor:name="Visible" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.CalcWindowState/UIElements/States/org.openoffice.Office.UI.WindowState:WindowStateType['private:resource/toolbar/standardbar']"><prop oor:name="Visible" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.DrawWindowState/UIElements/States/org.openoffice.Office.UI.WindowState:WindowStateType['private:resource/toolbar/standardbar']"><prop oor:name="Visible" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.DrawWindowState/UIElements/States/org.openoffice.Office.UI.WindowState:WindowStateType['private:resource/toolbar/toolbar']"><prop oor:name="Visible" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.ImpressWindowState/UIElements/States/org.openoffice.Office.UI.WindowState:WindowStateType['private:resource/toolbar/commontaskbar']"><prop oor:name="Visible" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.ImpressWindowState/UIElements/States/org.openoffice.Office.UI.WindowState:WindowStateType['private:resource/toolbar/standardbar']"><prop oor:name="Visible" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.ImpressWindowState/UIElements/States/org.openoffice.Office.UI.WindowState:WindowStateType['private:resource/toolbar/toolbar']"><prop oor:name="Visible" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.Sidebar/Content"><prop oor:name="LastActiveDeck" oor:op="fuse"><value><it>any,PropertyDeck</it><it>com.sun.star.drawing.DrawingDocument,PropertyDeck</it><it>com.sun.star.presentation.PresentationDocument,PropertyDeck</it><it>com.sun.star.sheet.SpreadsheetDocument,PropertyDeck</it><it>com.sun.star.text.TextDocument,PropertyDeck</it></value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.Sidebar/Content/PanelList/org.openoffice.Office.UI.Sidebar:Panel['SlideBackgroundPanel']/Title"><value xml:lang="en-US">Page</value></item>
+<item oor:path="/org.openoffice.Office.UI.ToolbarMode/Applications/org.openoffice.Office.UI.ToolbarMode:Application['Calc']"><prop oor:name="Active" oor:op="fuse"><value>notebookbar.ui</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.ToolbarMode/Applications/org.openoffice.Office.UI.ToolbarMode:Application['Calc']/Modes/org.openoffice.Office.UI.ToolbarMode:ModeEntry['Tabbed']"><prop oor:name="HasMenubar" oor:op="fuse"><value>true</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.ToolbarMode/Applications/org.openoffice.Office.UI.ToolbarMode:Application['Draw']"><prop oor:name="Active" oor:op="fuse"><value>notebookbar.ui</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.ToolbarMode/Applications/org.openoffice.Office.UI.ToolbarMode:Application['Draw']/Modes/org.openoffice.Office.UI.ToolbarMode:ModeEntry['Tabbed']"><prop oor:name="HasMenubar" oor:op="fuse"><value>true</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.ToolbarMode/Applications/org.openoffice.Office.UI.ToolbarMode:Application['Impress']"><prop oor:name="Active" oor:op="fuse"><value>notebookbar.ui</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.ToolbarMode/Applications/org.openoffice.Office.UI.ToolbarMode:Application['Impress']/Modes/org.openoffice.Office.UI.ToolbarMode:ModeEntry['Tabbed']"><prop oor:name="HasMenubar" oor:op="fuse"><value>true</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.ToolbarMode/Applications/org.openoffice.Office.UI.ToolbarMode:Application['Writer']"><prop oor:name="Active" oor:op="fuse"><value>notebookbar.ui</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.ToolbarMode/Applications/org.openoffice.Office.UI.ToolbarMode:Application['Writer']/Modes/org.openoffice.Office.UI.ToolbarMode:ModeEntry['Tabbed']"><prop oor:name="HasMenubar" oor:op="fuse"><value>true</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.WriterWindowState/UIElements/States/org.openoffice.Office.UI.WindowState:WindowStateType['private:resource/toolbar/standardbar']"><prop oor:name="Visible" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.WriterWindowState/UIElements/States/org.openoffice.Office.UI.WindowState:WindowStateType['private:resource/toolbar/textobjectbar']"><prop oor:name="Visible" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.Writer/Layout/Other"><prop oor:name="MeasureUnit" oor:op="fuse"><value>2</value></prop></item>
+<item oor:path="/org.openoffice.Setup/L10N"><prop oor:name="DateAcceptancePatterns" oor:op="fuse"><value>D.M.Y;D.M.</value></prop></item>
+<item oor:path="/org.openoffice.Setup/L10N"><prop oor:name="ooSetupSystemLocale" oor:op="fuse"><value>de-AT</value></prop></item>
+<item oor:path="/org.openoffice.UserProfile/Data"><prop oor:name="st" oor:op="fuse"><value></value></prop></item>
+</oor:items>
