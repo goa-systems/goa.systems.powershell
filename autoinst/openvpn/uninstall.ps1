@@ -1,6 +1,6 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	. $PSScriptRoot\..\insttools\UninstallTools.ps1
-	Stop-Processes -ProcessNames @("vivaldi","update_notifier")
+	Stop-Processes -ProcessNames @("openvpn-gui","openvpnserv2","openvpnserv")
 	
 	foreach ($UninstCommand in (Get-UninstallCommands -ApplicationName "OpenVPN" -UninstallProperty "UninstallString")) {
 
