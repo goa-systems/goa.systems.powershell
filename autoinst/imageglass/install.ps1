@@ -1,7 +1,7 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 
-	$version = "7.5.1.1"
-	$dlversion = $version.Replace(".","-") + "-40"
+	$version = "7.6.4.30"
+	$dlversion = $version.Replace(".","-") + "-44"
 	$setup = "ImageGlass_${version}_x64.msi"
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\imageglass")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\imageglass" -ItemType "Directory"
