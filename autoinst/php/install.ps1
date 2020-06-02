@@ -21,7 +21,10 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	$phpbin = "php-$PhpVersion-Win32-vc15-x64.zip"
 
 	if(-not (Test-Path -Path "$env:ProgramData\InstSys\php\$phpbin")){
-		Start-BitsTransfer -Source "https://windows.php.net/downloads/releases/$phpbin" -Destination "$env:ProgramData\InstSys\php"
+		$ProgressPreference = 'SilentlyContinue'
+		Write-Host -Object "Starting php download."
+		Invoke-WebRequest -Uri "https://windows.php.net/downloads/releases/$phpbin" -OutFile "$env:ProgramData\InstSys\php/$phpbin"
+		Write-Host -Object "Php download done."
 	}
 
 	Expand-Archive -Path "$env:ProgramData\InstSys\php\$phpbin" -DestinationPath "$env:ProgramData\InstSys\php\php"
