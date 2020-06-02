@@ -1,6 +1,6 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 
-	$peazipvers = "7.3.0"
+	$peazipvers = "7.3.1"
 	$peazipsetup = "peazip-$peazipvers.WIN64.exe"
 
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\peazip")){
