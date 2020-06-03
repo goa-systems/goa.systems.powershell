@@ -1,5 +1,5 @@
-$Vers1 = "81.0.4044.138"
-$Vers2 = "r737173"
+$Vers1 = "83.0.4103.61"
+$Vers2 = "r756066"
 $Vers3 = "1"
 $FolderName = "ungoogled-chromium-${Vers1}-${Vers3}_windows"
 $OutFile = "$FolderName.7z"
