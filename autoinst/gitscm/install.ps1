@@ -1,7 +1,7 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 
 	$subversion=".1"
-	$gitvers = "2.26.2"
+	$gitvers = "2.27.0"
 	$gitsetup = "Git-$gitvers-64-bit.exe"
 
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\git")){
@@ -27,7 +27,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	Tasks=
 	EditorOption=VIM
 	CustomEditorPath=
-	PathOption=BashOnly
+	PathOption=Cmd
 	SSHOption=OpenSSH
 	TortoiseOption=false
 	CURLOption=OpenSSL
