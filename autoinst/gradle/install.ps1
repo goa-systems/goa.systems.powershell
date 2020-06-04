@@ -3,7 +3,7 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\Gradle"
 )
 
-$FileName = "gradle-6.4.1-bin.zip"
+$FileName = "gradle-6.5-bin.zip"
 $Url = "https://services.gradle.org/distributions/$FileName"
 
 $DownloadDir = "$env:ProgramData\InstSys\gradle"
