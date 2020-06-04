@@ -23,6 +23,18 @@ function Get-UninstallCommands {
 	return $UninstStrings
 }
 
+function Get-UninstallCommandsUser {
+	param (
+		[String]
+		$ApplicationName,
+
+		[String]
+		$UninstallProperty
+	)
+
+	return (Get-ChildItem -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" | Get-ItemProperty | Where-Object { $_.DisplayName -match $ApplicationName } | Select-Object -ExpandProperty $UninstallProperty)
+}
+
 function Stop-Processes {
 	param (
 		[String[]]
