@@ -21,6 +21,7 @@ if(Test-Path -Path "$InstallDir\$Version"){
 	if(-not (Test-Path -Path "$InstallDir")){
 		New-Item -ItemType "Directory" -Path "$InstallDir"
 	}
+	
 	if(Test-Path -Path "$env:TEMP\IntelliJInst"){
 		Remove-Item -Recurse -Force -Path "$env:TEMP\IntelliJInst"
 	}
