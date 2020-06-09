@@ -1,16 +1,21 @@
 
-try { gradle | Out-Null } catch {}
+try { "gradle --version" | Out-Null } catch {}
 if(-not ($?)){
 	Write-Host -Object "Gradle not installed."
 } else {
 	Write-Host -Object "Gradle installed. Trying to stop all deamons."
 	Start-Process -FilePath "gradle" -ArgumentList "--stop" -Wait
-}
-
-# Delete directories
-$TargetPath = "$env:LOCALAPPDATA\Programs\Gradle"
-if(Test-Path -Path "$TargetPath"){
-	Remove-Item -Recurse -Force -Path "$TargetPath"
+	Write-Host -Object "Removing folder ..."
+	do {
+		try {
+			Remove-Item -Path "$env:LOCALAPPDATA\Programs\Gradle" -Recurse -Force -ErrorAction Stop
+			$ErrorOccured = $False
+		} catch {
+			$ErrorOccured = $True
+			Start-Sleep -Seconds 4
+		}
+	} while ($ErrorOccured)
+	Write-Host -Object "Folder removed."
 }
 
 # Remove Gradle from path

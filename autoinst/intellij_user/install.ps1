@@ -4,7 +4,7 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\IntelliJ",
 	
 	[String]
-	$Version = "2020.1.1"
+	$Version = "2020.1.2"
 )
 
 $FileName = "ideaIC-$Version.win.zip"
@@ -21,6 +21,7 @@ if(Test-Path -Path "$InstallDir\$Version"){
 	if(-not (Test-Path -Path "$InstallDir")){
 		New-Item -ItemType "Directory" -Path "$InstallDir"
 	}
+	
 	if(Test-Path -Path "$env:TEMP\IntelliJInst"){
 		Remove-Item -Recurse -Force -Path "$env:TEMP\IntelliJInst"
 	}
