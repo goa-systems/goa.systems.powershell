@@ -4,7 +4,7 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\Netbeans",
 	
 	[String]
-	$Version = "11.3"
+	$Version = "12.0"
 )
 
 $FileName = "netbeans-$Version-bin.zip"
