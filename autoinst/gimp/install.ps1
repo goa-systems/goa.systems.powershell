@@ -1,5 +1,5 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$gimpssetup="gimp-2.10.18-setup-2.exe"
+	$gimpssetup="gimp-2.10.20-setup.exe"
 
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\gimp")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\gimp" -ItemType "Directory"
