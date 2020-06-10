@@ -1,14 +1,11 @@
 param (
 	# The apache version
-	[Parameter (Mandatory=$false)]
-	[String] $ApacheVersion = "2.4.41",
+	[String] $ApacheVersion = "2.4.43",
 
 	# port to listen on
-	[Parameter (Mandatory=$false)]
 	[String] $ListeningPort = "80",
 
 	# Make initial setup
-	[Parameter (Mandatory=$true)]
 	[String] $SetupType = "Initial"
 )
 

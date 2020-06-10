@@ -24,6 +24,12 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		New-Item -ItemType "Directory" -Path "$env:ProgramFiles\Apache"
 	}
 
+	<# Verify, that VCRedist is installed. #>
+	if (-Not (Test-Path -Path "HKLM:\SOFTWARE\Classes\Installer\Dependencies\VC,redist*")) {
+		Start-BitsTransfer -Source "https://aka.ms/vs/16/release/vc_redist.x64.exe" -Destination "$env:ProgramData\InstSys\apache\vc_redist.x64.exe"
+		Start-Process -FilePath "$env:ProgramData\InstSys\apache\vc_redist.x64.exe" -ArgumentList @("/install","/passive","/norestart") -Wait
+	}
+
 	$apachebin = "httpd-$ApacheVersion-win64-VS16.zip"
 
 	if(-not (Test-Path -Path "$env:ProgramData\InstSys\apache\$apachebin")){
