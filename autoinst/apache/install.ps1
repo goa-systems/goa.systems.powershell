@@ -46,17 +46,13 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	}
 	Remove-Item -Recurse -Path "$env:ProgramData\InstSys\apache\apache"
 
+	New-NetFirewallRule -DisplayName "Allow Apache" -Profile Any -Program "$env:ProgramFiles\Apache\$ApacheVersion\bin\httpd.exe" -Action Allow
+
 	# Reconfigure Apache for new versions
 	if(Test-Path -Path "$env:ProgramData\Apache\conf\httpd.conf") {
-		Get-Content "$env:ProgramData\Apache\conf\httpd.conf" | ForEach-Object {
-			if($_ -match 'Define SRVROOT *'){
-				Add-Content -Path "$env:ProgramData\Apache\conf\httpd.conf.new" -Value "Define SRVROOT `"C:/Program Files/Apache/$ApacheVersion`""
-			} else {
-				Add-Content -Path "$env:ProgramData\Apache\conf\httpd.conf.new" -Value $_
-			}
-		}
-		Remove-Item -Path "$env:ProgramData\Apache\conf\httpd.conf"
-		Move-Item -Path "$env:ProgramData\Apache\conf\httpd.conf.new" -Destination "$env:ProgramData\Apache\conf\httpd.conf"
+		.\setup.ps1 -ApacheVersion $ApacheVersion -SetupType "Update"
+	} else {
+		.\setup.ps1 -ApacheVersion $ApacheVersion -SetupType "Initial"
 	}
 } else {
 	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)","-ApacheVersion","`"$ApacheVersion`"" -Wait -Verb RunAs

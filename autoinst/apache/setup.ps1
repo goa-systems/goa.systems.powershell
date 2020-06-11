@@ -2,9 +2,6 @@ param (
 	# The apache version
 	[String] $ApacheVersion = "2.4.43",
 
-	# port to listen on
-	[String] $ListeningPort = "80",
-
 	# Make initial setup
 	[String] $SetupType = "Initial"
 )
@@ -12,6 +9,7 @@ param (
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	
 	if($SetupType -eq "initial"){
+		
 		New-Item -ItemType "Directory" -Path "$env:ProgramData\Apache"
 		New-Item -ItemType "Directory" -Path "$env:ProgramData\Apache\conf"
 		New-Item -ItemType "Directory" -Path "$env:ProgramData\Apache\www"
@@ -24,7 +22,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 			} elseif($_ -match '<Directory "\${SRVROOT}/htdocs"'){
 				Add-Content -Path "$env:ProgramData\Apache\conf\httpd.conf.new" -Value "<Directory `"$env:ProgramData\Apache\www`">"
 			} elseif($_ -match 'Listen 80'){
-				Add-Content -Path "$env:ProgramData\Apache\conf\httpd.conf.new" -Value "Listen $ListeningPort"
+				Add-Content -Path "$env:ProgramData\Apache\conf\httpd.conf.new" -Value "Listen 80"
 			} else {
 				Add-Content -Path "$env:ProgramData\Apache\conf\httpd.conf.new" -Value $_
 			}
@@ -32,15 +30,19 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		Remove-Item -Path "$env:ProgramData\Apache\conf\httpd.conf"
 		Move-Item -Path "$env:ProgramData\Apache\conf\httpd.conf.new" -Destination "$env:ProgramData\Apache\conf\httpd.conf"
 		Start-Process -FilePath "$env:ProgramFiles\Apache\$ApacheVersion\bin\httpd.exe" -ArgumentList "-k","install","-n","`"Apache web server`"","-f","`"$env:ProgramData\Apache\conf\httpd.conf`"" -Wait
+		Set-Content -Path "$env:ProgramData\Apache\www\index.html" -Value "<!DOCTYPE html><html><head><title>It works</title></head><body>The installation was successful.</body></html>"
 		Start-Service -Name "Apache web server"
+
 	} elseif ($SetupType -eq "Update") {
+
+		Stop-Service -Name "Apache web server"
+
 		# Just reconfigure the path to the apache installation.
 		Get-Content "$env:ProgramData\Apache\conf\httpd.conf" | ForEach-Object {
 			if($_ -match 'Define SRVROOT *'){
 				Add-Content -Path "$env:ProgramData\Apache\conf\httpd.conf.new" -Value "Define SRVROOT `"C:/Program Files/Apache/$ApacheVersion`""
 			}
 		}
-		Stop-Service -Name "Apache web server"
 		Remove-Item -Path "$env:ProgramData\Apache\conf\httpd.conf"
 		Move-Item -Path "$env:ProgramData\Apache\conf\httpd.conf.new" -Destination "$env:ProgramData\Apache\conf\httpd.conf"
 		Start-Service -Name "Apache web server"
