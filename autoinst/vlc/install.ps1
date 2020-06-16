@@ -12,7 +12,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		New-ItemProperty -Path $registryPath -Name $registryKey -Value $registryVal -PropertyType "String" -Force
 	}
 	
-	$vlcvers = "3.0.10"
+	$vlcvers = "3.0.11"
 	$vlcsetup = "vlc-$vlcvers-win64.exe"
 	
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\vlc")){
