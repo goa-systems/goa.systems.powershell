@@ -47,7 +47,10 @@ if($?){
 		Move-Item -Path $_.FullName -Destination "$InstallDir"
 		if($_.Name -like "*$default*"){
 			Write-Host -Object "Setting default to $($_.Name)"
-			[System.Environment]::SetEnvironmentVariable("PATH", [System.Environment]::GetEnvironmentVariable("PATH", "USER") + "$InstallDir\$($_.Name)\bin;", [System.EnvironmentVariableTarget]::User)
+			$CurrentPath = [System.Environment]::GetEnvironmentVariable("PATH", "USER")
+			<# Add a trailing semicolon if it is missing at the end. #>
+			if ($CurrentPath -notmatch ';$') { $CurrentPath += ';' }
+			[System.Environment]::SetEnvironmentVariable("PATH", $CurrentPath + "$InstallDir\$($_.Name)\bin;", [System.EnvironmentVariableTarget]::User)
 		}
 	}
 }
