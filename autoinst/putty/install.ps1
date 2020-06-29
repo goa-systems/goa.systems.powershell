@@ -1,5 +1,5 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$vers = "0.73"
+	$vers = "0.74"
 	$setup = "putty-64bit-$vers-installer.msi"
 	
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\putty")){
