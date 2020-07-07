@@ -3,7 +3,10 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\Gradle"
 )
 
-$FileName = "gradle-6.5-bin.zip"
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$J = Invoke-WebRequest 'https://services.gradle.org/versions/current' | ConvertFrom-Json
+
+$FileName = "gradle-$($J.version)-bin.zip"
 $Url = "https://services.gradle.org/distributions/$FileName"
 
 $DownloadDir = "$env:ProgramData\InstSys\gradle"
