@@ -1,7 +1,7 @@
 param (
 	# The features to install. Default: Marketplace client.
 	[String[]] $FeatureList = @(
-		"org.eclipse.epp.mpc.feature.group"
+		"org.eclipse.cdt.feature.group"
 		),
 
 	# The repositories to download from. Default: Eclipse repos.
@@ -117,7 +117,7 @@ if($PluginInstallSuccess){
 		foreach($file in $configfiles){
 			Copy-Item -Path "conf\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs" -Destination "$SettingsPath\$file"
 		}
-		
+
 		# Enable automatic updates
 		Copy-Item -Path "conf\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs" -Destination "$UpdateConfPath\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs"
 	}

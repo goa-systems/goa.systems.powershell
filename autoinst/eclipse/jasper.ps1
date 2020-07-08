@@ -1,17 +1,25 @@
 param (
 	# The features to install. Default: Marketplace client.
 	[String[]] $FeatureList = @(
-		"org.eclipse.epp.mpc.feature.group"
+		"com.jaspersoft.studio.feature.feature.group"
 		),
 
 	# The repositories to download from. Default: Eclipse repos.
 	[String[]] $Repos = @(
 		"http://download.eclipse.org/releases/2020-06",
-		"http://download.eclipse.org/eclipse/updates/4.16"
+		"http://download.eclipse.org/eclipse/updates/4.16",
+		"http://jasperstudio.sourceforge.net/updates"
 		),
 
 	# The repositories to download from. Default: Eclipse repos.
-	[String[]] $AdditionalPlugins = @(),
+	[String[]] $AdditionalPlugins = @(
+		"https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/org.apache.commons.pool_1.6.0.v201204271246.jar",
+		"https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/org.apache.commons.dbcp_1.4.0.v201204271417.jar",
+		"https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.transaction_1.1.1.v201105210645.jar",
+		"https://download.eclipse.org/releases/2019-09/201909181001/plugins/org.eclipse.wb.swt_1.9.1.201812270937.jar",
+		"https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.xml.bind_2.2.0.v201105210648.jar",
+		"https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.activation_1.1.0.v201211130549.jar"
+	),
 
 	# The working directory. Default ProgramData\instsys\eclipse
 	[String] $WorkingDirectory = "$env:ProgramData\InstSys\eclipse",
@@ -117,7 +125,7 @@ if($PluginInstallSuccess){
 		foreach($file in $configfiles){
 			Copy-Item -Path "conf\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs" -Destination "$SettingsPath\$file"
 		}
-		
+
 		# Enable automatic updates
 		Copy-Item -Path "conf\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs" -Destination "$UpdateConfPath\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs"
 	}

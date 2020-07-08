@@ -1,13 +1,20 @@
 param (
 	# The features to install. Default: Marketplace client.
 	[String[]] $FeatureList = @(
-		"org.eclipse.epp.mpc.feature.group"
+		"org.springframework.tooling.bosh.ls.feature.feature.group",
+		"org.springframework.tooling.cloudfoundry.manifest.ls.feature.feature.group",
+		"org.springframework.tooling.concourse.ls.feature.feature.group",
+		"org.springframework.tooling.boot.ls.feature.feature.group",
+		"org.springframework.ide.eclipse.boot.dash.feature.feature.group",
+		"org.springframework.boot.ide.main.feature.feature.group",
+		"org.springframework.ide.eclipse.xml.namespaces.feature.feature.group"
 		),
 
 	# The repositories to download from. Default: Eclipse repos.
 	[String[]] $Repos = @(
 		"http://download.eclipse.org/releases/2020-06",
-		"http://download.eclipse.org/eclipse/updates/4.16"
+		"http://download.eclipse.org/eclipse/updates/4.16",
+		"https://download.springsource.com/release/TOOLS/sts4/update/e4.16"
 		),
 
 	# The repositories to download from. Default: Eclipse repos.
@@ -117,7 +124,7 @@ if($PluginInstallSuccess){
 		foreach($file in $configfiles){
 			Copy-Item -Path "conf\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs" -Destination "$SettingsPath\$file"
 		}
-		
+
 		# Enable automatic updates
 		Copy-Item -Path "conf\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs" -Destination "$UpdateConfPath\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs"
 	}

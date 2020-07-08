@@ -1,13 +1,24 @@
 param (
 	# The features to install. Default: Marketplace client.
 	[String[]] $FeatureList = @(
-		"org.eclipse.epp.mpc.feature.group"
+		"org.sonarlint.eclipse.feature.feature.group",
+		"org.eclipse.epp.mpc.feature.group",
+		"org.jkiss.dbeaver.ide.feature.feature.group",
+		"org.jkiss.dbeaver.debug.feature.feature.group",
+		"org.jkiss.dbeaver.git.feature.feature.group",
+		"org.jkiss.dbeaver.ext.office.feature.feature.group",
+		"org.jkiss.dbeaver.net.sshj.feature.feature.group",
+		"org.jkiss.dbeaver.ext.ui.svg.feature.feature.group"
 		),
 
 	# The repositories to download from. Default: Eclipse repos.
 	[String[]] $Repos = @(
 		"http://download.eclipse.org/releases/2020-06",
-		"http://download.eclipse.org/eclipse/updates/4.16"
+		"http://download.eclipse.org/eclipse/updates/4.16",
+		"https://eclipse-uc.sonarlint.org",
+		"https://dbeaver.io/update/latest/",
+		"https://dbeaver.io/update/office/latest/",
+		"https://dbeaver.io/update/git/latest/"
 		),
 
 	# The repositories to download from. Default: Eclipse repos.
@@ -117,7 +128,7 @@ if($PluginInstallSuccess){
 		foreach($file in $configfiles){
 			Copy-Item -Path "conf\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs" -Destination "$SettingsPath\$file"
 		}
-		
+
 		# Enable automatic updates
 		Copy-Item -Path "conf\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs" -Destination "$UpdateConfPath\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs"
 	}

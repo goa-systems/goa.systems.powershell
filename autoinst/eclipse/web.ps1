@@ -1,7 +1,18 @@
 param (
 	# The features to install. Default: Marketplace client.
 	[String[]] $FeatureList = @(
-		"org.eclipse.epp.mpc.feature.group"
+		"org.eclipse.wst.xsl.feature.feature.group",
+		"org.eclipse.wst.xml_ui.feature.feature.group",
+		"org.eclipse.wst.web_ui.feature.feature.group",
+		"org.eclipse.wst.jsdt.feature.feature.group",
+		"org.eclipse.wst.server_adapters.feature.feature.group",
+		"org.eclipse.jst.ws.jaxws.dom.feature.feature.group",
+		"org.eclipse.jst.ws.jaxws.feature.feature.group",
+		"org.eclipse.jst.server_adapters.feature.feature.group",
+		"org.eclipse.jst.server_adapters.ext.feature.feature.group",
+		"org.eclipse.jst.server_ui.feature.feature.group",
+		"org.eclipse.jst.web_ui.feature.feature.group",
+		"org.eclipse.jst.enterprise_ui.feature.feature.group"
 		),
 
 	# The repositories to download from. Default: Eclipse repos.
@@ -117,7 +128,7 @@ if($PluginInstallSuccess){
 		foreach($file in $configfiles){
 			Copy-Item -Path "conf\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs" -Destination "$SettingsPath\$file"
 		}
-		
+
 		# Enable automatic updates
 		Copy-Item -Path "conf\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs" -Destination "$UpdateConfPath\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs"
 	}

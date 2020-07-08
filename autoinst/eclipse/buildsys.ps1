@@ -1,13 +1,17 @@
 param (
 	# The features to install. Default: Marketplace client.
 	[String[]] $FeatureList = @(
-		"org.eclipse.epp.mpc.feature.group"
+		"org.eclipse.buildship.feature.group",
+		"org.nodeclipse.enide.editors.gradle.feature.feature.group",
+		"org.eclipse.m2e.wtp.feature.feature.group"
 		),
 
 	# The repositories to download from. Default: Eclipse repos.
 	[String[]] $Repos = @(
 		"http://download.eclipse.org/releases/2020-06",
-		"http://download.eclipse.org/eclipse/updates/4.16"
+		"http://download.eclipse.org/eclipse/updates/4.16",
+		"https://download.eclipse.org/buildship/updates/e415/releases/3.x",
+		"https://nodeclipse.github.io/updates/"
 		),
 
 	# The repositories to download from. Default: Eclipse repos.
@@ -117,7 +121,7 @@ if($PluginInstallSuccess){
 		foreach($file in $configfiles){
 			Copy-Item -Path "conf\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs" -Destination "$SettingsPath\$file"
 		}
-		
+
 		# Enable automatic updates
 		Copy-Item -Path "conf\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs" -Destination "$UpdateConfPath\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs"
 	}
