@@ -1,8 +1,6 @@
 param (
 	# The features to install. Default: Marketplace client.
 	[String[]] $FeatureList = @(
-		"org.sonarlint.eclipse.feature.feature.group",
-		"org.eclipse.epp.mpc.feature.group",
 		"org.jkiss.dbeaver.ide.feature.feature.group",
 		"org.jkiss.dbeaver.debug.feature.feature.group",
 		"org.jkiss.dbeaver.git.feature.feature.group",
