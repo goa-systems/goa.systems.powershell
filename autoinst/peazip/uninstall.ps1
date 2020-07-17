@@ -49,6 +49,16 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 			}
 		}
 	}
+
+	# Remove Gradle from path
+	$pathvars = ([System.Environment]::GetEnvironmentVariable("PATH","Machine")) -split ";"
+	$NewPath = ""
+	foreach($pathvar in $pathvars){
+		if( -not ($pathvar -like "*PeaZip*") -and -not [string]::IsNullOrEmpty($pathvar)){
+			$NewPath += "${pathvar};"
+		}
+	}
+	[System.Environment]::SetEnvironmentVariable("PATH", $NewPath, [System.EnvironmentVariableTarget]::Machine)
 } else {
 	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }
