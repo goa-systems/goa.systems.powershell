@@ -32,7 +32,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		}
 		else {
 			Write-Host -Object "Uninststring found $uninststring"
-			Start-Process -FilePath "$uninststring" -ArgumentList "/S"
+			Start-Process -Wait -FilePath "$uninststring" -ArgumentList "/S"
 		}
 	}
 }
