@@ -1,6 +1,6 @@
-$Vers1 = "83.0.4103.61"
-$Vers2 = "r756066"
-$Vers3 = "1"
+$Vers1 = "84.0.4147.89"
+$Vers2 = "r768962"
+$Vers3 = "2"
 $FolderName = "ungoogled-chromium-${Vers1}-${Vers3}_windows"
 $OutFile = "$FolderName.7z"
 $OutPath = "$env:SystemDrive\ProgramData\InstSys\chromium\$OutFile"
@@ -12,11 +12,13 @@ If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\chromium")){
 }
 
 if( -Not (Test-Path -Path "$OutPath")){
+	Write-Host -Object "Downloading from $Url"
 	$ProgressPreference = 'SilentlyContinue'
 	Invoke-WebRequest -Uri "$Url" -OutFile "$OutPath"
+	Write-Host -Object "Download done"
 }
 
-try { 7z | Out-Null } catch {}
+try { 7z.exe | Out-Null } catch {}
 if(-not ($?)){
 	Write-Host -Object "Can not find 7z.exe. Please check your global path and rerun installer."
 	Start-Sleep -s 10
