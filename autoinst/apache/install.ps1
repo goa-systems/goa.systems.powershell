@@ -1,5 +1,5 @@
 param (
-	# The certificate file.
+	# Current apache version
 	[String] $ApacheVersion = "2.4.43"
 )
 
