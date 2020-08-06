@@ -1,8 +1,7 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$name = "libreoffice"
 	$version = "7.0.0"
-	$revision = "3"
-	$setup = "LibreOffice_${version}.${revision}_Win_x64.msi"
+	$setup = "LibreOffice_${version}_Win_x64.msi"
 	$dlurl = "https://ftp.gwdg.de/pub/tdf/libreoffice/stable/$version/win/x86_64/$setup"
 
 	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")) {
