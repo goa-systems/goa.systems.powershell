@@ -18,7 +18,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	}
 	$uuid = Get-Uuid
 	if ([string]::IsNullOrEmpty($uuid)) {
-		Write-Host -Object "Mixxx installation not found. Exiting."
+		Write-Host -Object "Blender installation not found. Exiting."
 	} else {
 		foreach ($uid in $uuid) {
 			Start-Process "msiexec" -ArgumentList @("/uninstall","$uid","/passive","/norestart") -Wait

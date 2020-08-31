@@ -1,6 +1,6 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$MajorVersion = "2.83"
-	$MinorVersion = "5"
+	$MajorVersion = "2.90"
+	$MinorVersion = "0"
 	$SetupFile = "blender-$MajorVersion.$MinorVersion-windows64.msi"
 	$DownloadUrl = "https://ftp.nluug.nl/pub/graphics/blender/release/Blender$MajorVersion/$SetupFile"
 	$WorkingDir = "$env:ProgramData\InstSys\blender"
