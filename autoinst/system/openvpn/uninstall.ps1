@@ -1,15 +1,16 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	. $PSScriptRoot\..\insttools\UninstallTools.ps1
-	Stop-Processes -ProcessNames @("ShareX")
+	. $PSScriptRoot\..\..\insttools\UninstallTools.ps1
+	Stop-Processes -ProcessNames @("openvpn-gui","openvpnserv2","openvpnserv")
 	
-	foreach ($UninstCommand in (Get-UninstallCommands -ApplicationName "^ShareX$" -UninstallProperty "QuietUninstallString")) {
+	foreach ($UninstCommand in (Get-UninstallCommands -ApplicationName "OpenVPN" -UninstallProperty "UninstallString")) {
 
 		if ([string]::IsNullOrEmpty($UninstCommand)) {
 			Write-Host -Object "Uninststring not found."
 		}
 		else {
-			Write-Host -Object "$UninstCommand"
-			Invoke-Expression "&$UninstCommand"
+			$SilentString = "`"$UninstCommand`" /S"
+			Write-Host -Object "Uninststring found $SilentString"
+			Invoke-Expression "&$SilentString"
 		}
 	}
 } else {

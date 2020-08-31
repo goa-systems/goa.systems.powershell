@@ -49,7 +49,7 @@ if(Test-Path -Path "$InstallDir\$Version"){
 		$TmpName = $_.Name
 		Move-Item -Path $_.FullName -Destination "$InstallDir"
 	
-		..\insttools\CreateShortcut.ps1 `
+		..\..\insttools\CreateShortcut.ps1 `
 			-LinkName "IntelliJ IDEA" `
 			-TargetPath "$InstallDir\$Version\bin\idea64.exe" `
 			-Arguments "" `

@@ -1,5 +1,5 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	. $PSScriptRoot\..\insttools\UninstallTools.ps1
+	. $PSScriptRoot\..\..\insttools\UninstallTools.ps1
 	Stop-Processes -ProcessNames @("openshot-qt")
 	
 	foreach ($UninstCommand in (Get-UninstallCommands -ApplicationName "openshot" -UninstallProperty "QuietUninstallString")) {

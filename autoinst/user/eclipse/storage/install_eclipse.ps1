@@ -16,7 +16,7 @@ if(-not (Test-Path -Path "$env:USERPROFILE\workspaces")){
 Move-Item -Path "$env:TEMP\DevIde\Eclipse" -Destination "$env:LOCALAPPDATA\Programs\Eclipse\4.15" -Force
 Move-Item -Path "$env:TEMP\DevIde\WorkSpace" -Destination "$env:USERPROFILE\workspaces\java" -Force
 
-..\insttools\CreateShortcut.ps1 `
+..\..\insttools\CreateShortcut.ps1 `
 -LinkName "Eclipse" `
 -TargetPath "`"%LOCALAPPDATA%\Programs\Eclipse\4.15\eclipse.exe`"" `
 -Arguments "-data `"%USERPROFILE%\workspaces\java`"" `

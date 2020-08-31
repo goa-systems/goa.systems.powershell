@@ -1,4 +1,4 @@
-. $PSScriptRoot\..\insttools\UninstallTools.ps1
+. $PSScriptRoot\..\..\insttools\UninstallTools.ps1
 Stop-Processes -ProcessNames @("Postman")
 
 $UninstCommand = Get-UninstallCommandsUser -ApplicationName "postman" -UninstallProperty "QuietUninstallString"

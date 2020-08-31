@@ -48,7 +48,7 @@ if(Test-Path -Path "$InstallDir\$Version"){
 		
 	 	Move-Item -Path $_.FullName -Destination "$InstallDir\$Version"
 	
-		..\insttools\CreateShortcut.ps1 `
+		..\..\insttools\CreateShortcut.ps1 `
 			-LinkName "Netbeans IDE" `
 			-TargetPath "$InstallDir\$Version\bin\netbeans64.exe" `
 			-Arguments "" `

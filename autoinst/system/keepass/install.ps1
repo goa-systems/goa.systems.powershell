@@ -14,7 +14,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	}
 	
 	Expand-Archive -Path "$env:SystemDrive\ProgramData\InstSys\$name\$setup" -DestinationPath "$env:ProgramFiles\KeePass"
-	..\insttools\CreateShortcut.ps1 -LinkName "KeePass" -TargetPath "%ProgramFiles%\KeePass\KeePass.exe" -Arguments "" -IconFile "%ProgramFiles%\KeePass\KeePass.exe" -IconId 0 -Description "KeePass password safe." -WorkingDirectory "%UserProfile%" -ShortcutLocations @("$env:ProgramData\Microsoft\Windows\Start Menu\Programs")
+	..\..\insttools\CreateShortcut.ps1 -LinkName "KeePass" -TargetPath "%ProgramFiles%\KeePass\KeePass.exe" -Arguments "" -IconFile "%ProgramFiles%\KeePass\KeePass.exe" -IconId 0 -Description "KeePass password safe." -WorkingDirectory "%UserProfile%" -ShortcutLocations @("$env:ProgramData\Microsoft\Windows\Start Menu\Programs")
 	
 
 } else {

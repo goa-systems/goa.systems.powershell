@@ -28,7 +28,7 @@ if(-not ($?)){
 	}
 	Start-Process -FilePath "7z.exe" -ArgumentList "x","-aos","`"-o$DestinationPath`"","-bb0","-bse0","-bsp2","-pdefault","-sccUTF-8","`"$OutPath`"" -Wait -NoNewWindow
 	if(-Not (Test-Path -Path "$env:AppData\Microsoft\Windows\Start Menu\Programs\Chromium.lnk")){
-		..\insttools\CreateShortcut.ps1 `
+		..\..\insttools\CreateShortcut.ps1 `
 			-LinkName "Chromium" `
 			-TargetPath "$DestinationPath\$FolderName\chrome.exe" `
 			-Arguments "" `

@@ -1,5 +1,13 @@
 # Autoinst
 This directory contains scripts to (un)install or update software.
+## Organization
+The installers are separated into two categories.
+  * system
+  * user
+### System installers
+These installers install the software system wide and therefor require elevated privileges (Windows UAC). The scripts will ask for these rights if they are not executed "as administrator".
+### User installers
+These installers install the software into the users local application data directory (PS: $env:LOCALAPPDATA, CMD: %LOCALAPPDATA%) and require no special rights.
 ## Troubleshooting
 ### Untrusted files
 To prevent warning messages about untrusted files execute the file "UnblockScripts.ps1" in the root directory first. It iterates over all scripts and unblocks them for further use.
