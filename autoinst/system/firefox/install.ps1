@@ -1,5 +1,5 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$ffvers = "80.0"
+	$ffvers = "80.0.1"
 	$ffsetup="Firefox Setup $ffvers.exe"
 
 	$lang="en-US"
@@ -28,6 +28,18 @@ MaintenanceService=false
 "@
 
 	Set-Content -Path "$env:SystemDrive\ProgramData\InstSys\firefox\mff.ini" -Value $INI
+
+	$processes = @("firefox")
+	foreach ($process in $processes) {
+		$p = Get-Process "$process" -ErrorAction SilentlyContinue
+		if ($p) {
+			"Process $p is running. Trying to stop it."
+			$p | Stop-Process -Force
+		}
+	 else {
+			"Process $process is not running."
+		}
+	}
 
 	Start-Process -Wait `
 		-FilePath "$env:SystemDrive\ProgramData\InstSys\firefox\$lang\$ffsetup" `
