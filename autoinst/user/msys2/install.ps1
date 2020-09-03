@@ -1,4 +1,4 @@
-$Archive = "msys2-base-x86_64-20200629.tar.xz"
+$Archive = "msys2-base-x86_64-20200720.tar.xz"
 $Url = "http://repo.msys2.org/distrib/x86_64/$Archive"
 
 if( -not (Test-Path -Path "$env:ProgramData\InstSys\Msys2")){
