@@ -1,9 +1,9 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$vboxvers = "6.1.12"
-	$vboxversrev = "$vboxvers-139181"
+	$vboxvers = "6.1.14"
+	$vboxversrev = "$vboxvers-140239"
 	$vboxsetup = "VirtualBox-$vboxversrev-Win.exe"
 	$vboxexpacksetup = "Oracle_VM_VirtualBox_Extension_Pack-$vboxvers.vbox-extpack"
-	
+
 	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\virtualbox")) {
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\virtualbox" -ItemType "Directory"
 	}
@@ -33,7 +33,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		}
 	}
 	
-	Start-Process -FilePath "$env:ProgramFiles\Oracle\VirtualBox\VBoxManage.exe" -ArgumentList "extpack","install","$env:SystemDrive\ProgramData\InstSys\virtualbox\$vboxexpacksetup","--replace","--accept-license=56be48f923303c8cababb0bb4c478284b688ed23f16d775d729b89a2e8e5f9eb" -Wait
+	Start-Process -FilePath "$env:ProgramFiles\Oracle\VirtualBox\VBoxManage.exe" -ArgumentList "extpack","install","$env:SystemDrive\ProgramData\InstSys\virtualbox\$vboxexpacksetup","--replace","--accept-license=33d7284dc4a0ece381196fda3cfe2ed0e1e8e7ed7f27b9a9ebc4ee22e24bd23c" -Wait
 	Remove-Item -Recurse -Path "$env:TEMP\VBox"
 } else {
 	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
