@@ -16,7 +16,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		-OutFile "$env:SystemDrive\ProgramData\InstSys\peazip\$peazipsetup"
 	}
 
-	Start-Process -Wait -FilePath "$env:SystemDrive\ProgramData\InstSys\peazip\$peazipsetup" -ArgumentList "/SILENT"
+	Start-Process -Wait -FilePath "$env:SystemDrive\ProgramData\InstSys\peazip\$peazipsetup" -ArgumentList @("/SILENT", "/MERGETASKS=!desktopicon")
 
 	if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\*\shell\PeaZip") -ne $true) {
 		New-Item "HKLM:\SOFTWARE\Classes\*\shell\PeaZip" -force -ea SilentlyContinue
