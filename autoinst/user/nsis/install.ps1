@@ -3,9 +3,9 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\Nsis"
 )
 
-$Version = "3.05"
+$Version = "3.06.1"
 $FileName = "nsis-$Version.zip"
-$Url = "https://netcologne.dl.sourceforge.net/project/nsis/NSIS%203/$Version/$FileName"
+$Url = "https://jztkft.dl.sourceforge.net/project/nsis/NSIS%203/$Version/$FileName"
 
 $DownloadDir = "$env:ProgramData\InstSys\nsis"
 
