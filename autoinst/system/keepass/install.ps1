@@ -1,6 +1,6 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$name="keepass"
-	$version="2.45"
+	$version="2.46"
 	$setup="KeePass-$version.zip"
 	$dlurl="https://netcologne.dl.sourceforge.net/project/keepass/KeePass%202.x/$version/$setup"
 	
