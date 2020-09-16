@@ -4,6 +4,7 @@ param (
 )
 
 $urls = @(
+	"https://cdn.azul.com/zulu/bin/zulu15.27.17-ca-jdk15.0.0-win_x64.zip",
 	"https://cdn.azul.com/zulu/bin/zulu14.29.23-ca-jdk14.0.2-win_x64.zip",
 	"https://cdn.azul.com/zulu/bin/zulu13.33.25-ca-jdk13.0.4-win_x64.zip",
 	"https://cdn.azul.com/zulu/bin/zulu11.41.23-ca-jdk11.0.8-win_x64.zip",
@@ -12,7 +13,7 @@ $urls = @(
 
 $DownloadDir = "$env:ProgramData\InstSys\java"
 
-$default = "jdk14"
+$default = "jdk15"
 
 if(-not (Test-Path -Path "$InstallDir")){
 	New-Item -ItemType "Directory" -Path "$InstallDir"
