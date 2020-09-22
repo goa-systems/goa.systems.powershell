@@ -1,4 +1,4 @@
-$CurrentVersion = "1.2.2381.0"
+$CurrentVersion = "1.3.2651.0"
 $FileName = "Microsoft.WindowsTerminal_${CurrentVersion}_8wekyb3d8bbwe.msixbundle"
 $DownloadUrl = "https://github.com/microsoft/terminal/releases/download/v${CurrentVersion}/$FileName"
 $ConfigFile = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
