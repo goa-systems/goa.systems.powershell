@@ -1,6 +1,6 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$name = "sharex"
-	$version = "13.1.0"
+	$version = "13.2.1"
 	$setup = "ShareX-$version-setup.exe"
 	$dlurl = "https://github.com/ShareX/ShareX/releases/download/v$version/$setup"
 	
