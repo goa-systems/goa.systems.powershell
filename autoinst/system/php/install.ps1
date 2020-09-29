@@ -1,6 +1,6 @@
 param (
 	# The certificate file.
-	[String] $PhpVersion = "7.4.10"
+	[String] $PhpVersion = "7.4.11"
 )
 
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
