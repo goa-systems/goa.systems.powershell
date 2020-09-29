@@ -1,4 +1,4 @@
-$Vers1 = "85.0.4183.102"
+$Vers1 = "85.0.4183.121"
 $Vers2 = "r782793"
 $Vers3 = "1"
 $FolderName = "ungoogled-chromium-${Vers1}-${Vers3}_Win64"
