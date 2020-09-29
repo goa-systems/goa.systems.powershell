@@ -3,7 +3,7 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\Node.js"
 )
 
-$Version = "12.18.3"
+$Version = "12.18.4"
 $FileName = "node-v$Version-win-x64.zip"
 $DownloadUrl = "https://nodejs.org/dist/v$Version/$FileName"
 $AppName = "nodejs"
