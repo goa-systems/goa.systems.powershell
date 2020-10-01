@@ -1,5 +1,5 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$ffvers = "81.0"
+	$ffvers = "81.0.1"
 	$ffsetup="Firefox Setup $ffvers.exe"
 
 	$lang="en-US"
