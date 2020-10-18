@@ -1,6 +1,6 @@
 param (
 	# Path to inkscape
-    [String] $InkscapeExe = "C:\Program Files\Inkscape\inkscape.exe",
+    [String] $InkscapeExe = "C:\Program Files\Inkscape\bin\inkscape.exe",
     
 	# Src svg filename
     [Parameter(Mandatory=$true)] [String] $SourceName,
@@ -15,5 +15,5 @@ if(-not (Test-Path "$DestinationFolder")){
 
 $Sizes = @("256", "192", "128", "96", "64", "48", "32", "24", "16", "12", "8")
 foreach($Size in $Sizes){
-	Start-Process -Wait -FilePath "$InkscapeExe" -ArgumentList "-e","$DestinationFolder\$Size.png","-C","-w","$Size","-h","$Size","$SourceName"
+	Start-Process -FilePath "$InkscapeExe" -ArgumentList @("--export-type=`"png`"", "--export-filename","$DestinationFolder\$Size.png","-w","$Size","-h","$Size","$SourceName")
 }
