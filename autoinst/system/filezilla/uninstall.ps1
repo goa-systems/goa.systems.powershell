@@ -20,7 +20,7 @@ function Get-UninstString {
 	)
 
 	$var1 = Get-ChildItem -Path $regkey | Get-ItemProperty | Where-Object { $_.DisplayName -match "filezilla" }
-	$var2 = $var1.QuietUninstallString
+	$var2 = $var1.UninstallString
 	return $var2
 }
 
