@@ -1,6 +1,6 @@
 param (
 	# The apache version
-	[String] $PhpVersion = "7.4.2",
+	[String] $PhpVersion = "7.4.12",
 
 	# Make initial setup
 	[String] $SetupType = "Initial"
@@ -11,7 +11,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	$HttpConf    = "$env:ProgramData\Apache\conf\httpd.conf"
 	$HttpConfNew = "$env:ProgramData\Apache\conf\httpd.conf.new"
 
-	if($SetupType -eq "initial"){
+	if($SetupType -eq "Initial"){
 		Get-Content "$env:ProgramData\Apache\conf\httpd.conf" | ForEach-Object {
 			if($_ -match '#LoadModule xml2enc_module modules/mod_xml2enc.so'){
 				Add-Content -Path "$HttpConfNew" -Value "#LoadModule xml2enc_module modules/mod_xml2enc.so"
@@ -41,5 +41,5 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	Move-Item -Path "$HttpConfNew" -Destination "$HttpConf"
 	Start-Service -Name "Apache web server"
 } else {
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)","-PhpVersion","`"$PhpVersion`"" -Wait -Verb RunAs
+	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)","-PhpVersion","`"$PhpVersion`"","-SetupType","`"$SetupType`"" -Wait -Verb RunAs
 }
