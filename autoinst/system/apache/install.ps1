@@ -1,6 +1,6 @@
 param (
 	# Current apache version
-	[String] $ApacheVersion = "2.4.43"
+	[String] $ApacheVersion = "2.4.46"
 )
 
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -54,6 +54,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	} else {
 		.\setup.ps1 -ApacheVersion $ApacheVersion -SetupType "Initial"
 	}
+
 } else {
 	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)","-ApacheVersion","`"$ApacheVersion`"" -Wait -Verb RunAs
 }
