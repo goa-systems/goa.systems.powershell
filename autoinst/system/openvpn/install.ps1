@@ -1,6 +1,6 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$name = "openvpn"
-	$version = "2.4.9"
+	$version = "2.5.0"
 	$setup = "openvpn-install-$version-I601-Win10.exe"
 	$dlurl = "https://swupdate.openvpn.org/community/releases/$setup"
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")){
