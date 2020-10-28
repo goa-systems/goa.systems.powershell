@@ -51,3 +51,13 @@ function Stop-Processes {
 		}
 	}
 }
+
+function Get-Uuid {
+	param (
+		[String]
+		$SearchTerm
+	)
+	$var1 = Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Where-Object { $_.DisplayName -match "$SearchTerm" }
+	$var2 = $var1.PSChildName
+	return $var2
+}
