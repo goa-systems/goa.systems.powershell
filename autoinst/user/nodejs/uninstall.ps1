@@ -12,6 +12,6 @@ foreach($pathvar in $pathvars){
 }
 [System.Environment]::SetEnvironmentVariable("PATH", $NewPath, [System.EnvironmentVariableTarget]::User)
 
-if(Test-Path -Path "$env:LOCALAPPDATA\Programs\Node.js"){
-	Remove-Item -Path "$env:LOCALAPPDATA\Programs\Node.js" -Recurse -Force
+if(Test-Path -Path "$env:LOCALAPPDATA\Programs\NodeJS"){
+	Remove-Item -Path "$env:LOCALAPPDATA\Programs\NodeJS" -Recurse -Force
 }

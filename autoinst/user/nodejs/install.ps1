@@ -1,6 +1,6 @@
 param (
 	[String]
-	$InstallDir = "$env:LOCALAPPDATA\Programs\Node.js"
+	$InstallDir = "$env:LOCALAPPDATA\Programs\NodeJS"
 )
 
 $Version = "14.15.0"
