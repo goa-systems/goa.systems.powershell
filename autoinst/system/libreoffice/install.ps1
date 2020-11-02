@@ -1,6 +1,6 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$name = "libreoffice"
-	$version = "7.0.2"
+	$version = "7.0.3"
 	$setup = "LibreOffice_${version}_Win_x64.msi"
 	$dlurl = "https://ftp.gwdg.de/pub/tdf/libreoffice/stable/$version/win/x86_64/$setup"
 
