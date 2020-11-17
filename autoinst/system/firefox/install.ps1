@@ -1,5 +1,9 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$ffvers = "83.0"
+	
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
+	
+	$ffvers = $Json.version
 	$ffsetup="Firefox Setup $ffvers.exe"
 
 	$lang="en-US"
