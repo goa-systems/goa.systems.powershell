@@ -1,8 +1,10 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$MajorVersion = "2.90"
-	$MinorVersion = "1"
-	$SetupFile = "blender-$MajorVersion.$MinorVersion-windows64.msi"
-	$DownloadUrl = "https://ftp.nluug.nl/pub/graphics/blender/release/Blender$MajorVersion/$SetupFile"
+	
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
+	
+	$SetupFile = "blender-$($Json.major).$($Json.minor)-windows64.msi"
+	$DownloadUrl = "https://ftp.nluug.nl/pub/graphics/blender/release/Blender$($Json.major)/$SetupFile"
 	$WorkingDir = "$env:ProgramData\InstSys\blender"
 	if( -not (Test-Path -Path "$WorkingDir")){
 		New-Item -ItemType "Directory" -Path "$WorkingDir"
