@@ -1,6 +1,9 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-
-	$vers = "2.8.27"
+	
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
+	
+	$vers = $Json.version
 	$setup = "tightvnc-$vers-gpl-setup-64bit.msi"
 
 	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\tightvnc")) {
