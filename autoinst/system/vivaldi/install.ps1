@@ -1,6 +1,8 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$name = "vivaldi"
-	$version = "3.4.2066.106"
+	$version = $Json.version
 	$setup = "Vivaldi.$version.x64.exe"
 	$dlurl = "https://downloads.vivaldi.com/stable/$setup"
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")){
