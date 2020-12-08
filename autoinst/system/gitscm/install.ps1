@@ -1,8 +1,9 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 
-	$subversion=".1"
-	$gitvers = "2.29.0"
-	$gitsetup = "Git-$gitvers-64-bit.exe"
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
+	$uri = $Json.downloadurl
+	$gitsetup = $Json.filename
 
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\git")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\git" -ItemType "Directory"
@@ -11,7 +12,6 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	<# Download Git scm, if setup is not found in execution path. #>
 	if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\git\$gitsetup")){
 		$ProgressPreference = 'SilentlyContinue'
-		$uri = "https://github.com/git-for-windows/git/releases/download/v$gitvers.windows$subversion/$gitsetup"
 		Invoke-WebRequest `
 		-Uri "$uri" `
 		-OutFile "$env:SystemDrive\ProgramData\InstSys\git\$gitsetup"
