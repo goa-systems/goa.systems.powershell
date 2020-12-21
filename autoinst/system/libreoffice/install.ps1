@@ -1,6 +1,8 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$name = "libreoffice"
-	$version = "7.0.4"
+	$version = $Json.version
 	$setup = "LibreOffice_${version}_Win_x64.msi"
 	$dlurl = "https://ftp.gwdg.de/pub/tdf/libreoffice/stable/$version/win/x86_64/$setup"
 
