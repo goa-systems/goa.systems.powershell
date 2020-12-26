@@ -1,6 +1,8 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$name = "sharex"
-	$version = "13.2.1"
+	$version = $Json.version
 	$setup = "ShareX-$version-setup.exe"
 	$dlurl = "https://github.com/ShareX/ShareX/releases/download/v$version/$setup"
 	
