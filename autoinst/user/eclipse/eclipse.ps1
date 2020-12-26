@@ -6,8 +6,8 @@ param (
 
 	# The repositories to download from. Default: Eclipse repos.
 	[String[]] $Repos = @(
-		"http://download.eclipse.org/releases/2020-09",
-		"http://download.eclipse.org/eclipse/updates/4.17"
+		"http://download.eclipse.org/releases/2020-12",
+		"http://download.eclipse.org/eclipse/updates/4.18"
 		),
 
 	# The repositories to download from. Default: Eclipse repos.
@@ -17,7 +17,7 @@ param (
 	[String] $WorkingDirectory = "$env:ProgramData\InstSys\eclipse",
 
 	# The working directory. Default ProgramData\instsys\eclipse
-	[String] $EclipseUrl = "http://mirror.dkm.cz/eclipse/eclipse/downloads/drops4/R-4.17-202009021800/eclipse-platform-4.17-win32-x86_64.zip",
+	[String] $EclipseUrl = "http://mirror.dkm.cz/eclipse/eclipse/downloads/drops4/R-4.18-202012021800/eclipse-SDK-4.18-win32-x86_64.zip",
 
 	# Start eclipse to modify the working directory?
 	[Boolean] $ModifyWorkspace = $False
