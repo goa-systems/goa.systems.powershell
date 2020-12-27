@@ -1,7 +1,10 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+	
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$name="winmerge"
 	$apptitle="WinMerge"
-	$version="2.16.8"
+	$version = $Json.version
 	$setup="winmerge-$version-x64-exe.zip"
 	$dlurl="https://netcologne.dl.sourceforge.net/project/winmerge/stable/$version/$setup"
 	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")) {
