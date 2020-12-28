@@ -1,6 +1,7 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-
-	$version = "7.6.4.30"
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
+	$version = $Json.version
 	$dlversion = $version.Replace(".","-") + "-44"
 	$setup = "ImageGlass_${version}_x64.msi"
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\imageglass")){
