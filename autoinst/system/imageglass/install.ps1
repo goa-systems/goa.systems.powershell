@@ -2,7 +2,6 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	Set-Location -Path "$PSScriptRoot"
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$version = $Json.version
-	$dlversion = $version.Replace(".","-") + "-44"
 	$setup = "ImageGlass_${version}_x64.msi"
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\imageglass")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\imageglass" -ItemType "Directory"
@@ -10,7 +9,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	<# Download imageglass scm, if setup is not found in execution path. #>
 	if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\imageglass\$setup")){
 		$ProgressPreference = 'SilentlyContinue'
-		$uri = "https://imageglass.org/release/imageglass-$dlversion/download"
+		$uri = "https://github.com/d2phap/ImageGlass/releases/download/${version}/$setup"
 		Invoke-WebRequest `
 		-Uri "$uri" `
 		-OutFile "$env:SystemDrive\ProgramData\InstSys\imageglass\$setup"
