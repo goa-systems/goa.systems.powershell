@@ -1,5 +1,9 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$nppvers = "7.9.1"
+	
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
+	
+	$nppvers = $Json.version
 	$nppsetup = "npp.$nppvers.Installer.x64.exe"
 	$dlurl = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v$nppvers/$nppsetup"
 
