@@ -1,6 +1,8 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$name="keepass"
-	$version="2.46"
+	$version=$Json.version
 	$setup="KeePass-$version.zip"
 	$dlurl="https://netcologne.dl.sourceforge.net/project/keepass/KeePass%202.x/$version/$setup"
 	
