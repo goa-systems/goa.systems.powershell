@@ -1,4 +1,8 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+	
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
+	
 	$registryPath = "HKLM:\SOFTWARE\VideoLAN\VLC"
 	$registryKey = "InstallDir"
 	$registryVal = "$env:ProgramFiles\VLC Media Player"
@@ -12,7 +16,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		New-ItemProperty -Path $registryPath -Name $registryKey -Value $registryVal -PropertyType "String" -Force
 	}
 	
-	$vlcvers = "3.0.11"
+	$vlcvers = $Json.version
 	$vlcsetup = "vlc-$vlcvers-win64.exe"
 	
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\vlc")){
