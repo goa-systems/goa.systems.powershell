@@ -1,6 +1,6 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	$name = "powershell"
-	$version = "7.1.0"
+	$version = "7.1.1"
 	$setup = "PowerShell-$version-win-x64.msi"
 	$dlurl = "https://github.com/PowerShell/PowerShell/releases/download/v$version/$setup"
 
