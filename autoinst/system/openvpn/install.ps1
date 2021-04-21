@@ -1,6 +1,9 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+	
 	$name = "openvpn"
-	$version = "2.5.0"
+
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
+	$version = $Json.version
 	$setup = "OpenVPN-$version-I601-amd64.msi"
 	$dlurl = "https://swupdate.openvpn.org/community/releases/$setup"
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")){
