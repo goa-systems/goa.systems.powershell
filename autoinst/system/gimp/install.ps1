@@ -1,6 +1,9 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$gimpssetup="gimp-2.10.22-setup.exe"
-
+	
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
+	$gimpssetup = $Json.version
+	
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\gimp")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\gimp" -ItemType "Directory"
 	}
