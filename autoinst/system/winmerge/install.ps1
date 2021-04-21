@@ -5,8 +5,8 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	$name="winmerge"
 	$apptitle="WinMerge"
 	$version = $Json.version
-	$setup="winmerge-$version-x64-exe.zip"
-	$DownloadUrl="https://netcologne.dl.sourceforge.net/project/winmerge/stable/$version/$setup"
+	$setup="winmerge-$($version.Substring(1))-x64-exe.zip"
+	$DownloadUrl="https://github.com/WinMerge/winmerge/releases/download/v2.16.10/$setup"
 	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")) {
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\$name" -ItemType "Directory"
 	}
