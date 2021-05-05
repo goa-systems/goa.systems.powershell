@@ -1,6 +1,6 @@
 param (
 	# The certificate file.
-	[String] $PhpVersion = "7.4.13"
+	[String] $PhpVersion = "8.0.5"
 )
 
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -18,7 +18,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		New-Item -ItemType "Directory" -Path "$env:ProgramFiles\Php"
 	}
 
-	$phpbin = "php-$PhpVersion-Win32-vc15-x64.zip"
+	$phpbin = "php-$PhpVersion-Win32-vs16-x64.zip"
 
 	if(-not (Test-Path -Path "$env:ProgramData\InstSys\php\$phpbin")){
 		$ProgressPreference = 'SilentlyContinue'

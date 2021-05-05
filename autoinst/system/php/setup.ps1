@@ -15,13 +15,13 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		Get-Content "$env:ProgramData\Apache\conf\httpd.conf" | ForEach-Object {
 			if($_ -match '#LoadModule xml2enc_module modules/mod_xml2enc.so'){
 				Add-Content -Path "$HttpConfNew" -Value "#LoadModule xml2enc_module modules/mod_xml2enc.so"
-				Add-Content -Path "$HttpConfNew" -Value "LoadModule php7_module `"C:/Program Files/Php/$PhpVersion/php7apache2_4.dll`""
+				Add-Content -Path "$HttpConfNew" -Value "LoadModule php_module `"C:/Program Files/Php/$PhpVersion/php7apache2_4.dll`""
 				Add-Content -Path "$HttpConfNew" -Value ""
 				Add-Content -Path "$HttpConfNew" -Value "AddType application/x-httpd-php .php"
 				Add-Content -Path "$HttpConfNew" -Value "AddType application/x-httpd-phps .phps"
 				Add-Content -Path "$HttpConfNew" -Value "AddType application/x-httpd-php3 .php3 .phtml"
 				Add-Content -Path "$HttpConfNew" -Value "AddType application/x-httpd-php .html"
-			} if($_ -match '^    DirectoryIndex index.html$'){
+			} elseif ($_ -match '^    DirectoryIndex index.html$'){
 				Add-Content -Path "$HttpConfNew" -Value "    DirectoryIndex index.html index.php"
 			} else {
 				Add-Content -Path "$HttpConfNew" -Value $_
@@ -29,8 +29,8 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		}
 	} elseif ($SetupType -eq "Update") {
 		Get-Content "$env:ProgramData\Apache\conf\httpd.conf" | ForEach-Object {
-			if($_ -match 'LoadModule php7_module*'){
-				Add-Content -Path "$HttpConfNew" -Value "LoadModule php7_module `"C:/Program Files/Php/$PhpVersion/php7apache2_4.dll`""
+			if(($_ -match 'LoadModule php5_module*') -or ($_ -match 'LoadModule php7_module*') -or ($_ -match 'LoadModule php_module*')){
+				Add-Content -Path "$HttpConfNew" -Value "LoadModule php_module `"C:/Program Files/Php/$PhpVersion/php7apache2_4.dll`""
 			}
 		}
 	} else {
