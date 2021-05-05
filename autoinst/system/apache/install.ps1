@@ -1,6 +1,6 @@
 param (
 	# Current apache version
-	[String] $ApacheVersion = "2.4.46"
+	[String] $ApacheVersion = "2.4.47"
 )
 
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -47,6 +47,8 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	Remove-Item -Recurse -Path "$env:ProgramData\InstSys\apache\apache"
 
 	New-NetFirewallRule -DisplayName "Allow Apache" -Profile Any -Program "$env:ProgramFiles\Apache\$ApacheVersion\bin\httpd.exe" -Action Allow
+
+	Set-Location -Path "$PSScriptRoot"
 
 	# Reconfigure Apache for new versions
 	if(Test-Path -Path "$env:ProgramData\Apache\conf\httpd.conf") {
