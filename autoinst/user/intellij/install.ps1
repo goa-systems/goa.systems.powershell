@@ -4,7 +4,7 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\IntelliJ",
 	
 	[String]
-	$Version = "2020.3.2"
+	$Version = "2021.1.1"
 )
 
 $FileName = "ideaIC-$Version.win.zip"
