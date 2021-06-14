@@ -23,19 +23,23 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	Group=Git
 	NoIcons=0
 	SetupType=default
-	Components=ext,ext\shellhere,ext\guihere,gitlfs,assoc,assoc_sh
+	Components=ext,ext\shellhere,ext\guihere,gitlfs,assoc,assoc_sh,windowsterminal
 	Tasks=
 	EditorOption=VIM
 	CustomEditorPath=
+	DefaultBranchOption= 
 	PathOption=Cmd
 	SSHOption=OpenSSH
 	TortoiseOption=false
 	CURLOption=OpenSSL
 	CRLFOption=CRLFCommitAsIs
 	BashTerminalOption=MinTTY
+	GitPullBehaviorOption=Merge
+	UseCredentialManager=Core
 	PerformanceTweaksFSCache=Enabled
-	UseCredentialManager=Enabled
-	EnableSymlinks=Disabled"
+	EnableSymlinks=Disabled
+	EnablePseudoConsoleSupport=Disabled
+	EnableFSMonitor=Disabled"
 
 	Start-Process -Wait -FilePath "$env:SystemDrive\ProgramData\InstSys\git\$gitsetup" -ArgumentList "/SILENT","/LOADINF=$env:SystemDrive\ProgramData\InstSys\git\gitinst.inf"
 
