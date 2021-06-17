@@ -5,8 +5,8 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	
 	$nppvers = $Json.version
 	$nppsetup = "npp.$nppvers.Installer.x64.exe"
-	$dlurl = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8/$nppsetup"
-
+	$dlurl = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v$nppvers/$nppsetup"
+	
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\npp")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\npp" -ItemType "Directory"
 	}
