@@ -4,7 +4,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	
 	$version = $Json.version
-	$setup = "Nextcloud-$version-setup.exe"
+	$setup = "Nextcloud-$version-x64.msi"
 
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\nextcloud")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\nextcloud" -ItemType "Directory"
@@ -18,7 +18,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		Write-Host -Object "Download done"
 	}
 
-	Start-Process -Wait -FilePath "$env:SystemDrive\ProgramData\InstSys\nextcloud\$setup" -ArgumentList "/S"
+	Start-Process -Wait -FilePath "msiexec" -ArgumentList @("/i", "$env:SystemDrive\ProgramData\InstSys\nextcloud\$setup", "/passive", "/norestart")
 	Remove-Item -Path "$env:PUBLIC\Desktop\Nextcloud.lnk"
 	Start-Process -FilePath "$env:ProgramFiles\Nextcloud\nextcloud.exe"
 } else {
