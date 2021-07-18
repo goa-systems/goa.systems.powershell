@@ -1,5 +1,5 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	
+	Set-Location -Path "$PSScriptRoot"
 	$name = "openvpn"
 
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
