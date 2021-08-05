@@ -4,10 +4,10 @@ param (
 )
 
 $urls = @(
-	"https://cdn.azul.com/zulu/bin/zulu16.30.15-ca-fx-jdk16.0.1-win_x64.zip",
-	"https://cdn.azul.com/zulu/bin/zulu15.32.15-ca-fx-jdk15.0.3-win_x64.zip",
-	"https://cdn.azul.com/zulu/bin/zulu11.48.21-ca-fx-jdk11.0.11-win_x64.zip",
-	"https://cdn.azul.com/zulu/bin/zulu8.54.0.21-ca-fx-jdk8.0.292-win_x64.zip"
+	"https://cdn.azul.com/zulu/bin/zulu16.32.15-ca-fx-jdk16.0.2-win_x64.zip",
+	"https://cdn.azul.com/zulu/bin/zulu15.34.17-ca-fx-jdk15.0.4-win_x64.zip",
+	"https://cdn.azul.com/zulu/bin/zulu11.50.19-ca-fx-jdk11.0.12-win_x64.zip",
+	"https://cdn.azul.com/zulu/bin/zulu8.56.0.23-ca-fx-jdk8.0.302-win_x64.zip"
 )
 
 $DownloadDir = "$env:ProgramData\InstSys\java"
