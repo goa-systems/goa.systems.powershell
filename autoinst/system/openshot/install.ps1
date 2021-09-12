@@ -1,6 +1,6 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 
-	$vers = "2.5.1"
+	$vers = "2.6.1"
 	$setup = "OpenShot-v$vers-x86_64.exe"
 
 	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\openshot")) {
