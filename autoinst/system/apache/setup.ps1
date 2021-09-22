@@ -1,6 +1,6 @@
 param (
 	# The apache version
-	[String] $ApacheVersion = "2.4.47",
+	[String] $ApacheVersion = "2.4.49",
 
 	# Make initial setup
 	[String] $SetupType = "Initial"

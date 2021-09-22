@@ -1,6 +1,6 @@
 param (
 	[String]
-    $ApacheVersion = "2.4.47"
+    $ApacheVersion = "2.4.49"
 )
 
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
