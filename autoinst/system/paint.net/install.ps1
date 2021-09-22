@@ -1,7 +1,9 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$name = "paintnet"
-	$version = "4.2.14"
+	$version = $Json.version
 	$setup = "paint.net.$version.install.zip"
 	$dlurl = "https://www.dotpdn.com/files/$setup"
 
