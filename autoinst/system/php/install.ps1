@@ -22,8 +22,9 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 
 	if(-not (Test-Path -Path "$env:ProgramData\InstSys\php\$phpbin")){
 		$ProgressPreference = 'SilentlyContinue'
-		Write-Host -Object "Starting php download."
-		Invoke-WebRequest -Uri "https://windows.php.net/downloads/releases/$phpbin" -OutFile "$env:ProgramData\InstSys\php/$phpbin"
+		$PhpDownloadUrl = "https://windows.php.net/downloads/releases/$phpbin"
+		Write-Host -Object "Starting php download from $PhpDownloadUrl"
+		Invoke-WebRequest -Uri $PhpDownloadUrl -OutFile "$env:ProgramData\InstSys\php/$phpbin"
 		Write-Host -Object "Php download done."
 	}
 	Expand-Archive -Path "$env:ProgramData\InstSys\php\$phpbin" -DestinationPath "$env:ProgramData\InstSys\php\php"
