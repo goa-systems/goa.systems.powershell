@@ -52,9 +52,9 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 
 	# Reconfigure Apache for new versions
 	if(Test-Path -Path "$env:ProgramData\Apache\conf\httpd.conf") {
-		.\setup.ps1 -ApacheVersion $ApacheVersion -SetupType "Update"
+		. "$PSScriptRoot\setup.ps1" -ApacheVersion $ApacheVersion -SetupType "Update"
 	} else {
-		.\setup.ps1 -ApacheVersion $ApacheVersion -SetupType "Initial"
+		. "$PSScriptRoot\setup.ps1" -ApacheVersion $ApacheVersion -SetupType "Initial"
 	}
 
 } else {
