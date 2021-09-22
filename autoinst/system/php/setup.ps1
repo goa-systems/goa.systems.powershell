@@ -1,6 +1,6 @@
 param (
 	# The apache version
-	[String] $PhpVersion = "7.4.12",
+	[String] $PhpVersion = "8.0.11",
 
 	# Make initial setup
 	[String] $SetupType = "Initial"
