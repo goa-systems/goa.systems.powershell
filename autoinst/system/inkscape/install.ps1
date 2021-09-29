@@ -2,8 +2,8 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	Set-Location -Path "$PSScriptRoot"
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$name = "inkscape"
-	$setup = "inkscape-$($Json.version)-x64.msi"
-	$dlurl = "https://media.inkscape.org/dl/resources/file/$setup"
+	$setup = "$($Json.setup)"
+	$dlurl = "$($Json.link)/$($Json.setup)"
 	
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\$name" -ItemType "Directory"
