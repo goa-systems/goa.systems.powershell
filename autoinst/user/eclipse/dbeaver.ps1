@@ -14,8 +14,8 @@ $FeatureList = @(
 )
 
 $Repos = @(
-	"http://download.eclipse.org/releases/2021-03",
-	"http://download.eclipse.org/eclipse/updates/4.19",
+	"http://download.eclipse.org/releases/2021-09",
+	"http://download.eclipse.org/eclipse/updates/4.21",
 	"http://download.eclipse.org/usssdk/updates/release/latest",
 	"https://dbeaver.io/update/latest/",
 	"https://dbeaver.io/update/office/latest/",

@@ -4,6 +4,7 @@ param (
 )
 
 $urls = @(
+	"https://cdn.azul.com/zulu/bin/zulu17.28.13-ca-jdk17.0.0-win_x64.zip",
 	"https://cdn.azul.com/zulu/bin/zulu16.32.15-ca-fx-jdk16.0.2-win_x64.zip",
 	"https://cdn.azul.com/zulu/bin/zulu15.34.17-ca-fx-jdk15.0.4-win_x64.zip",
 	"https://cdn.azul.com/zulu/bin/zulu11.50.19-ca-fx-jdk11.0.12-win_x64.zip",
