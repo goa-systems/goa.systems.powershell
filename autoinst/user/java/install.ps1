@@ -4,16 +4,16 @@ param (
 )
 
 $urls = @(
-	"https://cdn.azul.com/zulu/bin/zulu17.28.13-ca-jdk17.0.0-win_x64.zip",
+	"https://cdn.azul.com/zulu/bin/zulu17.30.15-ca-fx-jdk17.0.1-win_x64.zip",
 	"https://cdn.azul.com/zulu/bin/zulu16.32.15-ca-fx-jdk16.0.2-win_x64.zip",
-	"https://cdn.azul.com/zulu/bin/zulu15.34.17-ca-fx-jdk15.0.4-win_x64.zip",
-	"https://cdn.azul.com/zulu/bin/zulu11.50.19-ca-fx-jdk11.0.12-win_x64.zip",
-	"https://cdn.azul.com/zulu/bin/zulu8.56.0.23-ca-fx-jdk8.0.302-win_x64.zip"
+	"https://cdn.azul.com/zulu/bin/zulu15.36.13-ca-fx-jdk15.0.5-win_x64.zip",
+	"https://cdn.azul.com/zulu/bin/zulu11.52.13-ca-fx-jdk11.0.13-win_x64.zip",
+	"https://cdn.azul.com/zulu/bin/zulu8.58.0.13-ca-fx-jdk8.0.312-win_x64.zip"
 )
 
 $DownloadDir = "$env:ProgramData\InstSys\java"
 
-$default = "jdk16"
+$default = "jdk17"
 
 if(-not (Test-Path -Path "$InstallDir")){
 	New-Item -ItemType "Directory" -Path "$InstallDir"
