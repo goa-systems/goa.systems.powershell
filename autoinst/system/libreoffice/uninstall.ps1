@@ -1,5 +1,5 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$processes = @("soffice")
+	$processes = @("soffice", "swriter", "scalc", "simpress", "sbase")
 	foreach ($process in $processes) {
 		$p = Get-Process "$process" -ErrorAction SilentlyContinue
 		if ($p) {
