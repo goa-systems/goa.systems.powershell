@@ -1,23 +1,26 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$name = "powershell"
-	$version = "7.1.4"
-	$setup = "PowerShell-$version-win-x64.msi"
-	$dlurl = "https://github.com/PowerShell/PowerShell/releases/download/v$version/$setup"
+	$ApplicationName = "powershell"
+	Set-Location -Path "$PSScriptRoot"
+	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
+	$SetupFile = "PowerShell-$($Json.version)-win-x64.msi"
+	$DownloadUrl = "https://github.com/PowerShell/PowerShell/releases/download/v$($Json.version)/$SetupFile"
 
-	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")) {
-		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\$name" -ItemType "Directory"
+	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$ApplicationName")) {
+		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\$ApplicationName" -ItemType "Directory"
 	}
 
 	<# Download if setup is not found in execution path. #>
 	$ProgressPreference = 'SilentlyContinue'
 		
-	if ( -Not (Test-Path -Path "$env:SystemsDrive\ProgramData\InstSys\$name\$setup")) {
-		Write-Host "Downloading from $dlurl"
-		Invoke-WebRequest -Uri "$dlurl" -OutFile "$env:SystemDrive\ProgramData\InstSys\$name\$setup"
+	if ( -Not (Test-Path -Path "$env:SystemsDrive\ProgramData\InstSys\$ApplicationName\$SetupFile")) {
+		Write-Host "Downloading from $DownloadUrl"
+		Invoke-WebRequest -Uri "$DownloadUrl" -OutFile "$env:SystemDrive\ProgramData\InstSys\$ApplicationName\$SetupFile"
 	}
-
-	Start-Process -FilePath "msiexec" -ArgumentList @("/package","$env:SystemDrive\ProgramData\InstSys\$name\$setup","/passive","ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1","ENABLE_PSREMOTING=1","REGISTER_MANIFEST=1")
-	exit
+	Start-Process -FilePath "msiexec" -ArgumentList @("/package","$env:SystemDrive\ProgramData\InstSys\$ApplicationName\$SetupFile","/passive","ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1", "ENABLE_PSREMOTING=1", "REGISTER_MANIFEST=1", "USE_MU=1", "ENABLE_MU=1")
+	try {
+		Stop-Process -Name "pwsh" -ErrorAction SilentlyContinue
+	}
+	catch {}
 }
 else {
 	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
