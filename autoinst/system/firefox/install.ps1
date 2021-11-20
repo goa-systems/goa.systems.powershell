@@ -7,7 +7,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	$ffsetup="Firefox Setup $ffvers.exe"
 
 	$lang="en-US"
-	if($(Get-Culture).Name.StartsWith("de")) {
+	if($(Get-WinSystemLocale).Name.StartsWith("de")) {
 		$lang="de"
 	}
 
