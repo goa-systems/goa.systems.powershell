@@ -17,7 +17,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 			-Destination "$env:SystemDrive\ProgramData\InstSys\tightvnc\$setup"
 	}
 
-	Start-Process -Wait -FilePath "msiexec" -ArgumentList "/qb", "/i", "$env:SystemDrive\ProgramData\InstSys\tightvnc\$setup", "/passive", "/norestart", "INSTALLDIR=`"C:\Program Files\TightVNC`"", "ADDLOCAL=Viewer"
+	Start-Process -Wait -FilePath "msiexec" -ArgumentList "/qb", "/i", "$env:SystemDrive\ProgramData\InstSys\tightvnc\$setup", "/passive", "/norestart", "INSTALLDIR=`"C:\Program Files\TightVNC`"", "ADDLOCAL=Server,Viewer"
 }
 else {
 	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
