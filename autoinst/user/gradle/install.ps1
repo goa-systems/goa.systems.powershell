@@ -3,11 +3,25 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\Gradle"
 )
 
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls13
-$J = Invoke-WebRequest 'https://services.gradle.org/versions/current' | ConvertFrom-Json
+$Headers = @{
+    'User-Agent' = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0'
+	# 'Accept' = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8'
+	# 'Accept-Encoding' = 'gzip, deflate, br'
+	# 'Accept-Language' = 'en-US,en;q=0.5'
+	# 'Cache-Control' = 'no-cache'
+	# 'Cookie' = '_fbp=fb.1.1638700781724.2075352598'
+	# 'Host' = 'services.gradle.org'
+	# 'Pragma' = 'no-cache'
+	# 'Sec-Fetch-Dest' = 'document'
+	# 'Sec-Fetch-Mode' = 'navigate'
+	# 'Sec-Fetch-Site' = 'cross-site'
+	# 'Upgrade-Insecure-Requests' = '1'
+}
 
-$FileName = "gradle-$($J.version)-bin.zip"
-$Url = "https://services.gradle.org/distributions/$FileName"
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls13
+$Json = Invoke-RestMethod -Uri "https://services.gradle.org/versions/current" -Headers $Headers
+
+$FileName = "gradle-$($Json.version)-bin.zip"
 
 $DownloadDir = "$env:ProgramData\InstSys\gradle"
 
@@ -23,40 +37,15 @@ if(-not (Test-Path -Path "$DownloadDir")){
 	New-Item -ItemType "Directory" -Path "$DownloadDir"
 }
 
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $ProgressPreference = 'SilentlyContinue'
-Invoke-WebRequest -Uri "$Url" -OutFile "$DownloadDir\$FileName"
+Invoke-WebRequest -Uri "$($Json.downloadUrl)" -OutFile "$DownloadDir\$FileName"
 
-try { 7z | Out-Null } catch {}
-if(-not ($?)){
-	Write-Host -Object "Can not find 7z.exe. Please check your global path and rerun installer."
-} else {
-	Start-Process -FilePath "7z.exe" -ArgumentList "x","-aos","-o`"$env:TEMP\GradleInst`"","-bb0","-bse0","-bsp2","-pdefault","-sccUTF-8","`"$DownloadDir\$FileName`"" -Wait -NoNewWindow
-}
-
-<# Move extracted folder to the program installation directory. #>
-Get-ChildItem -Path "$env:TEMP\GradleInst" | ForEach-Object {
-	
-	$TmpName = $_.Name
-	Move-Item -Path $_.FullName -Destination "$InstallDir"
-	
-	<# Update path variable #>
-	$pathvars = ([System.Environment]::GetEnvironmentVariable("PATH","USER")) -split ";"
-	$NewPath = ""
-	$Found = $False
-	foreach($pathvar in $pathvars){
-
-		<# If Gradle is already set in path variable. update the variable. #>
-		if(-not [string]::IsNullOrEmpty($pathvar)){
-			if($pathvar -like "*Gradle*"){
-				$NewPath += "$InstallDir\$TmpName\bin;"
-				$Found = $True
-			} else {
-				$NewPath += "$pathvar;"
-			}
-		}
+if(Test-Path -Path "$DownloadDir\$FileName"){
+	Expand-Archive -Path "$DownloadDir\$FileName" -DestinationPath "$env:TEMP\GradleInst"
+	<# Move extracted folder to the program installation directory. #>
+	Get-ChildItem -Path "$env:TEMP\GradleInst" | ForEach-Object {
+		Move-Item -Path $_.FullName -Destination "$InstallDir"
+		[System.Environment]::SetEnvironmentVariable('GRADLE_HOME',"$InstallDir\$($_.Name)",[System.EnvironmentVariableTarget]::User)
 	}
-	if( -not $Found){
-		$NewPath += "$InstallDir\$TmpName\bin"
-	}
-	[System.Environment]::SetEnvironmentVariable("PATH", $NewPath, [System.EnvironmentVariableTarget]::User)
 }
