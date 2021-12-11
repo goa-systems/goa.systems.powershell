@@ -1,11 +1,11 @@
 param (
 	
 	[String]
-	$InstallDir = "$env:LOCALAPPDATA\Programs\Netbeans",
-	
-	[String]
-	$Version = "12.4"
+	$InstallDir = "$env:LOCALAPPDATA\Programs\Netbeans"
 )
+
+$Json = ConvertFrom-Json -InputObject (Get-Content -Path "$(${PSScriptRoot})\version.json" -Raw)
+$Version = $Json.version
 
 $FileName = "netbeans-$Version-bin.zip"
 $Url = "https://downloads.apache.org/netbeans/netbeans/$Version/$FileName"
@@ -48,10 +48,10 @@ if(Test-Path -Path "$InstallDir\$Version"){
 		
 	 	Move-Item -Path $_.FullName -Destination "$InstallDir\$Version"
 	
-		..\..\insttools\CreateShortcut.ps1 `
+		. "${PSScriptRoot}\..\..\insttools\CreateShortcut.ps1" `
 			-LinkName "Netbeans IDE" `
 			-TargetPath "$InstallDir\$Version\bin\netbeans64.exe" `
-			-Arguments "" `
+			-Arguments "--jdkhome `"%JAVA_HOME%`"" `
 			-IconFile "$InstallDir\$Version\bin\netbeans64.exe" `
 			-IconId 0 `
 			-Description "Netbeans IDE" `
