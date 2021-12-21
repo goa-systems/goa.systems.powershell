@@ -32,26 +32,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\*\shell\PeaZip' -Name 'MultiSelectModel' -Value "player" -PropertyType String -Force -ea SilentlyContinue
 	New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\*\shell\PeaZip' -Name 'Icon' -Value "`"C:\Program Files\PeaZip\peazip.exe`",0" -PropertyType String -Force -ea SilentlyContinue
 
-	<# Update path variable #>
-	$pathvars = ([System.Environment]::GetEnvironmentVariable("PATH","Machine")) -split ";"
-	$NewPath = ""
-	$Found = $False
-	foreach($pathvar in $pathvars){
-
-		<# If Gradle is already set in path variable. update the variable. #>
-		if(-not [string]::IsNullOrEmpty($pathvar)){
-			if($pathvar -like "*PeaZip*"){
-				$NewPath += "%ProgramFiles%\PeaZip\res\7z;"
-				$Found = $True
-			} else {
-				$NewPath += "$pathvar;"
-			}
-		}
-	}
-	if( -not $Found){
-		$NewPath += "%ProgramFiles%\PeaZip\res\7z"
-	}
-	[System.Environment]::SetEnvironmentVariable("PATH", $NewPath, [System.EnvironmentVariableTarget]::Machine)
+	[System.Environment]::SetEnvironmentVariable("7Z_HOME", "%ProgramFiles%\PeaZip\res\bin\7z", [System.EnvironmentVariableTarget]::Machine)
 
 } else {
 	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
