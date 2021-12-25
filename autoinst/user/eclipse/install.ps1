@@ -9,17 +9,21 @@ Get-ChildItem -Path "$WorkDir" | ForEach-Object {
 $EclipseDir="$WorkDir\eclipse"
 
 $Repos = @(
-    "http://download.eclipse.org/releases/2021-12",
-    "http://download.eclipse.org/eclipse/updates/4.22",
-    "https://download.eclipse.org/buildship/updates/e422/releases/3.x",
-    "https://eclipse-uc.sonarlint.org",
-    "https://dbeaver.io/update/latest/",
-    "https://dbeaver.io/update/office/latest/",
+    "https://download.eclipse.org/releases/$($Json.release)/",
+    "https://download.eclipse.org/tools/cdt/releases/10.5",
     "https://dbeaver.io/update/git/latest/",
-    # "http://jasperstudio.sourceforge.net/updates",
-    "https://eclipse-uc.sonarlint.org",
+    "https://dbeaver.io/update/office/latest/",
+    "https://dbeaver.io/update/latest/",
+    "https://download.eclipse.org/egit/github/updates",
+    "https://download.eclipse.org/egit/github/updates-nightly",
+    "https://download.eclipse.org/tools/orbit/downloads/drops/R20210825222808/repository",
+    "https://download.eclipse.org/releases/$($Json.release)",
+    "https://download.eclipse.org/egit/updates",
+    "http://jasperstudio.sourceforge.net/updates/",
+    "https://download.eclipse.org/e4/snapshots/org.eclipse.e4.ui",
     "https://download.springsource.com/release/TOOLS/sts4/update/e4.21",
-    "https://download.eclipse.org/egit/updates"
+    "https://download.eclipse.org/eclipse/updates/$($Json.version)",
+    "https://eclipse-uc.sonarlint.org"
 )
 
 $FeatureList = @(
@@ -33,7 +37,10 @@ $FeatureList = @(
     "org.jkiss.dbeaver.ext.office.feature.feature.group",
     "org.jkiss.dbeaver.net.sshj.feature.feature.group",
     "org.jkiss.dbeaver.ext.ui.svg.feature.feature.group",
-    # "com.jaspersoft.studio.feature.feature.group",
+    "com.jaspersoft.studio.feature.feature.group",
+    "net.sf.jasperreports.feature.feature.group",
+    "net.sf.jasperreports.samples.feature.feature.group",
+    "com.jaspersoft.studio.foundation.bundles.feature.group",
     "org.sonarlint.eclipse.feature.feature.group",
     "org.springframework.tooling.bosh.ls.feature.feature.group",
     "org.springframework.tooling.cloudfoundry.manifest.ls.feature.feature.group",
@@ -58,12 +65,12 @@ $FeatureList = @(
 )
 
 $AdditionalPlugins = @(
-    # "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/org.apache.commons.pool_1.6.0.v201204271246.jar",
-    # "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/org.apache.commons.dbcp_1.4.0.v201204271417.jar",
-    # "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.transaction_1.1.1.v201105210645.jar",
-    # "https://download.eclipse.org/releases/2019-09/201909181001/plugins/org.eclipse.wb.swt_1.9.1.201812270937.jar",
-    # "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.xml.bind_2.2.0.v201105210648.jar",
-    # "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.activation_1.1.0.v201211130549.jar"
+    "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/org.apache.commons.pool_1.6.0.v201204271246.jar",
+    "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/org.apache.commons.dbcp_1.4.0.v201204271417.jar",
+    "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.transaction_1.1.1.v201105210645.jar",
+    "https://download.eclipse.org/releases/2019-09/201909181001/plugins/org.eclipse.wb.swt_1.9.1.201812270937.jar",
+    "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.xml.bind_2.2.0.v201105210648.jar",
+    "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.activation_1.1.0.v201211130549.jar"
 )
 
 function Convert-ArrayToString {
