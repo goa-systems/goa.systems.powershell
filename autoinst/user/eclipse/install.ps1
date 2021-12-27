@@ -23,10 +23,15 @@ $Repos = @(
     "https://download.eclipse.org/e4/snapshots/org.eclipse.e4.ui",
     "https://download.springsource.com/release/TOOLS/sts4/update/e4.21",
     "https://download.eclipse.org/eclipse/updates/$($Json.version)",
-    "https://eclipse-uc.sonarlint.org"
+    "https://eclipse-uc.sonarlint.org",
+	"https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository"
 )
 
 $FeatureList = @(
+    "com.jaspersoft.studio.feature.feature.group",
+    "net.sf.jasperreports.feature.feature.group",
+    "net.sf.jasperreports.samples.feature.feature.group",
+    "com.jaspersoft.studio.foundation.bundles.feature.group",
     "org.eclipse.epp.mpc.feature.group",
     "org.eclipse.buildship.feature.group",
     "org.eclipse.m2e.wtp.feature.feature.group",
@@ -37,10 +42,6 @@ $FeatureList = @(
     "org.jkiss.dbeaver.ext.office.feature.feature.group",
     "org.jkiss.dbeaver.net.sshj.feature.feature.group",
     "org.jkiss.dbeaver.ext.ui.svg.feature.feature.group",
-    "com.jaspersoft.studio.feature.feature.group",
-    "net.sf.jasperreports.feature.feature.group",
-    "net.sf.jasperreports.samples.feature.feature.group",
-    "com.jaspersoft.studio.foundation.bundles.feature.group",
     "org.sonarlint.eclipse.feature.feature.group",
     "org.springframework.tooling.bosh.ls.feature.feature.group",
     "org.springframework.tooling.cloudfoundry.manifest.ls.feature.feature.group",
@@ -64,15 +65,6 @@ $FeatureList = @(
     "org.eclipse.jst.enterprise_ui.feature.feature.group"
 )
 
-$AdditionalPlugins = @(
-    "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/org.apache.commons.pool_1.6.0.v201204271246.jar",
-    "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/org.apache.commons.dbcp_1.4.0.v201204271417.jar",
-    "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.transaction_1.1.1.v201105210645.jar",
-    "https://download.eclipse.org/releases/2019-09/201909181001/plugins/org.eclipse.wb.swt_1.9.1.201812270937.jar",
-    "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.xml.bind_2.2.0.v201105210648.jar",
-    "https://download.eclipse.org/tools/orbit/downloads/drops/R20191115185527/repository/plugins/javax.activation_1.1.0.v201211130549.jar"
-)
-
 function Convert-ArrayToString {
 	param (
 		# Array of strings
@@ -91,16 +83,6 @@ function Convert-ArrayToString {
 
 $RepoListStr = Convert-ArrayToString -StringArray $Repos
 $FeatureListStr = Convert-ArrayToString -StringArray $FeatureList
-
-foreach($Plugin in $AdditionalPlugins){
-	try {
-		Start-BitsTransfer -Source "$Plugin" -Destination "$EclipseDir\plugins" -ErrorAction Stop
-		Start-Sleep -Seconds 2
-	} catch {
-		Write-Error -Message "There has been a download error with the url ${Plugin}."
-		$PluginInstallSuccess = $PluginInstallSuccess -and $false
-	}
-}
 
 Start-Process `
 -FilePath "$EclipseDir\eclipse.exe" `
