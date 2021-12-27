@@ -1,5 +1,6 @@
 {
     "dist": "http://mirror.dkm.cz/eclipse/eclipse/downloads/drops4/R-4.22-202111241800/eclipse-platform-4.22-win32-x86_64.zip",
     "release": "2021-12",
-    "version": "4.22"
+    "version": "4.22",
+	"pluginsrelease": "R20211213173813"
 }
