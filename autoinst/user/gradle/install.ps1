@@ -3,23 +3,8 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\Gradle"
 )
 
-$Headers = @{
-    'User-Agent' = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0'
-	# 'Accept' = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8'
-	# 'Accept-Encoding' = 'gzip, deflate, br'
-	# 'Accept-Language' = 'en-US,en;q=0.5'
-	# 'Cache-Control' = 'no-cache'
-	# 'Cookie' = '_fbp=fb.1.1638700781724.2075352598'
-	# 'Host' = 'services.gradle.org'
-	# 'Pragma' = 'no-cache'
-	# 'Sec-Fetch-Dest' = 'document'
-	# 'Sec-Fetch-Mode' = 'navigate'
-	# 'Sec-Fetch-Site' = 'cross-site'
-	# 'Upgrade-Insecure-Requests' = '1'
-}
-
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls13
-$Json = Invoke-RestMethod -Uri "https://services.gradle.org/versions/current" -Headers $Headers
+$Json = Invoke-RestMethod -Uri "https://services.gradle.org/versions/current" -Headers
 
 $FileName = "gradle-$($Json.version)-bin.zip"
 
