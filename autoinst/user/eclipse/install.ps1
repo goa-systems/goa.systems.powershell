@@ -9,20 +9,35 @@ Get-ChildItem -Path "$WorkDir" | ForEach-Object {
 $EclipseDir="$WorkDir\eclipse"
 
 $Repos = @(
-	"https://download.eclipse.org/releases/$($Json.release)/",
+
+	# Regular Eclipse repositories
+	"https://download.eclipse.org/releases/$($Json.release)",
+	"https://download.eclipse.org/eclipse/updates/$($Json.version)",
+	"https://download.eclipse.org/e4/snapshots/org.eclipse.e4.ui",
+
+	# C/C++ repository
 	"https://download.eclipse.org/tools/cdt/releases/10.5",
+
+	#DBeaver repsitory
 	"https://dbeaver.io/update/git/latest/",
 	"https://dbeaver.io/update/office/latest/",
 	"https://dbeaver.io/update/latest/",
+
+	# EGit repository
 	"https://download.eclipse.org/egit/github/updates",
 	"https://download.eclipse.org/egit/github/updates-nightly",
-	"https://download.eclipse.org/releases/$($Json.release)",
 	"https://download.eclipse.org/egit/updates",
+
+	# Jaspersoft Studio repository
 	"http://jasperstudio.sourceforge.net/updates/",
-	"https://download.eclipse.org/e4/snapshots/org.eclipse.e4.ui",
+
+	# SpringBoot repository
 	"https://download.springsource.com/release/TOOLS/sts4/update/e$($Json.version)",
-	"https://download.eclipse.org/eclipse/updates/$($Json.version)",
+
+	# SonarLint repository
 	"https://eclipse-uc.sonarlint.org",
+
+	# Additional artifacts
 	"https://download.eclipse.org/tools/orbit/downloads/drops/$($Json.pluginsrelease)/repository",
 	"https://download.eclipse.org/releases/2021-09/202109151000/"
 )
@@ -123,3 +138,5 @@ $EclipseIni = $EclipseIni.Replace("Xms40m", "Xms1024m")
 $EclipseIni = $EclipseIni.Replace("Xmx512m", "Xmx4096m")
 Set-Content -Path "$EclipseDir\eclipse.ini" -Value $EclipseIni
 Set-Content -Path "$EclipseDir\p2\org.eclipse.equinox.p2.engine\profileRegistry\SDKProfile.profile\.data\.settings\org.eclipse.equinox.p2.ui.sdk.scheduler.prefs" -Value "enabled=true"
+
+Start-Process -FilePath "explorer" -ArgumentList "$EclipseDir"
