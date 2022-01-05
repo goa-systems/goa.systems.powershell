@@ -47,6 +47,8 @@ if(Test-Path -Path "$InstallDir\$Version"){
 	Get-ChildItem -Path "$env:TEMP\Netbeans" | ForEach-Object {
 		
 	 	Move-Item -Path $_.FullName -Destination "$InstallDir\$Version"
+
+		 [System.Environment]::SetEnvironmentVariable("NETBEANS_HOME", "$InstallDir\$Version", [System.EnvironmentVariableTarget]::User)
 	
 		. "${PSScriptRoot}\..\..\insttools\CreateShortcut.ps1" `
 			-LinkName "Netbeans IDE" `
