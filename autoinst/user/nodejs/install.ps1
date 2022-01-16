@@ -3,9 +3,9 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\NodeJS"
 )
 
-$Version = "14.15.0"
-$FileName = "node-v$Version-win-x64.zip"
-$DownloadUrl = "https://nodejs.org/dist/v$Version/$FileName"
+$Version = (ConvertFrom-Json -InputObject (Get-Content -Raw -Path  "${PSScriptRoot}\version.json")).version
+$FileName = "node-$Version-win-x64.zip"
+$DownloadUrl = "https://nodejs.org/dist/$Version/$FileName"
 $AppName = "nodejs"
 
 $DownloadDir = "$env:ProgramData\InstSys\$AppName"
@@ -33,26 +33,6 @@ if(-not ($?)){
 }
 
 Get-ChildItem -Path "$env:TEMP\$AppName" | ForEach-Object {
-	
-	$TmpName = $_.Name
 	Move-Item -Path $_.FullName -Destination "$InstallDir"
-	
-	$pathvars = ([System.Environment]::GetEnvironmentVariable("PATH","USER")) -split ";"
-	$NewPath = ""
-	$Found = $False
-	foreach($pathvar in $pathvars){
-
-		if(-not [string]::IsNullOrEmpty($pathvar)){
-			if($pathvar -like "*Node.js*"){
-				$NewPath += "$InstallDir\$TmpName;"
-				$Found = $True
-			} else {
-				$NewPath += "$pathvar;"
-			}
-		}
-	}
-	if( -not $Found){
-		$NewPath += "$InstallDir\$TmpName"
-	}
-	[System.Environment]::SetEnvironmentVariable("PATH", $NewPath, [System.EnvironmentVariableTarget]::User)
+	[System.Environment]::SetEnvironmentVariable("NODEJS_HOME", "$($InstallDir)\$($_.Name)", [System.EnvironmentVariableTarget]::User)
 }
