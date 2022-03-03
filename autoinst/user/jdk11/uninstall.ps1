@@ -6,7 +6,7 @@ foreach($process in $processes){
 # Delete directories
 $TargetPath = "$env:LOCALAPPDATA\Programs\Java"
 
-Get-ChildItem -Path "$TargetPath" | Where-Object {$_.Name -match "(.*)jdk8(.*)"} | ForEach-Object {
+Get-ChildItem -Path "$TargetPath" | Where-Object {$_.Name -match "(.*)jdk11(.*)"} | ForEach-Object {
 	Remove-Item -Recurse -Force -Path "$($_.FullName)"
 }
 
