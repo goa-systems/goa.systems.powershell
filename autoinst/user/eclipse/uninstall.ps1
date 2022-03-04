@@ -1,0 +1,2 @@
+try { Stop-Process -Name @("eclipse") | Out-Null } catch { Write-Error -Message "Eclipse process not found." }
+Get-ChildItem -Path "$env:LocalAppData\Programs\Eclipse" | Where-Object { $_.Attributes -eq "Directory" } | Remove-Item -Recurse -Force
