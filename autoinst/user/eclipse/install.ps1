@@ -7,4 +7,4 @@ if( -Not (Test-Path -Path "$env:LocalAppData\Programs\Eclipse")){
 	New-Item -ItemType "Directory" -Path "$env:LocalAppData\Programs\Eclipse"
 }
 
-Move-Item -Path "$EclipseDir" -Destination "$env:LocalAppData\Programs\Eclipse\$($Json.version)"
+Move-Item -Path "$($EclipseDir[1])" -Destination "$env:LocalAppData\Programs\Eclipse\$($Json.version)"
