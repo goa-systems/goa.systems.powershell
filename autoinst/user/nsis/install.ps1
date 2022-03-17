@@ -3,7 +3,7 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\Nsis"
 )
 
-$Version = "3.06.1"
+$Version = ( Get-Content -Raw -Path "$PSScriptRoot\version.json" | ConvertFrom-Json).version
 $FileName = "nsis-$Version.zip"
 $Url = "https://jztkft.dl.sourceforge.net/project/nsis/NSIS%203/$Version/$FileName"
 
