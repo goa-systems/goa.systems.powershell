@@ -21,8 +21,3 @@ Write-Host -Object "Folder removed."
 if(Test-Path -Path "$env:LOCALAPPDATA\Programs\Netbeans"){
 	Remove-Item -Path "$env:LOCALAPPDATA\Programs\Netbeans" -Recurse -Force
 }
-
-if(Test-Path -Path "$env:AppData\Microsoft\Windows\Start Menu\Programs\Netbeans IDE.lnk"){
-	Remove-Item -Path "$env:AppData\Microsoft\Windows\Start Menu\Programs\Netbeans IDE.lnk" -Force
-}
-
