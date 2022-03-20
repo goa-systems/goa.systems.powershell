@@ -49,16 +49,6 @@ if(Test-Path -Path "$InstallDir\$Version"){
 	 	Move-Item -Path $_.FullName -Destination "$InstallDir\$Version"
 
 		 [System.Environment]::SetEnvironmentVariable("NETBEANS_HOME", "$InstallDir\$Version", [System.EnvironmentVariableTarget]::User)
-	
-		. "${PSScriptRoot}\..\..\insttools\CreateShortcut.ps1" `
-			-LinkName "Netbeans IDE" `
-			-TargetPath "$InstallDir\$Version\bin\netbeans64.exe" `
-			-Arguments "--jdkhome `"%JAVA_HOME%`"" `
-			-IconFile "$InstallDir\$Version\bin\netbeans64.exe" `
-			-IconId 0 `
-			-Description "Netbeans IDE" `
-			-WorkingDirectory "%UserProfile%" `
-			-ShortcutLocations @("$env:AppData\Microsoft\Windows\Start Menu\Programs")
 	}
 }
 

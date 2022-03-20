@@ -39,7 +39,8 @@ $Repos = @(
 
 	# Additional artifacts
 	"https://download.eclipse.org/tools/orbit/downloads/drops/$($Json.pluginsrelease)/repository",
-	"https://download.eclipse.org/releases/2022-03/202203161000/"
+	"https://download.eclipse.org/releases/2022-03/202203161000/",
+	"https://download.eclipse.org/releases/2021-09/202109151000/"
 )
 
 $FeatureList = @(
