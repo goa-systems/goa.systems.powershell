@@ -3,8 +3,8 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\Gradle"
 )
 
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls13
-$Json = Invoke-RestMethod -Uri "https://services.gradle.org/versions/current" -Headers
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$Json = (Invoke-RestMethod -Uri "https://services.gradle.org/versions/current")
 
 $FileName = "gradle-$($Json.version)-bin.zip"
 
