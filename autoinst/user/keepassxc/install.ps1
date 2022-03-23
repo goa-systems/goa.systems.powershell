@@ -3,7 +3,7 @@ $Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 
 $Version = $Json.version
 $DownloadDir = "$env:ProgramData\InstSys\keepassxc"
-$FileName = "KeePassXC-$Version-Win64-portable.zip"
+$FileName = "KeePassXC-$Version-Win64.zip"
 $Url = "https://github.com/keepassxreboot/keepassxc/releases/download/$Version/$FileName"
 
 if(-not (Test-Path -Path "$DownloadDir")){
