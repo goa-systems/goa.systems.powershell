@@ -21,27 +21,22 @@ if(Test-Path -Path "$DownloadDir\$FileName"){
 	Expand-Archive -Path "$DownloadDir\$FileName" -DestinationPath "$env:TEMP\KeePassXC"
 	Get-ChildItem -Path "$env:TEMP\KeePassXC" | ForEach-Object {
 		$FolderName = $_.Name
-		Move-Item -Path "$env:TEMP\KeePassXC\$FolderName" -Destination "$env:LOCALAPPDATA\Programs\KeePassXC"
+
+		if(-Not (Test-Path -Path "$env:LOCALAPPDATA\Programs\KeePassXC")){
+			New-Item -ItemType Directory -Path "$env:LOCALAPPDATA\Programs\KeePassXC"
+		}
+
+		Move-Item -Path "$env:TEMP\KeePassXC\$FolderName" -Destination "$env:LOCALAPPDATA\Programs\KeePassXC\$Version"
 	}
 	Remove-Item -Path "$env:TEMP\KeePassXC"
 
 	..\..\insttools\CreateShortcut.ps1 `
 			-LinkName "KeePassXC" `
-			-TargetPath "$env:LOCALAPPDATA\Programs\KeePassXC\KeePassXC.exe" `
+			-TargetPath "$env:LOCALAPPDATA\Programs\KeePassXC\$Version\KeePassXC.exe" `
 			-Arguments "" `
-			-IconFile "$env:LOCALAPPDATA\Programs\KeePassXC\KeePassXC.exe" `
+			-IconFile "$env:LOCALAPPDATA\Programs\KeePassXC\$Version\KeePassXC.exe" `
 			-IconId 0 `
 			-Description "KeePassXC" `
-			-WorkingDirectory "%UserProfile%" `
-			-ShortcutLocations @("$env:AppData\Microsoft\Windows\Start Menu\Programs")
-	
-	..\..\insttools\CreateShortcut.ps1 `
-			-LinkName "KeePassXC saved password" `
-			-TargetPath "`"pwsh.exe`""`
-			-Arguments "-Command `"`""`
-			-IconFile "$env:LOCALAPPDATA\Programs\KeePassXC\KeePassXC.exe" `
-			-IconId 0 `
-			-Description "KeePassXC with predefined passwor" `
 			-WorkingDirectory "%UserProfile%" `
 			-ShortcutLocations @("$env:AppData\Microsoft\Windows\Start Menu\Programs")
 }
