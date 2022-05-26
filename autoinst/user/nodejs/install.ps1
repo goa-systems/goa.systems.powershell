@@ -25,12 +25,7 @@ if(-not (Test-Path -Path "$DownloadDir")){
 $ProgressPreference = 'SilentlyContinue'
 Invoke-WebRequest -Uri "$DownloadUrl" -OutFile "$DownloadDir\$FileName"
 
-try { 7z | Out-Null } catch {}
-if(-not ($?)){
-	Write-Host -Object "Can not find 7z.exe. Please check your global path and rerun installer."
-} else {
-	Start-Process -FilePath "7z.exe" -ArgumentList "x","-aos","-o`"$env:TEMP\$AppName`"","-bb0","-bse0","-bsp2","-pdefault","-sccUTF-8","`"$DownloadDir\$FileName`"" -Wait -NoNewWindow
-}
+Expand-Archive -Path "$DownloadDir\$FileName" -DestinationPath "$env:TEMP\$AppName"
 
 Get-ChildItem -Path "$env:TEMP\$AppName" | ForEach-Object {
 	Move-Item -Path $_.FullName -Destination "$InstallDir"
