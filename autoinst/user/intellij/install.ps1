@@ -4,7 +4,7 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\IntelliJ",
 	
 	[String]
-	$Version = "2021.1.1"
+	$Version = "2022.1.1"
 )
 
 $FileName = "ideaIC-$Version.win.zip"
@@ -36,12 +36,7 @@ if(Test-Path -Path "$InstallDir\$Version"){
 		Invoke-WebRequest -Uri "$Url" -OutFile "$DownloadDir\$FileName"
 	}
 	
-	try { 7z | Out-Null } catch {}
-	if(-not ($?)){
-		Write-Host -Object "Can not find 7z.exe. Please check your global path and rerun installer."
-	} else {
-		Start-Process -FilePath "7z" -ArgumentList "x","-aos","-o`"$env:TEMP\IntelliJInst\$Version`"","-bb0","-bse0","-bsp2","-pdefault","-sccUTF-8","`"$DownloadDir\$FileName`"" -Wait -NoNewWindow
-	}
+	Expand-Archive -Path "$DownloadDir\$FileName" -DestinationPath "$env:TEMP\IntelliJInst\$Version"
 	
 	<# Move extracted folder to the program installation directory. #>
 	Get-ChildItem -Path "$env:TEMP\IntelliJInst" | ForEach-Object {
