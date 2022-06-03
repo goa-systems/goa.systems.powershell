@@ -1,8 +1,9 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	Set-Location -Path "$PSScriptRoot"
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
-	$version = $Json.version
-	$setup = "ImageGlass_${version}_x64.msi"
+	$Version = $Json.version
+	$Keyword = $Json.version
+	$setup = "ImageGlass_${Keyword}_${version}_x64.msi"
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\imageglass")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\imageglass" -ItemType "Directory"
 	}
