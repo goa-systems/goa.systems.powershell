@@ -16,7 +16,7 @@ $Repos = @(
 	"https://download.eclipse.org/e4/snapshots/org.eclipse.e4.ui",
 
 	# C/C++ repository
-	"https://download.eclipse.org/tools/cdt/releases/10.5",
+	"https://download.eclipse.org/tools/cdt/releases/latest/",
 
 	#DBeaver repsitory
 	"https://dbeaver.io/update/git/latest/",
@@ -32,15 +32,15 @@ $Repos = @(
 	"http://jasperstudio.sourceforge.net/updates/",
 
 	# SpringBoot repository
-	"https://download.springsource.com/release/TOOLS/sts4/update/e$($Json.version)",
+	"https://download.springsource.com/release/TOOLS/sts4/update/e$($Json.version)/",
 
 	# SonarLint repository
 	"https://eclipse-uc.sonarlint.org",
 
 	# Additional artifacts
-	"https://download.eclipse.org/tools/orbit/downloads/drops/$($Json.pluginsrelease)/repository",
-	"https://download.eclipse.org/releases/2022-03/202203161000/",
-	"https://download.eclipse.org/releases/2021-09/202109151000/"
+	"https://download.eclipse.org/tools/orbit/downloads/drops/$($Json.pluginsrelease)/repository/",
+	"https://download.eclipse.org/releases/2022-06/202206151000/",
+	"https://download.eclipse.org/tools/orbit/downloads/drops/R20180829150157/repository/"
 )
 
 $FeatureList = @(
