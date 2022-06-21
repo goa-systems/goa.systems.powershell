@@ -40,7 +40,10 @@ $Repos = @(
 	# Additional artifacts
 	"https://download.eclipse.org/tools/orbit/downloads/drops/$($Json.pluginsrelease)/repository/",
 	"https://download.eclipse.org/releases/2022-06/202206151000/",
-	"https://download.eclipse.org/tools/orbit/downloads/drops/R20180829150157/repository/"
+	"https://download.eclipse.org/tools/orbit/downloads/drops/R20180829150157/repository/",
+
+	# Wild Web Developer HTML, CSS, JSON, Yaml, JavaScript, TypeScript, Node tools
+	"http://download.eclipse.org/wildwebdeveloper/releases/latest/"
 )
 
 $FeatureList = @(
@@ -100,6 +103,9 @@ $FeatureList = @(
 	"org.eclipse.jst.server_ui.feature.feature.group",
 	"org.eclipse.jst.web_ui.feature.feature.group",
 	"org.eclipse.jst.enterprise_ui.feature.feature.group",
+
+	# Wild Web Developer HTML, CSS, JSON, Yaml, JavaScript, TypeScript, Node tools
+	"org.eclipse.wildwebdeveloper.feature.feature.group",
 	
 	# Maven plugin
 	"org.eclipse.m2e.wtp.feature.feature.group"
