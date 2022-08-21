@@ -11,9 +11,9 @@ $EclipseDir="$WorkDir\eclipse"
 $Repos = @(
 
 	# Regular Eclipse repositories
-	"https://download.eclipse.org/releases/$($Json.release)",
-	"https://download.eclipse.org/eclipse/updates/$($Json.version)",
-	"https://download.eclipse.org/e4/snapshots/org.eclipse.e4.ui",
+	"https://download.eclipse.org/releases/2022-06",
+	"https://download.eclipse.org/eclipse/updates/4.24",
+	# "https://download.eclipse.org/e4/snapshots/org.eclipse.e4.ui",
 
 	# C/C++ repository
 	"https://download.eclipse.org/tools/cdt/releases/latest/",
@@ -24,23 +24,22 @@ $Repos = @(
 	"https://dbeaver.io/update/latest/",
 
 	# EGit repository
-	"https://download.eclipse.org/egit/github/updates",
-	"https://download.eclipse.org/egit/github/updates-nightly",
 	"https://download.eclipse.org/egit/updates",
 
 	# Jaspersoft Studio repository
 	"http://jasperstudio.sourceforge.net/updates/",
 
 	# SpringBoot repository
-	"https://download.springsource.com/release/TOOLS/sts4/update/e$($Json.version)/",
+	"https://download.springsource.com/release/TOOLS/sts4/update/e4.24/",
 
 	# SonarLint repository
 	"https://eclipse-uc.sonarlint.org",
 
 	# Additional artifacts
-	"https://download.eclipse.org/tools/orbit/downloads/drops/$($Json.pluginsrelease)/repository/",
+	"https://download.eclipse.org/tools/orbit/downloads/drops/R20220531185310/repository/",
 	"https://download.eclipse.org/releases/2022-06/202206151000/",
 	"https://download.eclipse.org/tools/orbit/downloads/drops/R20180829150157/repository/",
+	"https://download.eclipse.org/passage/drops/milestone/2.4.0-M2/lic/"
 
 	# Wild Web Developer HTML, CSS, JSON, Yaml, JavaScript, TypeScript, Node tools
 	"http://download.eclipse.org/wildwebdeveloper/releases/latest/"
