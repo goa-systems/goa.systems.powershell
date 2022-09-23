@@ -1,5 +1,5 @@
 $Url = "https://dl.pstmn.io/download/latest/win64"
-$DownloadDir = "$env:ProgramData\InstSys\postman"
+$DownloadDir = "$env:TEMP\$(New-Guid)"
 <# Generic download url brings setup with version number. #>
 if(Test-Path -Path "$DownloadDir"){
 	Remove-Item -Path "$DownloadDir" -Recurse -Force
@@ -13,3 +13,4 @@ $ShortCut = "$env:USERPROFILE\Desktop\Postman.lnk"
 if(Test-Path -Path "$ShortCut"){
 	Remove-Item -Path "$ShortCut" -Force
 }
+Remove-Item -Recurse -Force -Path "$DownloadDir"
