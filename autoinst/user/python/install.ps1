@@ -1,8 +1,8 @@
-$Version = "3.10.4"
+$Version = "3.10.7"
 $OutFile = "python-$Version-amd64.exe"
 $DownloadUrl = "https://www.python.org/ftp/python/$Version/$OutFile"
 
-$DownloadDir = "$env:ProgramData\InstSys\python"
+$DownloadDir = "$env:TEMP\$(New-Guid)"
 
 if(-not (Test-Path -Path "$DownloadDir")){
 	New-Item -ItemType "Directory" -Path "$DownloadDir"
@@ -32,3 +32,5 @@ Start-Process -FilePath "$env:USERPROFILE\AppData\Local\Programs\Python\$Version
 	"--upgrade",`
 	"pip"`
 )
+
+Remove-Item -Recurse -Force -Path "$DownloadDir"
