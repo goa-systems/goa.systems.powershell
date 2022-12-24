@@ -11,17 +11,17 @@ $EclipseDir="$WorkDir\eclipse"
 $Repos = @(
 
 	# Regular Eclipse repositories
-	"https://download.eclipse.org/releases/2022-09",
-	"https://download.eclipse.org/eclipse/updates/4.25",
+	"https://download.eclipse.org/releases/2022-12",
+	"https://download.eclipse.org/eclipse/updates/4.26",
 	# "https://download.eclipse.org/e4/snapshots/org.eclipse.e4.ui",
 
 	# C/C++ repository
 	"https://download.eclipse.org/tools/cdt/releases/latest/",
 
 	#DBeaver repsitory
-	"https://dbeaver.io/update/git/latest/",
-	"https://dbeaver.io/update/office/latest/",
-	"https://dbeaver.io/update/latest/",
+	# "https://dbeaver.io/update/git/latest/",
+	# "https://dbeaver.io/update/office/latest/",
+	# "https://dbeaver.io/update/latest/",
 
 	# EGit repository
 	"https://download.eclipse.org/egit/updates",
@@ -30,7 +30,7 @@ $Repos = @(
 	"http://jasperstudio.sourceforge.net/updates/",
 
 	# SpringBoot repository
-	"https://download.springsource.com/release/TOOLS/sts4/update/e4.25/",
+	"https://download.springsource.com/release/TOOLS/sts4/update/e4.26/",
 
 	# SonarLint repository
 	"https://eclipse-uc.sonarlint.org",
@@ -66,16 +66,16 @@ $FeatureList = @(
 	"org.eclipse.cdt.feature.group",
 
 	# DBeaver database management
-	"org.jkiss.dbeaver.debug.feature.feature.group",
-	"org.jkiss.dbeaver.ui.feature.feature.group",
-	"org.jkiss.dbeaver.git.feature.feature.group",
-	"org.jkiss.dbeaver.ide.feature.feature.group",
-	"org.jkiss.dbeaver.db.feature.feature.group",
-	"org.jkiss.dbeaver.db.ui.feature.feature.group",
-	"org.jkiss.dbeaver.ui.extra.feature.feature.group",
-	"org.jkiss.dbeaver.runtime.feature.feature.group",
-	"org.jkiss.dbeaver.ext.office.feature.feature.group",
-	"org.jkiss.dbeaver.ext.ui.svg.feature.feature.group",
+	# "org.jkiss.dbeaver.debug.feature.feature.group",
+	# "org.jkiss.dbeaver.ui.feature.feature.group",
+	# "org.jkiss.dbeaver.git.feature.feature.group",
+	# "org.jkiss.dbeaver.ide.feature.feature.group",
+	# "org.jkiss.dbeaver.db.feature.feature.group",
+	# "org.jkiss.dbeaver.db.ui.feature.feature.group",
+	# "org.jkiss.dbeaver.ui.extra.feature.feature.group",
+	# "org.jkiss.dbeaver.runtime.feature.feature.group",
+	# "org.jkiss.dbeaver.ext.office.feature.feature.group",
+	# "org.jkiss.dbeaver.ext.ui.svg.feature.feature.group",
 
 	# Spring Tool Suite
 	"org.springframework.tooling.bosh.ls.feature.feature.group",
