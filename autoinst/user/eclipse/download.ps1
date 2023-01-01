@@ -19,9 +19,9 @@ $Repos = @(
 	"https://download.eclipse.org/tools/cdt/releases/latest/",
 
 	#DBeaver repsitory
-	# "https://dbeaver.io/update/git/latest/",
-	# "https://dbeaver.io/update/office/latest/",
-	# "https://dbeaver.io/update/latest/",
+	"https://dbeaver.io/update/git/latest/",
+	"https://dbeaver.io/update/office/latest/",
+	"https://dbeaver.io/update/latest/",
 
 	# EGit repository
 	"https://download.eclipse.org/egit/updates",
@@ -36,7 +36,6 @@ $Repos = @(
 	"https://eclipse-uc.sonarlint.org",
 
 	# Additional artifacts
-	"https://download.eclipse.org/tools/orbit/downloads/drops/I20220601215957/repository",
 	"https://download.eclipse.org/tools/orbit/R-builds/R20210602031627/repository",
 	"https://download.eclipse.org/tools/orbit/R-builds/R20210602031627/repository",
 	"https://download.eclipse.org/releases/2022-03/202203161000",
@@ -66,16 +65,16 @@ $FeatureList = @(
 	"org.eclipse.cdt.feature.group",
 
 	# DBeaver database management
-	# "org.jkiss.dbeaver.debug.feature.feature.group",
-	# "org.jkiss.dbeaver.ui.feature.feature.group",
-	# "org.jkiss.dbeaver.git.feature.feature.group",
-	# "org.jkiss.dbeaver.ide.feature.feature.group",
-	# "org.jkiss.dbeaver.db.feature.feature.group",
-	# "org.jkiss.dbeaver.db.ui.feature.feature.group",
-	# "org.jkiss.dbeaver.ui.extra.feature.feature.group",
-	# "org.jkiss.dbeaver.runtime.feature.feature.group",
-	# "org.jkiss.dbeaver.ext.office.feature.feature.group",
-	# "org.jkiss.dbeaver.ext.ui.svg.feature.feature.group",
+	"org.jkiss.dbeaver.debug.feature.feature.group",
+	"org.jkiss.dbeaver.ui.feature.feature.group",
+	"org.jkiss.dbeaver.git.feature.feature.group",
+	"org.jkiss.dbeaver.ide.feature.feature.group",
+	"org.jkiss.dbeaver.db.feature.feature.group",
+	"org.jkiss.dbeaver.db.ui.feature.feature.group",
+	"org.jkiss.dbeaver.ui.extra.feature.feature.group",
+	"org.jkiss.dbeaver.runtime.feature.feature.group",
+	"org.jkiss.dbeaver.ext.office.feature.feature.group",
+	"org.jkiss.dbeaver.ext.ui.svg.feature.feature.group",
 
 	# Spring Tool Suite
 	"org.springframework.tooling.bosh.ls.feature.feature.group",
