@@ -15,7 +15,8 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\filezilla\$FilezillaSetup")){
 		Write-Host -Object "Downloading FileZilla."
 		$ProgressPreference = 'SilentlyContinue'
-		Invoke-WebRequest -Uri $DownloadUrl -OutFile "$env:SystemDrive\ProgramData\InstSys\filezilla\$FilezillaSetup"
+		$UserAgent = [Microsoft.PowerShell.Commands.PSUserAgent]::Chrome
+		Invoke-WebRequest -Uri $DownloadUrl -OutFile "$env:SystemDrive\ProgramData\InstSys\filezilla\$FilezillaSetup" -UserAgent $UserAgent
 	}
 	Start-Process -Wait `
 		-FilePath "$env:SystemDrive\ProgramData\InstSys\filezilla\$FilezillaSetup" `
