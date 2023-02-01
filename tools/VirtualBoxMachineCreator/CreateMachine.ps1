@@ -3,7 +3,7 @@ param (
     # VirtualBox installation directory
     [Parameter()]
     [string]
-    $PVBox_Home = "C:\Program Files\Oracle\VirtualBox",
+    $VBox_Home = "C:\Program Files\Oracle\VirtualBox",
 
     # Name of the new virtual machine
     [Parameter()]
