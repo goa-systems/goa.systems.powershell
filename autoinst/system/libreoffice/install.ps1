@@ -3,7 +3,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$name = "libreoffice"
 	$version = $Json.version
-	$setup = "LibreOffice_${version}_Win_x64.msi"
+	$setup = "LibreOffice_${version}_Win_x86-64.msi"
 	$dlurl = "https://ftp.gwdg.de/pub/tdf/libreoffice/stable/$version/win/x86_64/$setup"
 
 	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")) {
