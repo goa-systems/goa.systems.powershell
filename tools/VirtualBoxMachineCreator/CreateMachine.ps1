@@ -31,7 +31,7 @@ VBoxManage modifyvm "${Name}" `
     --graphicscontroller vmsvga `
     --nested-paging on `
     --nested-hw-virt on `
-    --audio none `
+    --audio-enabled off `
     --usb-xhci on `
     --rtc-use-utc on
 
