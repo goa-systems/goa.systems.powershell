@@ -1,4 +1,4 @@
-$Version = "3.11.0"
+$Version = "3.11.2"
 $OutFile = "python-$Version-amd64.exe"
 $DownloadUrl = "https://www.python.org/ftp/python/$Version/$OutFile"
 
