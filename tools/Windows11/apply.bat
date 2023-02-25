@@ -1,0 +1,1 @@
+pwsh -ExecutionPolicy Unrestricted -File %~dp0\Disable-SearchInStartmenu.ps1
