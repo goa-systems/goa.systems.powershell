@@ -1,1 +1,1 @@
-pwsh -ExecutionPolicy Unrestricted -File %~dp0\Disable-SearchInStartmenu.ps1
+pwsh -ExecutionPolicy Unrestricted -File %~dp0\Apply-All.ps1
