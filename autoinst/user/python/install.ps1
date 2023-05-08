@@ -1,8 +1,9 @@
-$Version = "3.11.2"
+$Version = "3.11.3"
 $OutFile = "python-$Version-amd64.exe"
+$Guid = New-Guid
 $DownloadUrl = "https://www.python.org/ftp/python/$Version/$OutFile"
 
-$DownloadDir = "$env:TEMP\$(New-Guid)"
+$DownloadDir = "$env:TEMP\$Guid"
 
 if(-not (Test-Path -Path "$DownloadDir")){
 	New-Item -ItemType "Directory" -Path "$DownloadDir"
