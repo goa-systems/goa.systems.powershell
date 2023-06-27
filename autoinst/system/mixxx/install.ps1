@@ -1,5 +1,5 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$CurrentVersion = "2.2.4"
+	$CurrentVersion = "2.3.5"
 	$SetupFile = "mixxx-$CurrentVersion-win64.exe"
 	$DownloadUrl = "https://downloads.mixxx.org/mixxx-$CurrentVersion/$SetupFile"
 	$WorkingDir = "$env:ProgramData\InstSys\mixxx"
