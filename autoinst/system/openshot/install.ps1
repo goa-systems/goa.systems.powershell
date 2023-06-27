@@ -2,7 +2,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$Version = $Json.version
-	$setup = "OpenShot-v$Version-x86_64.exe"
+	$setup = "OpenShot-$Version-x86_64.exe"
 
 	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\openshot")) {
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\openshot" -ItemType "Directory"
@@ -12,7 +12,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	if ( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\openshot\$setup")) {
 		Write-Host -Object "Downloading OpenShot"
 		$ProgressPreference = 'SilentlyContinue'
-		Invoke-WebRequest -Uri "https://github.com/OpenShot/openshot-qt/releases/download/v$Version/$setup" -OutFile "$env:SystemDrive\ProgramData\InstSys\openshot\$setup"
+		Invoke-WebRequest -Uri "https://github.com/OpenShot/openshot-qt/releases/download/$Version/$setup" -OutFile "$env:SystemDrive\ProgramData\InstSys\openshot\$setup"
 		Write-Host -Object "Download done"
 	}
 
