@@ -1,79 +1,33 @@
-param (
-	
-	[String]
-	$InstallDir = "$env:LOCALAPPDATA\Programs\IntelliJ",
-	
-	[String]
-	$Version = "2022.1.1"
-)
+Get-Process | ForEach-Object {$_.ProcessName -match "^idea(\d*)"} | Stop-Process
 
-$FileName = "ideaIC-$Version.win.zip"
-$Url = "https://download-cf.jetbrains.com/idea/$FileName"
+$InstallDir = "$env:LocalAppData\Programs\IntelliJ"
+$Json = (Get-Content -Path "version.json" | ConvertFrom-Json)
+$FileName = "ideaIC-$($Json.version).win.zip"
+$Url = "https://download-cdn.jetbrains.com/idea/$FileName"
 
-if(Test-Path -Path "$InstallDir\$Version"){
-	
-	Write-Host -Object "Defined version already installed."
+$DownloadDir = "$env:Temp\$(New-Guid)"
 
-} else {
-
-	$DownloadDir = "$env:ProgramData\InstSys\intellij"
-
-	if(-not (Test-Path -Path "$InstallDir")){
-		New-Item -ItemType "Directory" -Path "$InstallDir"
-	}
-	
-	if(Test-Path -Path "$env:TEMP\IntelliJInst"){
-		Remove-Item -Recurse -Force -Path "$env:TEMP\IntelliJInst"
-	}
-	New-Item -ItemType "Directory" -Path "$env:TEMP\IntelliJInst\$Version"
-	
-	if(-not (Test-Path -Path "$DownloadDir")){
-		New-Item -ItemType "Directory" -Path "$DownloadDir"
-	}
-	
-	if( -Not (Test-Path -Path "$DownloadDir\$FileName" )){
-		$ProgressPreference = 'SilentlyContinue'
-		Invoke-WebRequest -Uri "$Url" -OutFile "$DownloadDir\$FileName"
-	}
-	
-	Expand-Archive -Path "$DownloadDir\$FileName" -DestinationPath "$env:TEMP\IntelliJInst\$Version"
-	
-	<# Move extracted folder to the program installation directory. #>
-	Get-ChildItem -Path "$env:TEMP\IntelliJInst" | ForEach-Object {
-		
-		$TmpName = $_.Name
-		Move-Item -Path $_.FullName -Destination "$InstallDir"
-	
-		..\..\insttools\CreateShortcut.ps1 `
-			-LinkName "IntelliJ IDEA" `
-			-TargetPath "$InstallDir\$Version\bin\idea64.exe" `
-			-Arguments "" `
-			-IconFile "$InstallDir\$Version\bin\idea64.exe" `
-			-IconId 0 `
-			-Description "IntelliJ IDEA" `
-			-WorkingDirectory "%UserProfile%" `
-			-ShortcutLocations @("$env:AppData\Microsoft\Windows\Start Menu\Programs")
-		
-		<# Update path variable #>
-		$pathvars = ([System.Environment]::GetEnvironmentVariable("PATH","USER")) -split ";"
-		$NewPath = ""
-		$Found = $False
-		foreach($pathvar in $pathvars){
-	
-			<# If IntelliJ is already set in path variable. update the variable. #>
-			if(-not [string]::IsNullOrEmpty($pathvar)){
-				if($pathvar -like "*IntelliJ*"){
-					$NewPath += "$InstallDir\$TmpName\bin;"
-					$Found = $True
-				} else {
-					$NewPath += "$pathvar;"
-				}
-			}
-		}
-		if( -not $Found){
-			$NewPath += "$InstallDir\$TmpName\bin"
-		}
-		[System.Environment]::SetEnvironmentVariable("PATH", $NewPath, [System.EnvironmentVariableTarget]::User)
-	}
+if(Test-Path -Path "$DownloadDir"){
+	Remove-Item -Recurse -Force -Path "$DownloadDir"
 }
+New-Item -ItemType Directory -Path "$DownloadDir"
 
+if(Test-Path -Path "$InstallDir"){
+	Remove-Item -Recurse -Force -Path "$InstallDir"
+}
+New-Item -ItemType Directory -Path "$InstallDir"
+
+# Download IntelliJ
+$ProgressPreference = 'SilentlyContinue'
+Invoke-WebRequest -Uri "$Url" -OutFile "$DownloadDir\$FileName"
+Expand-Archive -Path "$DownloadDir\$FileName" -DestinationPath "$InstallDir"
+..\..\insttools\CreateShortcut.ps1 `
+	-LinkName "IntelliJ IDEA" `
+	-TargetPath "$InstallDir\bin\idea64.exe" `
+	-Arguments "" `
+	-IconFile "$InstallDir\bin\idea64.exe" `
+	-IconId 0 `
+	-Description "IntelliJ IDEA" `
+	-WorkingDirectory "%UserProfile%" `
+	-ShortcutLocations @("$env:AppData\Microsoft\Windows\Start Menu\Programs")
+[System.Environment]::SetEnvironmentVariable("INTELLIJ_HOME", $NewPath, [System.EnvironmentVariableTarget]::User)
