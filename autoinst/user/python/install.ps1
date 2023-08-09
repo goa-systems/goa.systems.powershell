@@ -1,4 +1,4 @@
-$Version = "3.11.3"
+$Version = (Get-Content -Path "$PSScriptRoot\version.json" | ConvertFrom-Json).version
 $OutFile = "python-$Version-amd64.exe"
 $Guid = New-Guid
 $DownloadUrl = "https://www.python.org/ftp/python/$Version/$OutFile"
