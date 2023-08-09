@@ -3,7 +3,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$name = "inkscape"
 	$setup = "inkscape-$($Json.version)_$($Json.date)_$($Json.hash)-x64.msi"
-	$dlurl = "https://media.inkscape.org/dl/resources/file/$($Json.setup)"
+	$dlurl = "https://media.inkscape.org/dl/resources/file/$setup"
 	
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\$name" -ItemType "Directory"
