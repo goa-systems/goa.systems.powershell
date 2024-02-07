@@ -6,10 +6,10 @@ $Json = ConvertFrom-Json -InputObject (Get-Content -Raw -Path "$PSScriptRoot\ver
 # Delete directories
 $TargetPath = "$env:LOCALAPPDATA\Programs\Java"
 
-Get-ChildItem -Path "$TargetPath" | Where-Object {$_.Name -match "(.*)jdk20(.*)"} | ForEach-Object {
+Get-ChildItem -Path "$TargetPath" | Where-Object {$_.Name -match "(.*)jdk21(.*)"} | ForEach-Object {
 	Remove-Item -Recurse -Force -Path "$($_.FullName)"
 }
 
-if("$env:JAVA_HOME_18" -ne ""){
+if("$env:JAVA_HOME_21" -ne ""){
 	[System.Environment]::SetEnvironmentVariable($Json.env, $null, [System.EnvironmentVariableTarget]::User)
 }
