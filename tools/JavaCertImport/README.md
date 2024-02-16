@@ -11,3 +11,12 @@ Then the script would be called like this.
 .\ImportRootCaCert.ps1 -CaCert "path\to\your\certificate.crt.pem" -JavaInstDirectory "path\to\the\shown\Javafoder" -CertName "A memorizable alias" 
 ```
 After the script is done, the Java environments will have the root certificate installed.
+
+## Native commands
+
+```
+# Until Java 8
+keytool -importcert -noprompt -keystore lib/security/cacerts -storepass changeit -alias MyCertName -file MyCertFile.pem
+# Java 9 and above
+keytool -importcert -noprompt -storepass changeit -alias MyCertName -file MyCertFile.pem -cacerts
+```
