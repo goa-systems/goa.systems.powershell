@@ -6,7 +6,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	$name="thunderbird"
 	$version=$Json.version
 	$setup="Thunderbird Setup $version.exe"
-	$dlurl="https://download-installer.cdn.mozilla.net/pub/thunderbird/releases/$version/win64/en-US/Thunderbird%20Setup%20$version.exe"
+	$dlurl="https://download.mozilla.org/?product=thunderbird-latest&os=win64&lang=en-US"
 	
 	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")) {
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\$name" -ItemType "Directory"
