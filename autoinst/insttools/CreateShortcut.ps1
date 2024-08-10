@@ -1,47 +1,45 @@
 param (
 	# Name of the shortcut file (.lnk file)
-	[String]
+	[string]
 	$LinkName = "MyLink",
 	
 	# Target of shortcut (exe file where it points to)
-	[String]
-	$TargetPath = "$env:windir\explorer.exe",
+	[string]
+	$TargetPath = "%windir%\explorer.exe",
 	
 	# Target of shortcut (exe file where it points to)
-	[String]
+	[string]
 	$Arguments = "",
 	
 	# Icon file. Can be a executable, ico file or something else
-	[String]
-	$IconFile = "$env:windir\explorer.exe",
+	[string]
+	$IconFile = "%windir%\explorer.exe",
 	
 	# Id of icon in icon file (defaults to 0)
 	[int]
 	$IconId = 0,
 	
 	# Description in the "Comment" field
-	[String]
+	[string]
 	$Description = "My link description",
 	
 	# Where should the executable get executed
-	[String]
-	$WorkingDirectory = "$env:USERPROFILE",
+	[string]
+	$WorkingDirectory = "%USERPROFILE%",
 
 	# Directories where the shortcut should be created
-	[String[]] $ShortcutLocations = @(
-		"$env:AppData\Microsoft\Windows\Start Menu\Programs",
-		"$env:UserProfile\Desktop")
+	[String[]] $ShortcutLocations = @("${env:UserProfile}\Desktop")
 )
 
 foreach($ShortcutLocation in $ShortcutLocations){
 	$Shell = New-Object -ComObject ("WScript.Shell")
-	$ShortCut = $Shell.CreateShortcut("$ShortcutLocation\$LinkName.lnk")
-	$ShortCut.TargetPath = "$TargetPath"
-	$ShortCut.Arguments = "$Arguments"
-	$ShortCut.WorkingDirectory = "$WorkingDirectory";
+	$ShortCut = $Shell.CreateShortcut("${ShortcutLocation}\${LinkName}.lnk")
+	$ShortCut.TargetPath = "${TargetPath}"
+	$ShortCut.Arguments = "${Arguments}"
+	$ShortCut.WorkingDirectory = "${WorkingDirectory}";
 	$ShortCut.WindowStyle = 1;
 	$ShortCut.Hotkey = "";
-	$ShortCut.IconLocation = "$IconFile, $IconId";
-	$ShortCut.Description = "$Description";
+	$ShortCut.IconLocation = "${IconFile}, ${IconId}";
+	$ShortCut.Description = "${Description}";
 	$ShortCut.Save()
 }
