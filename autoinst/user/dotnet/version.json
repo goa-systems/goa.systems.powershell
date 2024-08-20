@@ -1,0 +1,12 @@
+[
+    {
+        "package": "https://download.visualstudio.microsoft.com/download/pr/346fb097-97c0-4c83-9af8-ab245644f9da/bf2c626621422428a7e09e0ead5b0747/dotnet-sdk-8.0.401-win-x64.zip",
+        "version": "8.0.401",
+        "main": true
+    },
+    {
+        "package": "https://download.visualstudio.microsoft.com/download/pr/2cd43980-3abc-47ea-898d-b10116d27890/be9d8a7809b43ce82cf441b6761836a3/dotnet-sdk-6.0.425-win-x64.zip",
+        "version": "6.0.425",
+        "main": false
+    }
+]
