@@ -1,3 +1,3 @@
 @echo off
 CD /D %~dp0
-Powershell.exe -ExecutionPolicy Unrestricted -File install.ps1
+pwsh.exe -ExecutionPolicy Unrestricted -File install.ps1

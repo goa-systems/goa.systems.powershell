@@ -8,5 +8,5 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		Remove-Item -Path "$env:ProgramFiles\Php" -Recurse -Force
 	}
 } else {
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
+	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }

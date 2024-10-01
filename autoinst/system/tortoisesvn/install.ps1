@@ -19,5 +19,5 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	}
 	Start-Process -Wait -FilePath "msiexec" -ArgumentList "/qb","/i","$env:SystemDrive\ProgramData\InstSys\tsvn\$Setup","INSTALLDIR=`"C:\Program Files\TortoiseSVN`"","ADDLOCAL=ALL"
 } else {
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
+	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }

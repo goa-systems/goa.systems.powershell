@@ -1,1 +1,1 @@
-Start-Process -FilePath "powershell.exe" -ArgumentList "$PSScriptRoot\install.ps1"
+Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\install.ps1"

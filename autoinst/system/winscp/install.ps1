@@ -21,5 +21,5 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	Set-Content -Path "$env:SystemDrive\ProgramData\InstSys\winscp\winscp.ini" -Value $IniFileContent -NoNewline
 	Start-Process -Wait -FilePath "$env:SystemDrive\ProgramData\InstSys\winscp\$setup" -ArgumentList "/LOADINF=`"$env:SystemDrive\ProgramData\InstSys\winscp\winscp.ini`"","/SILENT","/ALLUSERS"
 } else {
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
+	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }

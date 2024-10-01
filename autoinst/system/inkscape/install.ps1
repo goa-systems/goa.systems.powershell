@@ -21,5 +21,5 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	Copy-Item -Path ".\default.svg" -Destination "$env:ProgramFiles\Inkscape\share\templates\default.svg"
 } else {
 	$curscriptname = $MyInvocation.MyCommand.Name 
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$curscriptname" -Verb RunAs
+	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$curscriptname" -Verb RunAs
 }

@@ -45,5 +45,5 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		Copy-Item -Path "vlc" -Destination "$dir" -Recurse
 	}
 } else {
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
+	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }

@@ -32,5 +32,5 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		Get-ChildItem Cert:\LocalMachine\TrustedPublisher\ | Where-Object { $_.Subject -match 'CN=Oracle Corporation, OU=Virtualbox, O=Oracle Corporation, L=Redwood Shores, S=CA, C=US' } | Remove-Item
 	}
 } else {
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
+	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }

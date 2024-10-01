@@ -30,5 +30,5 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	Read-Host -Prompt "Press a key to continue ..."
 } else {
 	$curscriptname = $MyInvocation.MyCommand.Name 
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$curscriptname" -Verb RunAs
+	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$curscriptname" -Verb RunAs
 }

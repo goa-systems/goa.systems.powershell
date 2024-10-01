@@ -15,5 +15,5 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		Write-Host -Object "Directory not found."
 	}
 } else {
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)","-Directory","`"$Directory`"" -Verb RunAs
+	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)","-Directory","`"$Directory`"" -Verb RunAs
 }

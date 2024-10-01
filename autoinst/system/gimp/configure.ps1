@@ -29,7 +29,7 @@ if( -not (Test-Path -Path "$Path")){
 if(Test-Path -Path "$Path\gimprc"){
 	if($Force){
 		if($System -and ( -not (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))){
-			Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)","-System","-Force" -Wait -Verb RunAs
+			Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)","-System","-Force" -Wait -Verb RunAs
 		} else {
 			Copy-Item -Path "$PSScriptRoot\gimprc" -Destination "$Path"
 		}
@@ -38,7 +38,7 @@ if(Test-Path -Path "$Path\gimprc"){
 	}
 } else {
 	if($System -and ( -not (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))){
-		Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)","-System" -Wait -Verb RunAs
+		Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)","-System" -Wait -Verb RunAs
 	} else {
 		Copy-Item -Path "$PSScriptRoot\gimprc" -Destination "$Path"
 	}

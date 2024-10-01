@@ -1,5 +1,5 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	$ApplicationName = "powershell"
+	$ApplicationName = "pwsh.exe"
 	Set-Location -Path "$PSScriptRoot"
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$SetupFile = "PowerShell-$($Json.version)-win-x64.msi"
@@ -23,5 +23,5 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	catch {}
 }
 else {
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
+	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }

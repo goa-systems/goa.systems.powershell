@@ -14,5 +14,5 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	..\php\setup.ps1 -PhpVersion $PhpVersion -SetupType "Initial"
 
 } else {
-	Start-Process -FilePath "powershell" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)","-ApacheVersion","`"$ApacheVersion`"","-PhpVersion","`"$PhpVersion`"" -Wait -Verb RunAs
+	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)","-ApacheVersion","`"$ApacheVersion`"","-PhpVersion","`"$PhpVersion`"" -Wait -Verb RunAs
 }

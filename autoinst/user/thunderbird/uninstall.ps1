@@ -46,7 +46,7 @@ $UninstallString = Get-UninstString -RegKey "HKLM:\SOFTWARE\Wow6432Node\Microsof
 if ( (-Not [string]::IsNullOrEmpty($UninstallString)) -and $IsAdmin ){
 	Start-Process -Wait -FilePath "$UninstallString" -ArgumentList "/S"
 } elseif ((-Not [string]::IsNullOrEmpty($UninstallString)) -and (-Not $IsAdmin)) {
-	Start-Process -FilePath "powershell" -Wait -Verb "RunAs" -ArgumentList @("-File", "$PSScriptRoot\$($MyInvocation.MyCommand.Name)", "-UninstallString", "${UninstallString}")
+	Start-Process -FilePath "pwsh.exe" -Wait -Verb "RunAs" -ArgumentList @("-File", "$PSScriptRoot\$($MyInvocation.MyCommand.Name)", "-UninstallString", "${UninstallString}")
 }
 
 $UninstallString = Get-UninstString -RegKey "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" -DisplayName "Mozilla Thunderbird"
@@ -54,5 +54,5 @@ $UninstallString = Get-UninstString -RegKey "HKLM:\SOFTWARE\Microsoft\Windows\Cu
 if ( (-Not [string]::IsNullOrEmpty($UninstallString)) -and $IsAdmin ){
 	Start-Process -Wait -FilePath "$UninstallString" -ArgumentList "/S"
 } elseif ((-Not [string]::IsNullOrEmpty($UninstallString)) -and (-Not $IsAdmin)) {
-	Start-Process -FilePath "powershell" -Wait -Verb "RunAs" -ArgumentList @("-File", "$PSScriptRoot\$($MyInvocation.MyCommand.Name)", "-UninstallString", "${UninstallString}")
+	Start-Process -FilePath "pwsh.exe" -Wait -Verb "RunAs" -ArgumentList @("-File", "$PSScriptRoot\$($MyInvocation.MyCommand.Name)", "-UninstallString", "${UninstallString}")
 }
