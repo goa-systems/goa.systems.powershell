@@ -2,21 +2,25 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	
 	Set-Location -Path "$PSScriptRoot"
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
-	$gimpssetup = $Json.version
-	
-	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\gimp")){
-		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\gimp" -ItemType "Directory"
-	}
+	$DownloadUrl = $Json.url
+	$TempDir = "${env:TEMP}\$(New-Guid)"
 	
 	<# Download Gimp, if setup is not found in execution path. #>
-	if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\gimp\$gimpssetup")){
-		Start-BitsTransfer `
-		-Source  "https://download.gimp.org/pub/gimp/v2.10/windows/$gimpssetup"`
-		-Destination "$env:SystemDrive\ProgramData\InstSys\gimp\$gimpssetup"
+	if (Test-Path -Path "${TempDir}"){
+		Remove-Item -Recurse -Force -Path "${TempDir}"
 	}
-	Start-Process -Wait `
-	   -FilePath "$env:SystemDrive\ProgramData\InstSys\gimp\$gimpssetup" `
-	   -ArgumentList "/SILENT","/NORESTART","/ALLUSERS","/DIR=`"$env:PROGRAMFILES\Gimp`""
+	New-Item -ItemType "Directory" -Path "${TempDir}"
+	
+	Start-BitsTransfer `
+		-Source  "$DownloadUrl"`
+		-Destination "${TempDir}"
+
+	Get-ChildItem -Path "${TempDir}" | ForEach-Object {
+		Start-Process -Wait -FilePath "$($_.FullName)" -ArgumentList "/SILENT","/NORESTART","/ALLUSERS","/DIR=`"${env:PROGRAMFILES}\Gimp`""
+	}
+
+	Remove-Item -Recurse -Force -Path "${TempDir}"
+
 } else {
 	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }
