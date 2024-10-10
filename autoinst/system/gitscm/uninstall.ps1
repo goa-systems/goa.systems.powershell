@@ -19,7 +19,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 			$regkey
 		)
 	
-		$var1 = Get-ChildItem -Path $regkey | Get-ItemProperty | Where-Object { $_.DisplayName -match "Git version" }
+		$var1 = Get-ChildItem -Path $regkey | Get-ItemProperty | Where-Object { $_.DisplayName -match "Git" }
 		$var2 = $var1.UninstallString
 		return $var2
 	}

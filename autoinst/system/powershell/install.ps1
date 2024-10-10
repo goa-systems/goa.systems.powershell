@@ -23,5 +23,5 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	catch {}
 }
 else {
-	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
+	Start-Process -FilePath "powershell.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }
