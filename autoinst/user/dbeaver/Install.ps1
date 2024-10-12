@@ -4,6 +4,10 @@ $DownloadUrl = "https://github.com/dbeaver/dbeaver/releases/download/$($Json.ver
 $ProgramBaseDir = "${env:LOCALAPPDATA}\Programs\DBeaver"
 $ProgramDir = "${ProgramBaseDir}\$($Json.version)"
 
+if( -Not (Test-Path "${ProgramBaseDir}")){
+	New-Item -ItemType "Directory" -Path "${ProgramBaseDir}"
+}
+
 $TempDirectory = "${env:TEMP}\$(New-Guid)"
 if(Test-Path -Path "${TempDirectory}") {
 	Remove-Item -Recurse -Force -Path "${TempDirectory}"
