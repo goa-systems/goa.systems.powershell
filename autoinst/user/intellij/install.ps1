@@ -1,33 +1,24 @@
-Get-Process | ForEach-Object {$_.ProcessName -match "^idea(\d*)"} | Stop-Process
-
 $InstallDir = "$env:LocalAppData\Programs\IntelliJ"
-$Json = (Get-Content -Path "version.json" | ConvertFrom-Json)
+$Json = (Get-Content -Path "$PSScriptRoot\version.json" | ConvertFrom-Json)
 $FileName = "ideaIC-$($Json.version).win.zip"
-$Url = "https://download-cdn.jetbrains.com/idea/$FileName"
+$Url = "https://download.jetbrains.com/idea/$FileName"
 
 $DownloadDir = "$env:Temp\$(New-Guid)"
 
-if(Test-Path -Path "$DownloadDir"){
-	Remove-Item -Recurse -Force -Path "$DownloadDir"
+if(Test-Path -Path "${DownloadDir}"){
+	Remove-Item -Recurse -Force -Path "${DownloadDir}"
 }
-New-Item -ItemType Directory -Path "$DownloadDir"
+New-Item -ItemType Directory -Path "${DownloadDir}"
 
-if(Test-Path -Path "$InstallDir"){
-	Remove-Item -Recurse -Force -Path "$InstallDir"
+if( -Not (Test-Path -Path "${InstallDir}")){
+	New-Item -ItemType Directory -Path "${InstallDir}"
+} elseif (Test-Path -Path "${InstallDir}\$($Json.version)"){
+	Remove-Item -Recurse -Force -Path "${InstallDir}\$($Json.version)"
 }
-New-Item -ItemType Directory -Path "$InstallDir"
 
 # Download IntelliJ
-$ProgressPreference = 'SilentlyContinue'
-Invoke-WebRequest -Uri "$Url" -OutFile "$DownloadDir\$FileName"
-Expand-Archive -Path "$DownloadDir\$FileName" -DestinationPath "$InstallDir"
-..\..\insttools\CreateShortcut.ps1 `
-	-LinkName "IntelliJ IDEA" `
-	-TargetPath "$InstallDir\bin\idea64.exe" `
-	-Arguments "" `
-	-IconFile "$InstallDir\bin\idea64.exe" `
-	-IconId 0 `
-	-Description "IntelliJ IDEA" `
-	-WorkingDirectory "%UserProfile%" `
-	-ShortcutLocations @("$env:AppData\Microsoft\Windows\Start Menu\Programs")
-[System.Environment]::SetEnvironmentVariable("INTELLIJ_HOME", $NewPath, [System.EnvironmentVariableTarget]::User)
+$ProgressPreference = "SilentlyContinue"
+Invoke-WebRequest -Uri "${Url}" -OutFile "${DownloadDir}\${FileName}"
+$ProgressPreference = "Continue"
+Expand-Archive -Path "${DownloadDir}\${FileName}" -DestinationPath "${InstallDir}\$($Json.version)"
+[System.Environment]::SetEnvironmentVariable("IDEA_HOME", "${InstallDir}\$($Json.version)", [System.EnvironmentVariableTarget]::User)
