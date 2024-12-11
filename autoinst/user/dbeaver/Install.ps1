@@ -31,4 +31,5 @@ Move-Item -Path "${TempDirectory}\dbeaver" -Destination "${ProgramDir}"
 
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
 
-Set-ItemProperty -Path "HKCU:\Environment" -Name "DBEAVER_HOME" -Type ExpandString -Value "%LOCALAPPDATA%\\Programs\DBeaver\$($Json.version)"
+# Set-ItemProperty -Path "HKCU:\Environment" -Name "DBEAVER_HOME" -Type ExpandString -Value "%LOCALAPPDATA%\\Programs\DBeaver\$($Json.version)"
+[System.Environment]::SetEnvironmentVariable("DBEAVER_HOME","${ProgramDir}", [System.EnvironmentVariableTarget]::User)
