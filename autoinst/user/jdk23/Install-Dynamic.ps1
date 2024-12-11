@@ -80,4 +80,4 @@ function Install-Java {
     Remove-Item -Force -Path "${env:TEMP}\zulu${DistVersion}-ca-fx-jdk${JavaVersion}-win_x64.zip"
 }
 
-@("21","17","11","8") | ForEach-Object { Install-Java -JavaMajorVersion "$($_)" }
+@("23","21","17","11","8") | ForEach-Object { Install-Java -JavaMajorVersion "$($_)" }
