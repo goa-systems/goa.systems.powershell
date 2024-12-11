@@ -67,7 +67,11 @@ function Install-Java {
     Expand-Archive -Path "${DownloadTargetFile}" -DestinationPath "${TemporaryDirectory}"
 
     Get-ChildItem -Path "${TemporaryDirectory}" | ForEach-Object {
-        $Destination = "${env:LOCALAPPDATA}\Programs\Java\$($_.Name)"
+        $DestinationBase = "${env:LOCALAPPDATA}\Programs\Java"
+        if(-Not (Test-Path -Path "${DestinationBase}")){
+            New-Item -ItemType Directory -Path "${DestinationBase}"
+        }
+        $Destination = "${DestinationBase}\$($_.Name)"
         Move-Item -Path "$($_.FullName)" -Destination "${Destination}"
         [System.Environment]::SetEnvironmentVariable("JAVA_HOME_${JavaMajorVersion}","${Destination}", [System.EnvironmentVariableTarget]::User)
     }
