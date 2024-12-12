@@ -3,6 +3,11 @@ $Assets = $Response.assets
 
 foreach($Asset in $Assets){
     if($Asset.name -match "windows" -and $Asset.name -match "x86_64" -and $Asset.name -match "\.zip"){
+
+        [Environment]::SetEnvironmentVariable('PANDOC_HOME', [NullString]::Value, [System.EnvironmentVariableTarget]::User)
+        if(Test-Path -Path "${env:LOCALAPPDATA}\Programs\Pandoc"){
+            Remove-Item -Force -Recurse -Path "${env:LOCALAPPDATA}\Programs\Pandoc"
+        }
         $Url = "$($Asset.browser_download_url)"
         $TempDir = "${env:TEMP}\$(New-Guid)"
         if(Test-Path -Path "${TempDir}"){
