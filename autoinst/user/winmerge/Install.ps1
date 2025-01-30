@@ -1,3 +1,5 @@
+. "${PSScriptRoot}\..\..\insttools\Installation-Functions.ps1"
+
 $LatestReleaseUrl = "https://api.github.com/repos/WinMerge/winmerge/releases/latest"
 
 $Response = Invoke-RestMethod -Uri "${LatestReleaseUrl}"
@@ -38,3 +40,9 @@ Get-ChildItem -Path "${TempDirectory}" | ForEach-Object {
 
 [System.Environment]::SetEnvironmentVariable("WINMERGE_HOME","${ProgramDir}", [System.EnvironmentVariableTarget]::User)
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
+
+$FullLinkPath = "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\WinMerge.lnk"
+
+if ( -Not (Test-Path -Path "${FullLinkPath}")){
+	New-Shortcut -LinkName "WinMerge" -TargetPath "%WINMERGE_HOME%\WinMergeU.exe" -Arguments "" -IconFile "%WINMERGE_HOME%\WinMergeU.exe" -IconId 0 -Description "Winmerge" -WorkingDirectory "%USERPROFILE" -ShortcutLocations "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs"
+}
