@@ -3,7 +3,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	Set-Location -Path "$PSScriptRoot"
 	$LatestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/PowerShell/PowerShell/releases/latest"
 	$Version = $LatestRelease.tag_name.Substring(1)
-	$SetupFile = "PowerShell-${Version-win-x64}.msi"
+	$SetupFile = "PowerShell-${Version}-win-x64.msi"
 	$DownloadUrl = "https://github.com/PowerShell/PowerShell/releases/download/v${Version}/${SetupFile}"
 
 	If (-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$ApplicationName")) {
