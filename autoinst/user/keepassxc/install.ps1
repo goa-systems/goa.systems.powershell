@@ -1,10 +1,12 @@
 Set-Location -Path "$PSScriptRoot"
-$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 
-$Version = $Json.version
+. ..\..\insttools\Installation-Functions.ps1
+$LatestVersion = Get-LatestRelease -Owner "keepassxreboot" -Project "keepassxc"
+
+$Version = $LatestVersion.tag_name
 $DownloadDir = "$env:TEMP\$(New-Guid)"
 $InstallDir = "$env:LOCALAPPDATA\Programs\KeePassXC"
-$FileName = "KeePassXC-$Version-Win64.zip"
+$FileName = "KeePassXC-${Version}-Win64.zip"
 $Url = "https://github.com/keepassxreboot/keepassxc/releases/download/$Version/$FileName"
 
 if(Test-Path -Path "$DownloadDir"){

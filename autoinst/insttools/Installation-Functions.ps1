@@ -45,3 +45,22 @@ function New-Shortcut {
 		$ShortCut.Save()
 	}
 }
+
+function Get-LatestRelease {
+	[CmdletBinding()]
+	param (
+		# Project owner
+		[Parameter()]
+		[string]
+		$Owner,
+
+		# Project name
+		[Parameter()]
+		[string]
+		$Project
+	)
+
+	$Uri = "https://api.github.com/repos/${Owner}/${Project}/releases/latest"
+	$Latest = Invoke-RestMethod -Uri "${Uri}"
+	return $Latest
+}

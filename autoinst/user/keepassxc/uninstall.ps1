@@ -10,10 +10,4 @@ if(Test-Path -Path "$env:LOCALAPPDATA\Programs\KeePassXC") {
 	Remove-Item -Path "$env:LOCALAPPDATA\Programs\KeePassXC" -Recurse -Force
 }
 
-if(Test-Path -Path "$env:USERPROFILE\Desktop\KeePass.lnk") {
-	Remove-Item -Path "$env:USERPROFILE\Desktop\KeePass.lnk"
-}
-
-if(Test-Path -Path "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\KeePassXC.lnk") {
-	Remove-Item -Path "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\KeePassXC.lnk"
-}
+[System.Environment]::SetEnvironmentVariable("KEEPASSXC_HOME", "", [System.EnvironmentVariableTarget]::User)
