@@ -1,20 +1,29 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 
 	Set-Location -Path "$PSScriptRoot"
-	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
-	$uri = $Json.downloadurl
-	$gitsetup = $Json.filename
+
+	. ..\..\insttools\Installation-Functions.ps1
+
+	$GitSetup = ""
+	$Uri = ""
+
+	(Get-LatestRelease -Owner git-for-windows -Project git).assets | ForEach-Object {
+		if($_.name -match ".*64-bit\.exe"){
+			$GitSetup += $_.name
+			$Uri += $_.browser_download_url
+		}
+	}
 
 	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\git")){
 		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\git" -ItemType "Directory"
 	}
 
 	<# Download Git scm, if setup is not found in execution path. #>
-	if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\git\$gitsetup")){
+	if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\git\${GitSetup}")){
 		$ProgressPreference = 'SilentlyContinue'
 		Invoke-WebRequest `
-		-Uri "$uri" `
-		-OutFile "$env:SystemDrive\ProgramData\InstSys\git\$gitsetup"
+		-Uri "${Uri}" `
+		-OutFile "$env:SystemDrive\ProgramData\InstSys\git\${GitSetup}"
 	}
 
 	Set-Content -Path "$env:SystemDrive\ProgramData\InstSys\git\gitinst.inf" -Value "[Setup]
