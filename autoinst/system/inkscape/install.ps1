@@ -2,7 +2,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	Set-Location -Path "$PSScriptRoot"
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$TempDir = "${env:TEMP}\$(New-Guid)"
-	$SetupFile = "inkscape-$($Json.version)_$($Json.date)_$($Json.hash)-x64.msi"
+	$SetupFile = "$($Json.filename)"
 	$DownloadUrl = "https://media.inkscape.org/dl/resources/file/$SetupFile"
 	If(Test-Path -Path "${TempDir}"){
 		Remove-Item -Recurse -Force -Path "${TempDir}"
