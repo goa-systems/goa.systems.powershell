@@ -1,26 +1,33 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	
 	Set-Location -Path "$PSScriptRoot"
-	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
-	
-	$nppvers = $Json.version
-	$nppsetup = "npp.$nppvers.Installer.x64.exe"
-	$dlurl = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v$nppvers/$nppsetup"
-	
-	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\npp")){
-		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\npp" -ItemType "Directory"
+
+	. ..\..\insttools\Installation-Functions.ps1
+
+	$SetupFile = ""
+	$Uri = ""
+
+	(Get-LatestRelease -Owner "notepad-plus-plus" -Project "notepad-plus-plus").assets | ForEach-Object {
+		if($_.name -match ".*\.Installer\.x64\.exe$"){
+			$SetupFile += $_.name
+			$Uri += $_.browser_download_url
+		}
 	}
-	
-	<# Download npp scm, if setup is not found in execution path. #>
-	Write-Host -Object "Downloading from $dlurl"
-	if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\npp\$nppsetup")){
-		$ProgressPreference = 'SilentlyContinue'
-		Invoke-WebRequest `
-		-Uri $dlurl `
-		-OutFile "$env:SystemDrive\ProgramData\InstSys\npp\$nppsetup"
+
+	$TempDirectory = "${env:TEMP}\$(New-Guid)"
+	if(Test-Path -Path "${TempDirectory}") {
+		Remove-Item -Recurse -Force -Path "${TempDirectory}"
 	}
+	New-Item -ItemType "Directory" -Path "${TempDirectory}"
+
+	<# Download openshot, if setup is not found in execution path. #>
+	Write-Host -Object "Download started"
+	$ProgressPreference = 'SilentlyContinue'
+	Invoke-WebRequest -Uri "${Uri}" -OutFile "${TempDirectory}\${SetupFile}"
+	Write-Host -Object "Download done"
 	
-	Start-Process -Wait -FilePath "$env:SystemDrive\ProgramData\InstSys\npp\$nppsetup" -ArgumentList "/S"
+	Start-Process -Wait -FilePath "${TempDirectory}\${SetupFile}" -ArgumentList "/S"
+	Remove-Item -Recurse -Force -Path "${TempDirectory}"
 } else {
 	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }
