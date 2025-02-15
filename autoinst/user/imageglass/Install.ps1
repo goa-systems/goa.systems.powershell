@@ -39,7 +39,7 @@ Start-BitsTransfer -Source "${DownloadUrl}" -Destination "${TempDirectory}\${Zip
 
 Expand-Archive -Path "${TempDirectory}\${ZipArchive}" -DestinationPath "${TempDirectory}"
 
-if( -Not (Test-Path -Path "${TempDirectory}" )) {
+if( -Not (Test-Path -Path "${ProgramBaseDir}" )) {
 	New-Item -ItemType "Directory" -Path "${ProgramBaseDir}"
 }
 
