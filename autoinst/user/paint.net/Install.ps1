@@ -26,7 +26,6 @@ $TempDirectory = "${env:TEMP}\$(New-Guid)"
 if(Test-Path -Path "${TempDirectory}") {
 	Remove-Item -Recurse -Force -Path "${TempDirectory}"
 }
-
 New-Item -ItemType "Directory" -Path "${TempDirectory}"
 
 Start-BitsTransfer -Source "${DownloadUrl}" -Destination "${TempDirectory}\${ZipArchive}"
