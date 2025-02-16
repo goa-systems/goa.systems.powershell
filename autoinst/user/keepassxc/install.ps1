@@ -35,3 +35,9 @@ $HomeDir = $ArrayList[-1]
 [System.Environment]::SetEnvironmentVariable("KEEPASSXC_HOME", "${HomeDir}", [System.EnvironmentVariableTarget]::User)
 
 Remove-Item -Recurse -Force -Path "$DownloadDir"
+
+$FullLinkPath = "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\KeePassXC.lnk"
+
+if ( -Not (Test-Path -Path "${FullLinkPath}")){
+	New-Shortcut -LinkName "KeePassXC" -TargetPath "%KEEPASSXC_HOME%\KeePassXC.exe" -Arguments "--config `"%APPDATA%\KeePassXC\keepassxc.ini`" --localconfig `"%APPDATA%\KeePassXC\keepassxc_local.ini`"" -IconFile "%KEEPASSXC_HOME%\KeePassXC.exe" -IconId 0 -Description "KeePassXC" -WorkingDirectory "%USERPROFILE" -ShortcutLocations "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs"
+}
