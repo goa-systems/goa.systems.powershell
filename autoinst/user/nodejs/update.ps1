@@ -1,2 +1,2 @@
 Set-Location -Path "$PSScriptRoot"
-Start-Process -FilePath "pwsh.exe" -ArgumentList @("-Command", ".\uninstall.ps1;.\install.ps1") -NoNewWindow
+Start-Process -FilePath "pwsh.exe" -ArgumentList @("-Command", ".\Uninstall.ps1;.\Install.ps1") -NoNewWindow
