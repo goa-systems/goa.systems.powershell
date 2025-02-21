@@ -3,23 +3,26 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	Set-Location -Path "$PSScriptRoot"
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	
-	$vers = $Json.version
-	$setup="WinSCP-$vers-Setup.exe"
+	$Version = $Json.version
+	$Setup="WinSCP-${Version}-Setup.exe"
 	
-	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\winscp")){
-		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\winscp" -ItemType "Directory"
+	$DownloadDir = "${env:TEMP}\$(New-Guid)"
+	
+	<# Download Gimp, if setup is not found in execution path. #>
+	if (Test-Path -Path "${DownloadDir}"){
+		Remove-Item -Recurse -Force -Path "${DownloadDir}"
 	}
+	New-Item -ItemType "Directory" -Path "${DownloadDir}"
 	
 	<# Download WinSCP, if setup is not found in execution path. #>
-	if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\winscp\$setup")){
-		Start-BitsTransfer `
-		-Source "https://netcologne.dl.sourceforge.net/project/winscp/WinSCP/$vers/$setup" `
-		-Destination "$env:SystemDrive\ProgramData\InstSys\winscp\$setup"
-	}
-	$crlf = "`r`n"
-	$IniFileContent = "[Setup]${crlf}Lang=en${crlf}Dir=C:\Program Files (x86)\WinSCP${crlf}Group=(Default)${crlf}NoIcons=0${crlf}SetupType=custom${crlf}Components=main,shellext,pageant${crlf}Tasks=enableupdates,urlhandler,searchpath${crlf}"
-	Set-Content -Path "$env:SystemDrive\ProgramData\InstSys\winscp\winscp.ini" -Value $IniFileContent -NoNewline
-	Start-Process -Wait -FilePath "$env:SystemDrive\ProgramData\InstSys\winscp\$setup" -ArgumentList "/LOADINF=`"$env:SystemDrive\ProgramData\InstSys\winscp\winscp.ini`"","/SILENT","/ALLUSERS"
+	Start-BitsTransfer `
+		-Source "https://netcologne.dl.sourceforge.net/project/winscp/WinSCP/${Version}/${Setup}" `
+		-Destination "${DownloadDir}\${Setup}"
+	
+	Start-Process -Wait -FilePath "${DownloadDir}\${Setup}" -ArgumentList @("/LOADINF=`"${PSScriptRoot}\install.ini`"", "/SILENT", "/ALLUSERS")
+	
+	Remove-Item -Recurse -Force -Path "${DownloadDir}"
+
 } else {
 	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }
