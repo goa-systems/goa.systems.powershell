@@ -26,7 +26,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	Invoke-WebRequest -Uri "${Uri}" -OutFile "${TempDirectory}\${SetupFile}"
 	Write-Host -Object "Download done"
 
-	Start-Process -Wait -FilePath "msiexec" -ArgumentList @("/qb", "/i", "${TempDirectory}\${SetupFile}")
+	Start-Process -Wait -FilePath "msiexec" -ArgumentList @("/i", "${TempDirectory}\${SetupFile}", "/qn", "CREATEDESKTOPSHORTCUTS=0")
 
 	Remove-Item -Recurse -Force -Path "${TempDirectory}"
 	
