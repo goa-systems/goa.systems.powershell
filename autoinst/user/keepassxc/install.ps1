@@ -6,7 +6,8 @@ $LatestVersion = Get-LatestRelease -Owner "keepassxreboot" -Project "keepassxc"
 $Version = $LatestVersion.tag_name
 $DownloadDir = "$env:TEMP\$(New-Guid)"
 $InstallDir = "$env:LOCALAPPDATA\Programs\KeePassXC"
-$FileName = "KeePassXC-${Version}-Win64.zip"
+$FileNameBase = "KeePassXC-${Version}-Win64"
+$FileName = "${FileNameBase}.zip"
 $Url = "https://github.com/keepassxreboot/keepassxc/releases/download/$Version/$FileName"
 
 if(Test-Path -Path "$DownloadDir"){
@@ -25,15 +26,7 @@ if(-Not (Test-Path -Path "${InstallDir}")){
 }
 
 Expand-Archive -Path "${DownloadDir}\${FileName}" -DestinationPath "${InstallDir}"
-
-$ArrayList = [System.Collections.ArrayList]::new()
-Get-ChildItem -Path "${InstallDir}" | ForEach-Object {
-	$ArrayList.Add($_.FullName)
-}
-$HomeDir = $ArrayList[-1]
-
-[System.Environment]::SetEnvironmentVariable("KEEPASSXC_HOME", "${HomeDir}", [System.EnvironmentVariableTarget]::User)
-
+[System.Environment]::SetEnvironmentVariable("KEEPASSXC_HOME", "${InstallDir}\$FileNameBase", [System.EnvironmentVariableTarget]::User)
 Remove-Item -Recurse -Force -Path "$DownloadDir"
 
 $FullLinkPath = "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\KeePassXC.lnk"
