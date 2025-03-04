@@ -4,10 +4,15 @@ foreach($Process in $Processes){
 	Get-Process -Name "$Process" | Stop-Process -Force
 }
 
-Start-Sleep -Seconds 2
+Start-Sleep -Seconds 1
 
-if(Test-Path -Path "$env:LOCALAPPDATA\Programs\KeePassXC") {
-	Remove-Item -Path "$env:LOCALAPPDATA\Programs\KeePassXC" -Recurse -Force
+if(-not ([string]::IsNullOrEmpty("${env:KEEPASSXC_HOME}"))){
+	if(Test-Path -Path "${env:KEEPASSXC_HOME}") {
+		Remove-Item -Path "${env:KEEPASSXC_HOME}" -Recurse -Force
+		[System.Environment]::SetEnvironmentVariable("KEEPASSXC_HOME", "", [System.EnvironmentVariableTarget]::User)
+	}
 }
 
-[System.Environment]::SetEnvironmentVariable("KEEPASSXC_HOME", "", [System.EnvironmentVariableTarget]::User)
+if(Test-Path -Path "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\KeePassXC.lnk") {
+	Remove-Item -Path "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\KeePassXC.lnk" -Force
+}
