@@ -42,5 +42,5 @@ Remove-Item -Recurse -Force -Path "${TempDirectory}"
 $FullLinkPath = "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\DBeaver.lnk"
 
 if ( -Not (Test-Path -Path "${FullLinkPath}")){
-	New-Shortcut -LinkName "DBeaver" -TargetPath "%DBEAVER_HOME%\dbeaver.exe" -Arguments "" -IconFile "%DBEAVER_HOME%\dbeaver.exe" -IconId 0 -Description "DBeaver" -WorkingDirectory "%USERPROFILE" -ShortcutLocations "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs"
+	New-Shortcut -LinkName "DBeaver" -TargetPath "%DBEAVER_HOME%\dbeaver.exe" -Arguments "-clean -data `"%USERPROFILE%\workspaces\dbeaver`"" -IconFile "%DBEAVER_HOME%\dbeaver.exe" -IconId 0 -Description "DBeaver" -WorkingDirectory "%USERPROFILE" -ShortcutLocations "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs"
 }
