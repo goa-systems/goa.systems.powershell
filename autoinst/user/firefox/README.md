@@ -1,9 +1,3 @@
 # Mozilla Firefox auto install
-Installs and configures Mozilla firefox in German or English, depending on the operating system. Maintenance service is not installed. If required, change the line
-```
-MaintenanceService=false
-```
-in "install.ps1" to
-```
-MaintenanceService=true
-```
+
+Installs Mozilla Firefox in `%LOCALAPPDATA%\Programs\Mozilla Firefox`. This avoids the need for a system wide maintenance service and allows automatic updates without administrator privileges and with only little impact on the user experience.
