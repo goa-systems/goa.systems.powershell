@@ -28,7 +28,29 @@ New-Item -ItemType "Directory" -Path "${TempDirectory}"
 $StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/user/eclipse/install.ps1"
 Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
 Unblock-File -Path "${TempDirectory}\install.ps1"
+$ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
 & "${TempDirectory}\install.ps1"
+Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser
+Remove-Item -Recurse -Force -Path "${TempDirectory}"
+Write-Host -Object "Done"
+
+```
+
+### RustDesk installer
+
+The Eclipse installer downloads the basic package and a defined Java environment. Eclipse is started to install the required packages in the latest versions from the package repositories.
+
+```powershell
+$TempDirectory = "${env:TEMP}\$(New-Guid)"
+New-Item -ItemType "Directory" -Path "${TempDirectory}"
+$StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/system/rustdesk/Install.ps1"
+Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
+Unblock-File -Path "${TempDirectory}\install.ps1"
+$ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+& "${TempDirectory}\install.ps1"
+Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
 Write-Host -Object "Done"
 
