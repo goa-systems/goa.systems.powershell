@@ -63,7 +63,7 @@ This code will install PowerShell 7 on the system.
 ```powershell
 $TempDirectory = "${env:TEMP}\$(New-Guid)"
 New-Item -ItemType "Directory" -Path "${TempDirectory}"
-$StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/system/powershell/install.ps1"
+$StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/system/powershell/Install.ps1"
 Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
 Unblock-File -Path "${TempDirectory}\install.ps1"
 $ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
