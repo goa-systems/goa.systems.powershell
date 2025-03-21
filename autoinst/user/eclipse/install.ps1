@@ -91,7 +91,10 @@ if(-Not (Test-Path -Path "${EclipseInstallDir}")){
 }
 
 Move-Item -Path "${EclipseHome}" -Destination "${EclipseInstallDir}\${EclipseSemVer}"
+
 [System.Environment]::SetEnvironmentVariable("ECLIPSE_HOME", "${EclipseInstallDir}\${EclipseSemVer}", [System.EnvironmentVariableTarget]::User)
+$env:ECLIPSE_HOME="${EclipseInstallDir}\${EclipseSemVer}"
+$ECLIPSE_HOME="${EclipseInstallDir}\${EclipseSemVer}"
 
 if(-Not (Test-Path -Path "${JavaInstallDir}\${JavaPackage}")){
     Move-Item -Path "${JavaHome}" -Destination "${JavaInstallDir}\${JavaPackage}"
@@ -109,7 +112,7 @@ if ( -Not (Test-Path -Path "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs
     $ShortCut.WorkingDirectory = "%USERPROFILE%";
     $ShortCut.WindowStyle = 1;
     $ShortCut.Hotkey = "";
-    $ShortCut.IconLocation = "${EclipseInstallDir}\eclipse.exe, 0";
+    $ShortCut.IconLocation = "%ECLIPSE_HOME%\eclipse.exe, 0";
     $ShortCut.Description = "Eclipse IDE";
     $ShortCut.Save()
 }
@@ -122,20 +125,7 @@ if ( -Not (Test-Path -Path "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs
     $ShortCut.WorkingDirectory = "%USERPROFILE%";
     $ShortCut.WindowStyle = 1;
     $ShortCut.Hotkey = "";
-    $ShortCut.IconLocation = "${EclipseInstallDir}\eclipse.exe, 0";
-    $ShortCut.Description = "Eclipse cleanup";
-    $ShortCut.Save()
-}
-
-if ( -Not (Test-Path -Path "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\Eclipse\Readme.lnk")) {
-    $Shell = New-Object -ComObject ("WScript.Shell")
-    $ShortCut = $Shell.CreateShortcut("${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\Eclipse\Readme.lnk")
-    $ShortCut.TargetPath = "%ECLIPSE_HOME%\eclipse.exe"
-    $ShortCut.Arguments = ""
-    $ShortCut.WorkingDirectory = "%USERPROFILE%";
-    $ShortCut.WindowStyle = 1;
-    $ShortCut.Hotkey = "";
-    $ShortCut.IconLocation = "${EclipseInstallDir}\eclipse.exe, 0";
+    $ShortCut.IconLocation = "%ECLIPSE_HOME%\eclipse.exe, 0";
     $ShortCut.Description = "Eclipse cleanup";
     $ShortCut.Save()
 }

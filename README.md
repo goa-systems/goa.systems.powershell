@@ -30,4 +30,6 @@ Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
 Unblock-File -Path "${TempDirectory}\install.ps1"
 & "${TempDirectory}\install.ps1"
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
+Write-Host -Object "Done"
+
 ```
