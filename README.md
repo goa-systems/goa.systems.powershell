@@ -15,3 +15,19 @@ This folder contains automated installation scripts for tools I currently use.
 ### tools
 
 This folder contains PowerShell tools and scripts used for various purposes. Each script is documented by using a README.md file in each folder.
+
+## Specials
+
+### Eclipse installer
+
+The Eclipse installer downloads the basic package and a defined Java environment. Eclipse is started to install the required packages in the latest versions from the package repositories.
+
+```powershell
+$TempDirectory = "${env:TEMP}\$(New-Guid)"
+New-Item -ItemType "Directory" -Path "${TempDirectory}"
+$StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/user/eclipse/install.ps1"
+Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
+Unblock-File -Path "${TempDirectory}\install.ps1"
+& "${TempDirectory}\install.ps1"
+Remove-Item -Recurse -Force -Path "${TempDirectory}"
+```

@@ -139,3 +139,5 @@ if ( -Not (Test-Path -Path "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs
     $ShortCut.Description = "Eclipse cleanup";
     $ShortCut.Save()
 }
+
+Remove-Item -Recurse -Force -Path "${TempDir}"
