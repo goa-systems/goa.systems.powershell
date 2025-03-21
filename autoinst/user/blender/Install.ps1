@@ -21,12 +21,10 @@ Get-ChildItem -Path "${TemporaryDirectory}" | ForEach-Object {
     Expand-Archive -Path "$($_.FullName)" -DestinationPath "${InstallDir}"
 }
 
-[System.Environment]::SetEnvironmentVariable("BLENDER_HOME","${InstallDir}\blender-${Version}-windows-x64", [System.EnvironmentVariableTarget]::User)
-
 if ( -Not (Test-Path -Path "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\Blender.lnk")) {
     $Shell = New-Object -ComObject ("WScript.Shell")
     $ShortCut = $Shell.CreateShortcut("${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\Blender.lnk")
-    $ShortCut.TargetPath = "%BLENDER_HOME%\blender-launcher.exe"
+    $ShortCut.TargetPath = "`"%BLENDER_HOME%\blender-launcher.exe`""
     $ShortCut.Arguments = ""
     $ShortCut.WorkingDirectory = "%USERPROFILE%";
     $ShortCut.WindowStyle = 1;
@@ -35,5 +33,7 @@ if ( -Not (Test-Path -Path "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs
     $ShortCut.Description = "Blender";
     $ShortCut.Save()
 }
+
+[System.Environment]::SetEnvironmentVariable("BLENDER_HOME","${InstallDir}\blender-${Version}-windows-x64", [System.EnvironmentVariableTarget]::User)
 
 Remove-Item -Recurse -Force -Path "${TemporaryDirectory}"
