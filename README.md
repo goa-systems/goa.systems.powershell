@@ -29,9 +29,9 @@ $StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershe
 Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
 Unblock-File -Path "${TempDirectory}\install.ps1"
 $ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
 & "${TempDirectory}\install.ps1"
-Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser -Force
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
 Write-Host -Object "Done"
 
@@ -39,7 +39,7 @@ Write-Host -Object "Done"
 
 ### RustDesk installer
 
-The Eclipse installer downloads the basic package and a defined Java environment. Eclipse is started to install the required packages in the latest versions from the package repositories.
+This code will install RustDesk remote desktop software on the system.
 
 ```powershell
 $TempDirectory = "${env:TEMP}\$(New-Guid)"
@@ -48,9 +48,28 @@ $StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershe
 Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
 Unblock-File -Path "${TempDirectory}\install.ps1"
 $ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
 & "${TempDirectory}\install.ps1"
-Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser -Force
+Remove-Item -Recurse -Force -Path "${TempDirectory}"
+Write-Host -Object "Done"
+
+```
+
+### PowerShell 7 installer
+
+This code will install PowerShell 7 on the system.
+
+```powershell
+$TempDirectory = "${env:TEMP}\$(New-Guid)"
+New-Item -ItemType "Directory" -Path "${TempDirectory}"
+$StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/system/powershell/install.ps1"
+Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
+Unblock-File -Path "${TempDirectory}\install.ps1"
+$ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+& "${TempDirectory}\install.ps1"
+Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser -Force
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
 Write-Host -Object "Done"
 
