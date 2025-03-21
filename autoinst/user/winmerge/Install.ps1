@@ -39,6 +39,8 @@ Get-ChildItem -Path "${TempDirectory}" | ForEach-Object {
 }
 
 [System.Environment]::SetEnvironmentVariable("WINMERGE_HOME","${ProgramDir}", [System.EnvironmentVariableTarget]::User)
+$env:WINMERGE_HOME = "${ProgramDir}"
+$WINMERGE_HOME = "${ProgramDir}"
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
 
 $FullLinkPath = "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\WinMerge.lnk"
