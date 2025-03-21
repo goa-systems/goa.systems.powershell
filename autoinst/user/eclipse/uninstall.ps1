@@ -1,2 +1,15 @@
-try { Stop-Process -Name @("eclipse", "java") | Out-Null } catch { Write-Error -Message "Eclipse process not found." }
-Get-ChildItem -Path "$env:LocalAppData\Programs\Eclipse" | Where-Object { $_.Attributes -eq "Directory" } | Remove-Item -Recurse -Force
+[CmdletBinding()]
+param (
+    [Parameter()]
+    [string]
+    $EclipseInstallDir = "${env:ECLIPSE_HOME}"
+)
+
+if (Test-Path -Path "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\Eclipse") {
+    Remove-Item -Recurse -Force -Path "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\Eclipse"
+}
+
+if (Test-Path -Path "${EclipseInstallDir}") {
+    Remove-Item -Recurse -Force "${EclipseInstallDir}"
+    [System.Environment]::SetEnvironmentVariable("ECLIPSE_HOME", "", [System.EnvironmentVariableTarget]::User)
+}
