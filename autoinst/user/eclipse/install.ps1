@@ -90,11 +90,10 @@ if(-Not (Test-Path -Path "${EclipseInstallDir}")){
     New-Item -ItemType "Directory" -Path "${EclipseInstallDir}"
 }
 
-Move-Item -Path "${EclipseHome}" -Destination "${EclipseInstallDir}\${EclipseSemVer}"
+Move-Item -Path "${EclipseHome}" -Destination "${EclipseInstallDir}"
 
-[System.Environment]::SetEnvironmentVariable("ECLIPSE_HOME", "${EclipseInstallDir}\${EclipseSemVer}", [System.EnvironmentVariableTarget]::User)
-$env:ECLIPSE_HOME="${EclipseInstallDir}\${EclipseSemVer}"
-$ECLIPSE_HOME="${EclipseInstallDir}\${EclipseSemVer}"
+[System.Environment]::SetEnvironmentVariable("ECLIPSE_HOME", "${EclipseInstallDir}", [System.EnvironmentVariableTarget]::User)
+$env:ECLIPSE_HOME="${EclipseInstallDir}"
 
 if(-Not (Test-Path -Path "${JavaInstallDir}\${JavaPackage}")){
     Move-Item -Path "${JavaHome}" -Destination "${JavaInstallDir}\${JavaPackage}"
