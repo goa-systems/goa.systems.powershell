@@ -32,7 +32,7 @@ param (
 $TempDir="${env:TEMP}\$(New-Guid)"
 
 if (Test-Path "${TempDir}"){
-    Remove-Item -Recurse -Force "${TempDir}"
+    Remove-Item -Recurse -Force -Path "${TempDir}"
 }
 New-Item -ItemType "Directory" -Path "${TempDir}"
 
@@ -86,8 +86,8 @@ Get-ChildItem -Path "${EclipseHome}\configuration\*.log" | ForEach-Object {
     }
 }
 
-if(-Not (Test-Path -Path "${EclipseInstallDir}")){
-    New-Item -ItemType "Directory" -Path "${EclipseInstallDir}"
+if(Test-Path -Path "${EclipseInstallDir}"){
+    Remove-Item -Recurse -Force -Path "${EclipseInstallDir}"
 }
 
 Move-Item -Path "${EclipseHome}" -Destination "${EclipseInstallDir}"
