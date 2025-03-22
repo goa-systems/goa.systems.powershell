@@ -18,6 +18,15 @@ This folder contains PowerShell tools and scripts used for various purposes. Eac
 
 ## Specials
 
+The installer calls shown in this section will ...
+* Download the corresponding script into a temporary directory.
+* Unblock the file as it is downloaded from the internet.
+* Save the current execution policy.
+* Set the execution policy to `Unrestricted`.
+* Call the script.
+* Restore the execution policy to the saved state.
+* Remove the temporary directory.
+
 ### Eclipse installer
 
 The Eclipse installer downloads the basic package and a defined Java environment. Eclipse is started to install the required packages in the latest versions from the package repositories.
@@ -58,7 +67,7 @@ Write-Host -Object "Done"
 
 ### PowerShell 7 installer
 
-This code will install PowerShell 7 on the system.
+This code will install PowerShell 7 on the system. It should be run on a system where PowerShell 7 is not installed and has to be executed in the legacy PowerShell environment.
 
 ```powershell
 $TempDirectory = "${env:TEMP}\$(New-Guid)"
