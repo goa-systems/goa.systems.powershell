@@ -83,3 +83,22 @@ Remove-Item -Recurse -Force -Path "${TempDirectory}"
 Write-Host -Object "Done"
 
 ```
+
+### Git SCM installer
+
+This code will install Git SCM on the system.
+
+```powershell
+$TempDirectory = "${env:TEMP}\$(New-Guid)"
+New-Item -ItemType "Directory" -Path "${TempDirectory}"
+$StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/system/gitscm/install.ps1"
+Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
+Unblock-File -Path "${TempDirectory}\install.ps1"
+$ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+& "${TempDirectory}\install.ps1"
+Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser -Force
+Remove-Item -Recurse -Force -Path "${TempDirectory}"
+Write-Host -Object "Done"
+
+```
