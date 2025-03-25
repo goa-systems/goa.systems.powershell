@@ -2,12 +2,10 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 
 	Set-Location -Path "$PSScriptRoot"
 
-	. ..\..\insttools\Installation-Functions.ps1
-
 	$GitSetup = ""
 	$Uri = ""
 
-	(Get-LatestRelease -Owner git-for-windows -Project git).assets | ForEach-Object {
+	(Invoke-RestMethod -Uri "https://api.github.com/repos/git-for-windows/git/releases/latest").assets | ForEach-Object {
 		if($_.name -match ".*64-bit\.exe"){
 			$GitSetup += $_.name
 			$Uri += $_.browser_download_url
