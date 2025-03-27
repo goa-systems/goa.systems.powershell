@@ -3,7 +3,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
 	$Version = $Json.version
 	$SetupFile = "LibreOffice_${Version}_Win_x86-64.msi"
-	$DownloadUrl = "https://chuangtzu.ftp.acc.umu.se/mirror/documentfoundation.org/libreoffice/stable/${Version}/win/x86_64/${SetupFile}"
+	$DownloadUrl = "https://mirror.truenetwork.ru/tdf/libreoffice/stable/${Version}/win/x86_64/${SetupFile}"
 	$DownloadDir = "$env:TEMP\$(New-Guid)"
 
 	If (Test-Path -Path "${DownloadDir}") {
