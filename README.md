@@ -58,7 +58,7 @@ Unblock-File -Path "${TempDirectory}\Functions.ps1"
 $ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
 . "${TempDirectory}\Functions.ps1"
-@("24","21","17","11","8") | ForEach-Object { Install-Java -JavaMajorVersion "$($_)" }
+@("24","23","21","17","11","8") | ForEach-Object { Install-Java -JavaMajorVersion "$($_)" }
 Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser -Force
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
 Write-Host -Object "Done"
