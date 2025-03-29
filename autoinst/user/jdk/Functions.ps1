@@ -42,6 +42,27 @@ function New-TemporaryDirectory {
     New-Item -ItemType "Directory" -Path "${TempPath}"
 }
 
+function Install-JavaVersions {
+    param (
+        [Parameter()]
+        [string[]]
+        $JavaVersions = @("24","23","21","17","11","8"),
+        
+        [Parameter()]
+        [switch]
+        $SetJavaHomeToLatest
+    )
+
+    $JavaVersions | ForEach-Object { Install-Java -JavaMajorVersion "$($_)" }
+
+    if($SetJavaHomeToLatest){
+        $Latest = ($JavaVersions | Measure-Object -Maximum).Maximum
+        Remove-ItemProperty -Path "HKCU:\Environment" -Name "JAVA_HOME" -ErrorAction SilentlyContinue
+        Set-ItemProperty -Path "HKCU:\Environment" "JAVA_HOME" "%JAVA_HOME_${Latest}%" -Type ExpandString
+        $env:JAVA_HOME = "%JAVA_HOME_${Latest}%"
+    }
+}
+
 function Install-Java {
     param (
         # Java version 23, 21, 17, ...
@@ -73,7 +94,7 @@ function Install-Java {
         }
         $Destination = "${DestinationBase}\$($_.Name)"
         Move-Item -Path "$($_.FullName)" -Destination "${Destination}"
-        [System.Environment]::SetEnvironmentVariable("JAVA_HOME_${JavaMajorVersion}","${Destination}", [System.EnvironmentVariableTarget]::User)
+        [System.Environment]::SetEnvironmentVariable("JAVA_HOME_${JavaMajorVersion}", "${Destination}", [System.EnvironmentVariableTarget]::User)
     }
 
     Remove-Item -Force -Path "${TemporaryDirectory}" -Recurse

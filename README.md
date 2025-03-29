@@ -58,7 +58,8 @@ Unblock-File -Path "${TempDirectory}\Functions.ps1"
 $ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
 . "${TempDirectory}\Functions.ps1"
-@("24","23","21","17","11","8") | ForEach-Object { Install-Java -JavaMajorVersion "$($_)" }
+Write-Host "Installing Java versions and setting `%JAVA_HOME%` to the latest version.
+Install-JavaVersions -SetJavaHomeToLatest
 Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser -Force
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
 Write-Host -Object "Done"
