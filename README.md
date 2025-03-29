@@ -45,6 +45,25 @@ Remove-Item -Recurse -Force -Path "${TempDirectory}"
 Write-Host -Object "Done"
 
 ```
+### Java installer
+
+The Java installer will download Azul OpenJDK packages and install them into `%LOCALAPPDATA%\Programs\Java` and create an environment variable for each Java distribution in the form of `%JAVA_HOME_N%`
+
+```powershell
+$TempDirectory = "${env:TEMP}\$(New-Guid)"
+New-Item -ItemType "Directory" -Path "${TempDirectory}"
+$StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/user/jdk/Functions.ps1"
+Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
+Unblock-File -Path "${TempDirectory}\Functions.ps1"
+$ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+. "${TempDirectory}\Functions.ps1"
+@("24","21","17","11","8") | ForEach-Object { Install-Java -JavaMajorVersion "$($_)" }
+Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser -Force
+Remove-Item -Recurse -Force -Path "${TempDirectory}"
+Write-Host -Object "Done"
+
+```
 
 ### RustDesk installer
 
