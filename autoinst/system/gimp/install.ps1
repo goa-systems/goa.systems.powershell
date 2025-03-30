@@ -5,23 +5,16 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	$MinorVersion = $Json.minorversion
 	$SetupFile = $Json.setupfile
 	$DownloadDir = "${env:TEMP}\$(New-Guid)"
-	
-	<# Download Gimp, if setup is not found in execution path. #>
 	if (Test-Path -Path "${DownloadDir}"){
 		Remove-Item -Recurse -Force -Path "${DownloadDir}"
 	}
 	New-Item -ItemType "Directory" -Path "${DownloadDir}"
-	
 	$ProgressPreference = "SilentlyContinue"
 	Write-Host -Object "Downloading ..."
 	Invoke-WebRequest -Uri "https://download.gimp.org/gimp/${MinorVersion}/windows/${SetupFile}" -OutFile "${DownloadDir}\${SetupFile}"
 	Write-Host -Object "Download finished."
-
-	Start-Process -Wait -FilePath "${DownloadDir}\${SetupFile}" -ArgumentList "/SILENT","/NORESTART","/ALLUSERS","/DIR=`"${env:PROGRAMFILES}\Gimp`""
-	
-
+	Start-Process -Wait -FilePath "${DownloadDir}\${SetupFile}" -ArgumentList @("/SILENT", "/MERGETASKS=`"!desktopicon`"", "/NORESTART", "/ALLUSERS", "/DIR=`"${env:PROGRAMFILES}\Gimp`"")
 	Remove-Item -Recurse -Force -Path "${DownloadDir}"
-
 } else {
 	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }
