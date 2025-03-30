@@ -66,6 +66,25 @@ Write-Host -Object "Done"
 
 ```
 
+### Gradle installer
+
+The Gradle installer installs Gradle in `%LOCALAPPDATA%\Programs\Gradle\gradle-<version>` where `<version>` represents the latest version.
+
+```powershell
+$TempDirectory = "${env:TEMP}\$(New-Guid)"
+New-Item -ItemType "Directory" -Path "${TempDirectory}"
+$StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/user/gradle/install.ps1"
+Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
+Unblock-File -Path "${TempDirectory}\install.ps1"
+$ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+& "${TempDirectory}\install.ps1"
+Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser -Force
+Remove-Item -Recurse -Force -Path "${TempDirectory}"
+Write-Host -Object "Done"
+
+```
+
 ### RustDesk installer
 
 This code will install RustDesk remote desktop software on the system.

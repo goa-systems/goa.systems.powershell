@@ -3,7 +3,7 @@ param (
 	$InstallDir = "$env:LOCALAPPDATA\Programs\Gradle"
 )
 
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+# [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $Json = (Invoke-RestMethod -Uri "https://services.gradle.org/versions/current")
 
 $FileName = "gradle-$($Json.version)-bin.zip"
@@ -22,7 +22,7 @@ if(-not (Test-Path -Path "$DownloadDir")){
 	New-Item -ItemType "Directory" -Path "$DownloadDir"
 }
 
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+# [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $ProgressPreference = 'SilentlyContinue'
 Invoke-WebRequest -Uri "$($Json.downloadUrl)" -OutFile "$DownloadDir\$FileName"
 
@@ -31,6 +31,7 @@ if(Test-Path -Path "$DownloadDir\$FileName"){
 	<# Move extracted folder to the program installation directory. #>
 	Get-ChildItem -Path "$env:TEMP\GradleInst" | ForEach-Object {
 		Move-Item -Path $_.FullName -Destination "$InstallDir"
-		[System.Environment]::SetEnvironmentVariable('GRADLE_HOME',"$InstallDir\$($_.Name)",[System.EnvironmentVariableTarget]::User)
+		[System.Environment]::SetEnvironmentVariable("GRADLE_HOME","$InstallDir\$($_.Name)",[System.EnvironmentVariableTarget]::User)
+		$env:GRADLE_HOME = "$InstallDir\$($_.Name)"
 	}
 }
