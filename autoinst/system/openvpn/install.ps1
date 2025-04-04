@@ -15,7 +15,8 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 		Start-BitsTransfer -Source ${DownloadUrl} -Destination "${DownloadDir}\${Setup}"
 	
 	Start-Process -Wait -FilePath "msiexec" -ArgumentList @("/passive", "/i", "`"${DownloadDir}\${Setup}`"")
-	
+
+	Remove-Item -Recurse -Force -Path "${DownloadDir}"
 } else {
 	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }
