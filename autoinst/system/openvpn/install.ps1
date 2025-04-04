@@ -1,22 +1,21 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-	Set-Location -Path "$PSScriptRoot"
-	$name = "openvpn"
 
+	Set-Location -Path "$PSScriptRoot"
 	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
-	$version = $Json.version
-	$setup = "OpenVPN-$version-I601-amd64.msi"
-	$dlurl = "https://swupdate.openvpn.org/community/releases/$setup"
-	If(-Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name")){
-		New-Item -Path "$env:SystemDrive\ProgramData\InstSys\$name" -ItemType "Directory"
+	$Setup = $Json.version
+	$DownloadUrl = "https://swupdate.openvpn.org/community/releases/${Setup}"
+	
+	$DownloadDir = "${env:TEMP}\$(New-Guid)"
+	If(Test-Path -Path "${DownloadDir}"){
+		Remove-Item -Recurse -Force -Path "${DownloadDir}"
 	}
-	<# Download if setup is not found in execution path. #>
-	if( -Not (Test-Path -Path "$env:SystemDrive\ProgramData\InstSys\$name\$setup")){
-		Write-Host "Downloading from $dlurl"
-		Start-BitsTransfer `
-		-Source $dlurl `
-		-Destination "$env:SystemDrive\ProgramData\InstSys\$name\$setup"
-	}
-	Start-Process -Wait -FilePath "msiexec" -ArgumentList @("/passive", "/i", "$env:SystemDrive\ProgramData\InstSys\$name\$setup")
+	New-Item -Path "${DownloadDir}" -ItemType "Directory"
+
+		Write-Host "Downloading from ${DownloadUrl}"
+		Start-BitsTransfer -Source ${DownloadUrl} -Destination "${DownloadDir}\${Setup}"
+	
+	Start-Process -Wait -FilePath "msiexec" -ArgumentList @("/passive", "/i", "`"${DownloadDir}\${Setup}`"")
+	
 } else {
 	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }
