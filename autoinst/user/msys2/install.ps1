@@ -13,17 +13,16 @@ function Install-Msys2 {
         $Name
     )
 
-    if( -not (Test-Path -Path "$env:ProgramData\InstSys\Msys2")){
-        New-Item -Path "$env:ProgramData\InstSys\Msys2" -ItemType "Directory"
+    $DownloadDir = "${env:TEMP}\$(New-Guid)"
+    if(Test-Path -Path "${DownloadDir}"){
+        Remove-Item -Force -Recurse -Path "${DownloadDir}"
     }
+    New-Item -Path "${DownloadDir}" -ItemType "Directory"
 
-    if(Test-Path -Path "$env:TEMP\Msys2Inst"){
-        Remove-Item "$env:TEMP\Msys2Inst" -Force -Recurse
-    }
-    New-Item -Path "$env:TEMP\Msys2Inst" -ItemType "Directory"
+    Start-BitsTransfer -Source "${Url}" -Destination "${DownloadDir}\$Archive"
 
-    if( -not (Test-Path -Path "$env:ProgramData\InstSys\Msys2\$Name")){
-        Start-BitsTransfer -Source "$Url" -Destination "$env:ProgramData\InstSys\Msys2\$Archive"
+    if(Test-Path -Path "${env:ProgramFiles}\7-Zip"){
+        $env:Path = "${env:ProgramFiles}\7-Zip;${env:PATH}"
     }
 
     try { 7z | Out-Null } catch {}
