@@ -50,6 +50,10 @@ function Install-Msys2 {
             Start-Process -FilePath "${InstallDir}\msys2_shell.cmd" -ArgumentList @("-mingw64", "-c", "`"pacman -S --noconfirm base binutils gcc gdb git make mingw-w64-i686-make mingw-w64-x86_64-binutils mingw-w64-x86_64-gcc mingw-w64-x86_64-gdb mingw-w64-x86_64-make openssh vim; exit;`"") -Wait
 
             Remove-Item -Recurse -Force -Path "${DownloadDir}"
+            
+            $env:MSYS2_HOME = "${InstallDir}"
+            [System.Environment]::SetEnvironmentVariable("MSYS2_HOME", "${InstallDir}", [System.EnvironmentVariableTarget]::User) 
+
         } else {
             Write-Host -Object "Installation directory already exists. Aborting. Downloaded application remains in [${DownloadDir}]."
         }
