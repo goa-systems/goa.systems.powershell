@@ -6,12 +6,14 @@ function Install-Msys2 {
 
         [Parameter()]
         [string]
-        $Url,
+        $DownloadUrl,
 
         [Parameter()]
         [string]
-        $Name
+        $FileName
     )
+
+    $InstallDir = "${env:LOCALAPPDATA}\Programs\Msys2"
 
     $DownloadDir = "${env:TEMP}\$(New-Guid)"
     if(Test-Path -Path "${DownloadDir}"){
@@ -19,7 +21,7 @@ function Install-Msys2 {
     }
     New-Item -Path "${DownloadDir}" -ItemType "Directory"
 
-    Start-BitsTransfer -Source "${Url}" -Destination "${DownloadDir}\$Archive"
+    Start-BitsTransfer -Source "${DownloadUrl}" -Destination "${DownloadDir}\${FileName}"
 
     if(Test-Path -Path "${env:ProgramFiles}\7-Zip"){
         $env:Path = "${env:ProgramFiles}\7-Zip;${env:PATH}"
@@ -28,31 +30,33 @@ function Install-Msys2 {
     try { 7z | Out-Null } catch {}
     <# Execute only if 7zip is available. #>
     if($?){
-        Start-Process -FilePath "7z.exe" -ArgumentList "x","-o`"$env:TEMP\Msys2Inst`"","`"$env:ProgramData\InstSys\Msys2\$Name`"" -Wait -NoNewWindow
-        Get-ChildItem -Path "$env:TEMP\Msys2Inst" | ForEach-Object {
-            $MsysSubArchive = $_.FullName;
-            Start-Process -FilePath "7z.exe" -ArgumentList "x","-o`"$env:TEMP\Msys2Inst`"","`"$MsysSubArchive`"" -Wait -NoNewWindow
-            Remove-Item -Force -Path "$MsysSubArchive"
-        }
-        Get-ChildItem -Path "$env:TEMP\Msys2Inst" | ForEach-Object {
-            $ExtractedDir = $_.FullName;
-            Move-Item -Path "$ExtractedDir" -Destination "$env:LOCALAPPDATA\Programs\Msys2"
+        Start-Process -FilePath "7z.exe" -ArgumentList "x","-o`"${DownloadDir}`"","`"${DownloadDir}\${FileName}`"" -Wait -NoNewWindow
+        Get-ChildItem -Path "${DownloadDir}" | ForEach-Object {
+            if($_.Extension -match "\.tar"){
+                Write-Host -Object "Extracting tar archive."
+                Start-Process -FilePath "7z.exe" -ArgumentList "x","-o`"${DownloadDir}`"","`"$($_.FullName)`"" -Wait -NoNewWindow
+                Remove-Item -Force -Path "$($_.FullName)"
+                Remove-Item -Force -Path "${DownloadDir}\${FileName}"
+            }
         }
 
-        <# Run the initial setup. Msys2 has to be exited afterwards and restarted. #>
-        Start-Process -FilePath "$env:LOCALAPPDATA\Programs\Msys2\msys2_shell.cmd" -ArgumentList @("-mingw64", "-c", "`"exit`"") -Wait
+        if( -Not (Test-Path -Path "${InstallDir}")){
+            Move-Item -Path "${DownloadDir}\msys64" -Destination "${InstallDir}"
 
-        <# Run update three times because some updates need a restart. #>
-        for ($i = 0; $i -lt 3; $i++) {
-            Start-Process -FilePath "$env:LOCALAPPDATA\Programs\Msys2\msys2_shell.cmd" -ArgumentList @("-mingw64", "-c", "`"pacman -Syu --noconfirm; exit;`"") -Wait
+            Start-Process -FilePath "${InstallDir}\msys2_shell.cmd" -ArgumentList @("-mingw64", "-c", "`"exit`"") -Wait
+            for ($i = 0; $i -lt 3; $i++) {
+                Start-Process -FilePath "${InstallDir}\msys2_shell.cmd" -ArgumentList @("-mingw64", "-c", "`"pacman -Syu --noconfirm; exit;`"") -Wait
+            }
+            Start-Process -FilePath "${InstallDir}\msys2_shell.cmd" -ArgumentList @("-mingw64", "-c", "`"pacman -S --noconfirm base binutils gcc gdb git make mingw-w64-i686-make mingw-w64-x86_64-binutils mingw-w64-x86_64-gcc mingw-w64-x86_64-gdb mingw-w64-x86_64-make openssh vim; exit;`"") -Wait
+
+            Remove-Item -Recurse -Force -Path "${DownloadDir}"
+        } else {
+            Write-Host -Object "Installation directory already exists. Aborting. Downloaded application remains in [${DownloadDir}]."
         }
-        <# Install the tools #>
-        Start-Process -FilePath "$env:LOCALAPPDATA\Programs\Msys2\msys2_shell.cmd" -ArgumentList @("-mingw64", "-c", "`"pacman -S --noconfirm base binutils gcc gdb git make mingw-w64-i686-make mingw-w64-x86_64-binutils mingw-w64-x86_64-gcc mingw-w64-x86_64-gdb mingw-w64-x86_64-make openssh vim; exit;`"") -Wait
 
     } else {
         Write-Host -Object "Can not extract Msys2 because 7z.exe is not in the PATH variable."
     }
-    
 }
 
 $Release = Invoke-RestMethod -Uri "https://api.github.com/repos/msys2/msys2-installer/releases/latest"
@@ -68,6 +72,6 @@ $Release.assets | ForEach-Object {
 
 if($DownloadUrl -ne ""){
     Write-Host -Object "Download URL is $DownloadUrl. Downloading and installing Msys2."
-    Install-Msys2 -Url $DownloadUrl -Name $FileName
+    Install-Msys2 -DownloadUrl $DownloadUrl -FileName $FileName
     Write-Host -Object "Download and setup done."
 }
