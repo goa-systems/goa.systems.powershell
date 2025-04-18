@@ -29,7 +29,7 @@ Move-Item -Path "${TempDirectory}\dbeaver" -Destination "${ProgramDir}"
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
 
 [System.Environment]::SetEnvironmentVariable("DBEAVER_HOME", "${ProgramDir}", [System.EnvironmentVariableTarget]::User)
-$env:DBEAVER = "${ProgramDir}"
+$env:DBEAVER_HOME = "${ProgramDir}"
 
 $FullLinkPath = "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\DBeaver.lnk"
 

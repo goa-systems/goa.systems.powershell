@@ -26,7 +26,8 @@ if(-Not (Test-Path -Path "${InstallDir}")){
 }
 
 Expand-Archive -Path "${DownloadDir}\${FileName}" -DestinationPath "${InstallDir}"
-[System.Environment]::SetEnvironmentVariable("KEEPASSXC_HOME", "${InstallDir}\$FileNameBase", [System.EnvironmentVariableTarget]::User)
+[System.Environment]::SetEnvironmentVariable("KEEPASSXC_HOME", "${InstallDir}\${FileNameBase}", [System.EnvironmentVariableTarget]::User)
+$env:KEEPASSXC_HOME = "${InstallDir}\${FileNameBase}"
 Remove-Item -Recurse -Force -Path "$DownloadDir"
 
 $FullLinkPath = "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\KeePassXC.lnk"
