@@ -4,12 +4,7 @@ $TagName = (Invoke-RestMethod -Uri "${LatestReleaseUrl}").tag_name
 $FileName = "dbeaver-ce-${TagName}-win32.win32.x86_64.zip"
 
 $DownloadUrl = "https://github.com/dbeaver/dbeaver/releases/download/${TagName}/${FileName}"
-$ProgramBaseDir = "${env:LOCALAPPDATA}\Programs\DBeaver"
-$ProgramDir = "${ProgramBaseDir}\${TagName}"
-
-if( -Not (Test-Path "${ProgramBaseDir}")){
-	New-Item -ItemType "Directory" -Path "${ProgramBaseDir}"
-}
+$ProgramDir = "${env:LOCALAPPDATA}\Programs\DBeaver"
 
 $TempDirectory = "${env:TEMP}\$(New-Guid)"
 if(Test-Path -Path "${TempDirectory}") {
@@ -21,10 +16,14 @@ Start-BitsTransfer -Source "${DownloadUrl}" -Destination "${TempDirectory}\${Fil
 Expand-Archive -Path "${TempDirectory}\${FileName}" -DestinationPath "${TempDirectory}"
 
 if(Test-Path -Path "${ProgramDir}") {
-	Remove-Item -Recurse -Force -Path "${ProgramDir}"
+    Get-ChildItem -Path "${ProgramDir}" | ForEach-Object {
+	    Remove-Item -Recurse -Force -Path "$($_.FullName)"
+    }
 }
 
-Move-Item -Path "${TempDirectory}\dbeaver" -Destination "${ProgramDir}"
+Get-ChildItem -Path "${TempDirectory}\dbeaver" | ForEach-Object {
+    Move-Item -Path "$($_.FullName)"  -Destination "${ProgramDir}"
+}
 
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
 
