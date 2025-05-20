@@ -52,6 +52,7 @@ Move-Item -Path "${TempDirectory}\ImageGlass_${TagName}_x64" -Destination "${Pro
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
 
 [System.Environment]::SetEnvironmentVariable("IMAGEGLASS_HOME","${ProgramDir}", [System.EnvironmentVariableTarget]::User)
+$env:IMAGEGLASS_HOME = "${ProgramDir}"
 
 $FullLinkPath = "${env:APPDATA}\Microsoft\Windows\Start Menu\Programs"
 
