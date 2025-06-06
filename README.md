@@ -152,6 +152,7 @@ New-Item -ItemType "Directory" -Path "${TempDirectory}"
 $StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/system/libreoffice"
 Start-BitsTransfer -Source "${StaticUrl}/install.ps1" -Destination "${TempDirectory}"
 Start-BitsTransfer -Source "${StaticUrl}/uninstall.ps1" -Destination "${TempDirectory}"
+Start-BitsTransfer -Source "${StaticUrl}/version.json" -Destination "${TempDirectory}"
 Unblock-File -Path "${TempDirectory}\install.ps1"
 Unblock-File -Path "${TempDirectory}\uninstall.ps1"
 $ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
