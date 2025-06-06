@@ -141,3 +141,25 @@ Remove-Item -Recurse -Force -Path "${TempDirectory}"
 Write-Host -Object "Done"
 
 ```
+
+### Libreoffice installer
+
+This code will install Libreoffice on the system.
+
+```powershell
+$TempDirectory = "${env:TEMP}\$(New-Guid)"
+New-Item -ItemType "Directory" -Path "${TempDirectory}"
+$StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/system/libreoffice"
+Start-BitsTransfer -Source "${StaticUrl}/install.ps1" -Destination "${TempDirectory}"
+Start-BitsTransfer -Source "${StaticUrl}/uninstall.ps1" -Destination "${TempDirectory}"
+Unblock-File -Path "${TempDirectory}\install.ps1"
+Unblock-File -Path "${TempDirectory}\uninstall.ps1"
+$ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+& "${TempDirectory}\uninstall.ps1"
+& "${TempDirectory}\install.ps1"
+Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser -Force
+Remove-Item -Recurse -Force -Path "${TempDirectory}"
+Write-Host -Object "Done"
+
+```
