@@ -1,21 +1,18 @@
-Set-Location -Path "$PSScriptRoot"
-$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
-
-$Version = $Json.version
-$Setup="Thunderbird Setup $Version.exe"
+$LatestVersion = (Invoke-RestMethod -Uri "https://product-details.mozilla.org/1.0/thunderbird_versions.json").LATEST_THUNDERBIRD_VERSION
+$Setup="Thunderbird Setup ${LatestVersion}.exe"
 
 $DownloadDir = "${env:TEMP}\$(New-Guid)"
 
-$lang="en-US"
+$Language="en-US"
 if($(Get-WinSystemLocale).Name.StartsWith("de")) {
-	$lang="de"
+	$Language="de"
 }
 
 If(Test-Path -Path "$DownloadDir"){
 	Remove-Item -Recurse -Force "$DownloadDir"
 }
 New-Item -Path "$DownloadDir" -ItemType "Directory"
-Start-BitsTransfer -Source "http://ftp.mozilla.org/pub/thunderbird/releases/$Version/win64/$lang/$Setup" -Destination "$DownloadDir\$Setup"
+Start-BitsTransfer -Source "https://ftp.mozilla.org/pub/thunderbird/releases/${LatestVersion}/win64/${Language}/${Setup}" -Destination "$DownloadDir\$Setup"
 
 $INI=@"
 [Install]
@@ -26,7 +23,7 @@ StartMenuShortcuts=true
 MaintenanceService=false
 "@
 
-Set-Content -Path "$DownloadDir\install.ini" -Value $INI
+Set-Content -Path "${DownloadDir}\install.ini" -Value $INI
 
 $processes = @("thunderbird")
 foreach ($process in $processes) {
@@ -40,6 +37,6 @@ foreach ($process in $processes) {
 	}
 }
 
-Start-Process -Wait -FilePath "$DownloadDir\$Setup" -ArgumentList @("/INI=`"$DownloadDir\install.ini`"")
+Start-Process -Wait -FilePath "${DownloadDir}\${Setup}" -ArgumentList @("/INI=`"${DownloadDir}\install.ini`"")
 
-Remove-Item -Recurse -Force "$DownloadDir"
+Remove-Item -Recurse -Force "${DownloadDir}"
