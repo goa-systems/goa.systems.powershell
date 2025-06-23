@@ -1,33 +1,31 @@
-Set-Location -Path "$PSScriptRoot"
-$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
+$LatestVersion = (Invoke-RestMethod -Uri "https://product-details.mozilla.org/1.0/firefox_versions.json").LATEST_FIREFOX_VERSION
 
-$ffvers = $Json.version
-$ffsetup="Firefox Setup $ffvers.exe"
+$Setup="Firefox Setup ${LatestVersion}.exe"
 
 $DownloadDir = "${env:TEMP}\$(New-Guid)"
 
-$lang="en-US"
+$Language="en-US"
 if($(Get-WinSystemLocale).Name.StartsWith("de")) {
-	$lang="de"
+	$Language="de"
 }
 
-If(Test-Path -Path "$DownloadDir"){
-	Remove-Item -Recurse -Force "$DownloadDir"
+If(Test-Path -Path "${DownloadDir}"){
+	Remove-Item -Recurse -Force "${DownloadDir}"
 }
-New-Item -Path "$DownloadDir" -ItemType "Directory"
+New-Item -Path "${DownloadDir}" -ItemType "Directory"
 
-Start-BitsTransfer -Source "http://ftp.mozilla.org/pub/firefox/releases/$ffvers/win64/$lang/$ffsetup" -Destination "$DownloadDir\$ffsetup"
+Start-BitsTransfer -Source "http://ftp.mozilla.org/pub/firefox/releases/${LatestVersion}/win64/${Language}/${Setup}" -Destination "${DownloadDir}\${Setup}"
 
-$INI=@"
+$IniContent=@"
 [Install]
-InstallDirectoryPath=$env:LOCALAPPDATA\Programs\Mozilla Firefox
+InstallDirectoryPath=${env:LOCALAPPDATA}\Programs\Mozilla Firefox
 QuickLaunchShortcut=false
 DesktopShortcut=false
 StartMenuShortcuts=true
 MaintenanceService=false
 "@
 
-Set-Content -Path "$DownloadDir\install.ini" -Value $INI
+Set-Content -Path "${DownloadDir}\install.ini" -Value "${IniContent}"
 
 $processes = @("firefox")
 foreach ($process in $processes) {
@@ -41,6 +39,6 @@ foreach ($process in $processes) {
 	}
 }
 
-Start-Process -Wait -FilePath "$DownloadDir\$ffsetup" -ArgumentList @("/INI=`"$DownloadDir\install.ini`"")
+Start-Process -Wait -FilePath "${DownloadDir}\${Setup}" -ArgumentList @("/INI=`"${DownloadDir}\install.ini`"")
 
-Remove-Item -Recurse -Force "$DownloadDir"
+Remove-Item -Recurse -Force "${DownloadDir}"
