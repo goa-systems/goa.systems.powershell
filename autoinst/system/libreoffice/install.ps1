@@ -6,7 +6,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	$Versions = $Response.Links | Where-Object { $_.href -match '^\d' } | ForEach-Object { $_.href.TrimEnd('/') }
 	$Version = $Versions | Sort-Object {[version]$_} | Select-Object -Last 1
 	$SetupFile = "LibreOffice_${Version}_Win_x86-64.msi"
-	$DownloadUrl = "${BaseUrl}${Latest}/win/x86_64/${SetupFile}"
+	$DownloadUrl = "${BaseUrl}${Version}/win/x86_64/${SetupFile}"
 	$DownloadDir = "$env:TEMP\$(New-Guid)"
 
 	If (Test-Path -Path "${DownloadDir}") {
