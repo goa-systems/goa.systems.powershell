@@ -1,9 +1,9 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	
 	Set-Location -Path "$PSScriptRoot"
-	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
-	
-	$Version = $Json.version
+	$Tags = Invoke-RestMethod -Uri "https://api.github.com/repos/winscp/winscp/tags"
+
+	$Version = $Tags[0].name
 	$Setup="WinSCP-${Version}-Setup.exe"
 	
 	$DownloadDir = "${env:TEMP}\$(New-Guid)"
