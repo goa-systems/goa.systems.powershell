@@ -12,16 +12,26 @@ function Get-Version {
 			$PackageType += $_
 		}
 	}
-	return $VersionData.$HighestVersion.$PackageType.zip.path
+
+	$VD = @{
+		Version = $VersionData.$HighestVersion.version;
+		File = $VersionData.$HighestVersion.$PackageType.zip.path
+	}
+
+	return $VD
 }
 
 Set-Location -Path "$PSScriptRoot"
 
-$PhpZip = Get-Version
+$VersionData = Get-Version
+$PhpZip = $VersionData.File
 $TmpDir = "${env:TEMP}\$(New-Guid)"
-$TargetDir = "${env:LocalAppData}\Programs\Php\${Version}"
+$TargetDir = "${env:LocalAppData}\Programs\Php\$($VersionData.Version)"
 
-New-Item -ItemType "Directory" -Path "$TmpDir"
+if(Test-Path "${TmpDir}"){
+	Remove-Item -Recurse -Force -Path "${TmpDir}"
+}
+New-Item -ItemType "Directory" -Path "${TmpDir}"
 
 if( -not (Test-Path "${TargetDir}")){
 	New-Item -ItemType "Directory" -Path "${TargetDir}"
