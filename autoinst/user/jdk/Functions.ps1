@@ -46,7 +46,7 @@ function Install-JavaVersions {
     param (
         [Parameter()]
         [string[]]
-        $JavaVersions = @("24","23","21","17","11","8"),
+        $JavaVersions = @("25"),
         
         [Parameter()]
         [switch]
@@ -100,3 +100,4 @@ function Install-Java {
     Remove-Item -Force -Path "${TemporaryDirectory}" -Recurse
     Remove-Item -Force -Path "${env:TEMP}\zulu${DistVersion}-ca-fx-jdk${JavaVersion}-win_x64.zip"
 }
+
