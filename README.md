@@ -27,6 +27,25 @@ The installer calls shown in this section will ...
 * Restore the execution policy to the saved state.
 * Remove the temporary directory.
 
+### PowerShell 7 installer
+
+This code will install PowerShell 7 on the system. It should be run on a system where PowerShell 7 is not installed and has to be executed in the legacy PowerShell environment.
+
+```powershell
+$TempDirectory = "${env:TEMP}\$(New-Guid)"
+New-Item -ItemType "Directory" -Path "${TempDirectory}"
+$StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/system/powershell/Install.ps1"
+Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
+Unblock-File -Path "${TempDirectory}\install.ps1"
+$ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+& "${TempDirectory}\install.ps1"
+Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser -Force
+Remove-Item -Recurse -Force -Path "${TempDirectory}"
+Write-Host -Object "Done"
+
+```
+
 ### Eclipse installer
 
 The Eclipse installer downloads the basic package and a defined Java environment. Eclipse is started to install the required packages in the latest versions from the package repositories.
@@ -45,6 +64,7 @@ Remove-Item -Recurse -Force -Path "${TempDirectory}"
 Write-Host -Object "Done"
 
 ```
+
 ### Java installer
 
 The Java installer will download Azul OpenJDK packages and install them into `%LOCALAPPDATA%\Programs\Java` and create an environment variable for each Java distribution in the form of `%JAVA_HOME_N%`
@@ -93,25 +113,6 @@ This code will install RustDesk remote desktop software on the system.
 $TempDirectory = "${env:TEMP}\$(New-Guid)"
 New-Item -ItemType "Directory" -Path "${TempDirectory}"
 $StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/system/rustdesk/Install.ps1"
-Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
-Unblock-File -Path "${TempDirectory}\install.ps1"
-$ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
-& "${TempDirectory}\install.ps1"
-Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser -Force
-Remove-Item -Recurse -Force -Path "${TempDirectory}"
-Write-Host -Object "Done"
-
-```
-
-### PowerShell 7 installer
-
-This code will install PowerShell 7 on the system. It should be run on a system where PowerShell 7 is not installed and has to be executed in the legacy PowerShell environment.
-
-```powershell
-$TempDirectory = "${env:TEMP}\$(New-Guid)"
-New-Item -ItemType "Directory" -Path "${TempDirectory}"
-$StaticUrl = "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/system/powershell/Install.ps1"
 Start-BitsTransfer -Source "$StaticUrl" -Destination "${TempDirectory}"
 Unblock-File -Path "${TempDirectory}\install.ps1"
 $ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
@@ -202,3 +203,4 @@ Write-Host -Object "Done"
 
 
 ```
+
