@@ -201,6 +201,26 @@ Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser -Force
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
 Write-Host -Object "Done"
 
+```
+
+### Java installer
+
+This code will install JDK packages for the current user on the system. This will install current and LTS packages into `%LOCALAPPDATA%\Programs\Java` and set `%JAVA_HOME_VERSION%` variables pointing to these locations.
+
+```powershell
+$TempDirectory = "${env:TEMP}\$(New-Guid)"
+New-Item -ItemType "Directory" -Path "${TempDirectory}"
+Start-BitsTransfer -Source "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/user/jdk/Functions.ps1" -Destination "${TempDirectory}"
+Start-BitsTransfer -Source "https://raw.githubusercontent.com/goa-systems/goa.systems.powershell/refs/heads/main/autoinst/user/jdk/Install.ps1" -Destination "${TempDirectory}"
+Unblock-File -Path "${TempDirectory}\Functions.ps1"
+Unblock-File -Path "${TempDirectory}\Install.ps1"
+$ExecutionPolicy = Get-ExecutionPolicy -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+& "${TempDirectory}\Install.ps1"
+Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope CurrentUser -Force
+Remove-Item -Recurse -Force -Path "${TempDirectory}"
+Write-Host -Object "Done"
 
 ```
+
 
