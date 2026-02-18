@@ -2,9 +2,17 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	
 	Set-Location -Path "$PSScriptRoot"
 	$Tags = Invoke-RestMethod -Uri "https://api.github.com/repos/winscp/winscp/tags"
-
 	$Version = $Tags[0].name
 	$Setup="WinSCP-${Version}-Setup.exe"
+
+	$DownloadPage = "https://winscp.net/download/WinSCP-${Version}-Setup.exe/download"
+	$DownloadUrl = ""
+
+	(Invoke-WebRequest -Uri "${DownloadPage}").Links | ForEach-Object {
+		if($_.href -like "*-Setup.exe"){
+			$DownloadUrl += $_.href
+		}
+	}
 	
 	$DownloadDir = "${env:TEMP}\$(New-Guid)"
 	
@@ -16,7 +24,7 @@ if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsI
 	
 	<# Download WinSCP, if setup is not found in execution path. #>
 	Start-BitsTransfer `
-		-Source "https://netcologne.dl.sourceforge.net/project/winscp/WinSCP/${Version}/${Setup}" `
+		-Source "${DownloadUrl}" `
 		-Destination "${DownloadDir}\${Setup}"
 	
 	Start-Process -Wait -FilePath "${DownloadDir}\${Setup}" -ArgumentList @("/LOADINF=`"${PSScriptRoot}\install.ini`"", "/SILENT", "/ALLUSERS")
