@@ -2,19 +2,19 @@
 param (
     [Parameter()]
     [string]
-    $EclipseUrl = "https://mirror.dkm.cz/eclipse/eclipse/downloads/drops4/R-4.35-202502280140/eclipse-platform-4.35-win32-x86_64.zip",
+    $EclipseUrl = "https://mirror.dkm.cz/eclipse/eclipse/downloads/drops4/R-4.38-202512010920/eclipse-platform-4.38-win32-x86_64.zip",
 
     [Parameter()]
     [string]
-    $EclipseSemVer = "4.35",
+    $EclipseSemVer = "4.38",
 
     [Parameter()]
     [string]
-    $EclipseDateVer = "2025-03",
+    $EclipseDateVer = "2025-12",
 
     [Parameter()]
     [string]
-    $JavaUrl = "https://cdn.azul.com/zulu/bin/zulu23.32.11-ca-fx-jdk23.0.2-win_x64.zip",
+    $JavaUrl = "https://cdn.azul.com/zulu/bin/zulu25.32.21-ca-fx-jdk25.0.2-win_x64.zip",
 
     [Parameter()]
     [string]
@@ -64,7 +64,7 @@ Start-Process `
     -ArgumentList `
     "-vm", "`"${JavaHome}\bin\javaw.exe`"", `
     "-application", "org.eclipse.equinox.p2.director", `
-    "-repository", "https://download.eclipse.org/releases/${EclipseDateVer}/,https://download.eclipse.org/eclipse/updates/${EclipseSemVer},https://de-jcup.github.io/update-site-eclipse-bash-editor/update-site,https://eclipse-uc.sonarlint.org,https://download.springsource.com/release/TOOLS/sts4/update/e${EclipseSemVer}/", `
+    "-repository", "https://download.eclipse.org/releases/${EclipseDateVer}/,https://download.eclipse.org/eclipse/updates/${EclipseSemVer},https://de-jcup.github.io/update-site-eclipse-bash-editor/update-site,https://eclipse-uc.sonarlint.org,https://cdn.spring.io/spring-tools/release/update/e${EclipseSemVer}/", `
     "-installIU", "org.eclipse.jgit.feature.group,org.eclipse.jgit.gpg.bc.feature.group,org.eclipse.jgit.http.apache.feature.group,org.eclipse.jgit.lfs.feature.group,org.eclipse.jgit.ssh.apache.feature.group,org.eclipse.jgit.ssh.jsch.feature.group,org.eclipse.buildship.feature.group,org.eclipse.jdt.feature.group,org.eclipse.jst.enterprise_ui.feature.feature.group,org.eclipse.jst.web_ui.feature.feature.group,org.eclipse.jst.web_js_support.feature.feature.group,org.eclipse.jdt.source.feature.group,org.eclipse.wst.web_ui.feature.feature.group,org.eclipse.wst.web_js_support.feature.feature.group,org.eclipse.wst.xml_ui.feature.feature.group,org.eclipse.wst.xsl.feature.feature.group,org.eclipse.wst.jsdt.feature.feature.group,org.eclipse.wst.jsdt.chromium.debug.feature.feature.group,org.eclipse.wildwebdeveloper.feature.feature.group,org.eclipse.egit.feature.group,org.eclipse.egit.gitflow.feature.feature.group,org.eclipse.m2e.sdk.feature.feature.group,org.eclipse.m2e.feature.feature.group,org.eclipse.m2e.pde.feature.feature.group,org.eclipse.m2e.logback.feature.feature.group,org.eclipse.epp.mpc.feature.group,org.springframework.tooling.boot.ls.feature.feature.group,org.springframework.ide.eclipse.boot.dash.feature.feature.group,org.springframework.boot.ide.main.feature.feature.group,org.sonarlint.eclipse.feature.feature.group,de.jcup.basheditor.feature.group"
 
 
