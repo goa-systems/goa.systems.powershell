@@ -1,9 +1,5 @@
-$LatestReleaseUrl = "https://api.github.com/repos/dbeaver/dbeaver/releases/latest"
-
-$TagName = (Invoke-RestMethod -Uri "${LatestReleaseUrl}").tag_name
-$FileName = "dbeaver-ce-${TagName}-win32.win32.x86_64.zip"
-
-$DownloadUrl = "https://github.com/dbeaver/dbeaver/releases/download/${TagName}/${FileName}"
+$FileName = "dbeaver-ce-latest-win32.win32.x86_64.zip"
+$DownloadUrl = "https://dbeaver.io/files/dbeaver-ce-latest-win32.win32.x86_64.zip"
 $ProgramDir = "${env:LOCALAPPDATA}\Programs\DBeaver"
 
 [System.Environment]::SetEnvironmentVariable("DBEAVER_HOME", "${ProgramDir}", [System.EnvironmentVariableTarget]::User)
