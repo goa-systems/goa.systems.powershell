@@ -1,8 +1,15 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	
 	Set-Location -Path "$PSScriptRoot"
-	$Tags = Invoke-RestMethod -Uri "https://api.github.com/repos/winscp/winscp/tags"
-	$Version = $Tags[0].name
+	$Versions = @()
+	$Response = Invoke-RestMethod -Uri "https://api.github.com/repos/winscp/winscp/tags"
+	$Response| ForEach-Object {
+		$Name = "" + $_.name
+		if($Name -match '^(\d*)\.(\d*)\.(\d*)$'){
+			$Versions += $_.name
+		}
+	}
+	$Version = $Versions[0]
 	$Setup="WinSCP-${Version}-Setup.exe"
 
 	$DownloadPage = "https://winscp.net/download/WinSCP-${Version}-Setup.exe/download"
