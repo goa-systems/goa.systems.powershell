@@ -2,19 +2,19 @@
 param (
     [Parameter()]
     [string]
-    $EclipseUrl = "https://mirror.dkm.cz/eclipse/eclipse/downloads/drops4/R-4.38-202512010920/eclipse-platform-4.38-win32-x86_64.zip",
+    $EclipseUrl = "https://mirror.dkm.cz/eclipse/eclipse/downloads/drops4/R-4.39-202602260420/eclipse-platform-4.39-win32-x86_64.zip",
 
     [Parameter()]
     [string]
-    $EclipseSemVer = "4.38",
+    $EclipseSemVer = "4.39",
 
     [Parameter()]
     [string]
-    $EclipseDateVer = "2025-12",
+    $EclipseDateVer = "2026-03",
 
     [Parameter()]
     [string]
-    $JavaUrl = "https://cdn.azul.com/zulu/bin/zulu25.32.21-ca-fx-jdk25.0.2-win_x64.zip",
+    $JavaUrl = "https://cdn.azul.com/zulu/bin/zulu26.28.63-ca-fx-jdk26.0.0-win_x64.zip",
 
     [Parameter()]
     [string]
