@@ -27,9 +27,7 @@ if(Test-Path -Path "${ProgramDir}") {
     }
 }
 
-Get-ChildItem -Path "${TempDirectory}\dbeaver" | ForEach-Object {
-    Move-Item -Path "$($_.FullName)"  -Destination "${ProgramDir}"
-}
+Move-Item -Path "${TempDirectory}\dbeaver" -Destination "${ProgramDir}"
 
 Remove-Item -Recurse -Force -Path "${TempDirectory}"
 
