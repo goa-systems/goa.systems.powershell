@@ -1,24 +1,29 @@
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 	
-	Set-Location -Path "$PSScriptRoot"
-	$Json = Get-Content -Raw -Path "version.json" | ConvertFrom-Json
-	$Version = $Json.version
+	$Response = Invoke-WebRequest -Uri "https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html"
+	$Version = ""
+	$Response.Links | ForEach-Object {
+		if ($_.href -match 'releases\/(.*)\.html') {
+			$Version += $matches[1]
+		}
+	}
 	
 	$SetupFile = "putty-64bit-$Version-installer.msi"
 	$DownloadUrl = "https://the.earth.li/~sgtatham/putty/$Version/w64/$SetupFile"
 	$DownloadDir = "${env:TEMP}\$(New-Guid)"
 
-	If(Test-Path -Path "${DownloadDir}"){
+	If (Test-Path -Path "${DownloadDir}") {
 		Remove-Item -Recurse -Force -Path "${DownloadDir}"
 	}
 	New-Item -Path "${DownloadDir}" -ItemType "Directory"
-	if( -Not (Test-Path -Path "${DownloadDir}\$SetupFile")){
+	if ( -Not (Test-Path -Path "${DownloadDir}\$SetupFile")) {
 		Start-BitsTransfer `
-		-Source "$DownloadUrl" `
-		-Destination "${DownloadDir}\$SetupFile"
+			-Source "$DownloadUrl" `
+			-Destination "${DownloadDir}\$SetupFile"
 	}
-	Start-Process -Wait -FilePath "msiexec" -ArgumentList "/qb","/i","${DownloadDir}\${SetupFile}","/passive","INSTALLDIR=`"C:\Program Files\Putty`"","ADDLOCAL=FilesFeature,PathFeature,PPKFeature"	
+	Start-Process -Wait -FilePath "msiexec" -ArgumentList "/qb", "/i", "${DownloadDir}\${SetupFile}", "/passive", "INSTALLDIR=`"C:\Program Files\Putty`"", "ADDLOCAL=FilesFeature,PathFeature,PPKFeature"	
 	Remove-Item -Recurse -Force -Path "${DownloadDir}"
-} else {
+}
+else {
 	Start-Process -FilePath "pwsh.exe" -ArgumentList "$PSScriptRoot\$($MyInvocation.MyCommand.Name)" -Wait -Verb RunAs
 }
