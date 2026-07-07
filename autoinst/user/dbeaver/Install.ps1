@@ -22,9 +22,7 @@ if(Test-Path -Path "${ProgramDir}") {
         Move-Item -Path "${env:DBEAVER_HOME}\configuration\.settings\org.eclipse.ui.prefs" -Destination "${PrefBackup}"
     }
 
-    Get-ChildItem -Path "${ProgramDir}" | ForEach-Object {
-	    Remove-Item -Recurse -Force -Path "$($_.FullName)"
-    }
+    Remove-Item -Recurse -Force -Path "${ProgramDir}"
 }
 
 Move-Item -Path "${TempDirectory}\dbeaver" -Destination "${ProgramDir}"
