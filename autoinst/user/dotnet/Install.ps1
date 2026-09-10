@@ -16,7 +16,7 @@ $ActiveReleases = New-Object System.Collections.ArrayList
 
 <# Check for actively maintained releases and enable sorting by major version. #>
 $Releases.'releases-index' | ForEach-Object {
-    if ($_.'support-phase' -eq "active") {
+    if ($_.'support-phase' -eq "active" -or $_.'support-phase' -eq "maintenance") {
         $ChannelVersion = $_.'channel-version' -split "\."
         $ActiveReleases.Add(@{
                 'MajorVersion' = [int] $ChannelVersion[0]
